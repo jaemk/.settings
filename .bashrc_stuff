@@ -1,0 +1,8 @@
+## stuff to append to .bashrc
+
+set -o vi
+export VISUAL=vim
+export EDITOR="$VISUAL"
+export PYTHONSTARTUP=$HOME/.pythonstartup.py
+/home/james/projects/pushlogin/ssh_login.py
+
