@@ -1,3 +1,24 @@
+" Vim settings
+
+" Vundle/YouCompleteMe setup
+"   in ~/.vim/bundle/Vundle.vim
+"      git clone https://github.com/VundleVim/Vundle.vim.git
+"   
+"   start vim -> :PluginInstall
+"   
+"   go to ~/.vim/bundle/YouCompleteMe
+"       ./install.py
+
+" Vundle Settings
+set nocompatible
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'https://github.com/Valloric/YouCompleteMe.git'
+call vundle#end()
+
+" Regular settings
 filetype plugin indent on
 colo desert
 syntax on
