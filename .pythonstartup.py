@@ -1,5 +1,7 @@
-# Add tab completion and command history functionality
+import os
 
-import readline
-import rlcompleter
-readline.parse_and_bind('tab: complete')
+env_keys = os.environ.keys()
+if 'VIRTUAL_ENV' not in env_keys:
+    import readline
+    import rlcompleter
+    readline.parse_and_bind('tab: complete')
