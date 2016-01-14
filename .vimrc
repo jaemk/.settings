@@ -19,6 +19,8 @@ Plugin 'https://github.com/Valloric/YouCompleteMe.git'
 Plugin 'https://github.com/tpope/vim-fireplace.git'
 Plugin 'https://github.com/tpope/vim-classpath.git'
 Plugin 'https://github.com/guns/vim-clojure-static.git'
+Plugin 'https://github.com/guns/vim-clojure-highlight.git'
+Plugin 'https://github.com/kien/rainbow_parentheses.vim.git'
 call vundle#end()
 
 " Regular settings
