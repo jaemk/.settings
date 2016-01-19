@@ -21,12 +21,16 @@ Plugin 'https://github.com/tpope/vim-classpath.git'
 Plugin 'https://github.com/guns/vim-clojure-static.git'
 Plugin 'https://github.com/guns/vim-clojure-highlight.git'
 Plugin 'https://github.com/kien/rainbow_parentheses.vim.git'
+Plugin 'https://github.com/altercation/vim-colors-solarized.git'
 call vundle#end()
 
 " Regular settings
 filetype plugin indent on
-colo desert
 syntax on
+let g:solarized_termcolors=256
+set t_Co=256 
+set background=dark
+colorscheme solarized
 set tabstop=4
 set shiftwidth=4
 set expandtab
