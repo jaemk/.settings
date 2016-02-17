@@ -1,0 +1,11 @@
+{
+    "detect_indentation": false,
+    "font_size": 10,
+    "ignored_packages":
+    [
+    ],
+    "tab_size": 4,
+    "translate_tabs_to_spaces": true,
+    "update_check": false,
+    "use_tab_stops": true
+}
