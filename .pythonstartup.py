@@ -1,3 +1,4 @@
+# fix repl when python is compiled without libreadline-dev package
 import os
 
 env_keys = os.environ.keys()
