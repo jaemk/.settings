@@ -15,9 +15,13 @@ PATH=$PATH:~/bin
 # export PYTHONSTARTUP=$HOME/.pythonstartup.py
 
 # ssh login notifications
-# ~/projects/pushlogin/ssh_login.py
+# ~/.installs/pushlogin/ssh_login.py
 
 # pretty git prompt
 # PS1='\[\e[1;32m\]${debian_chroot:+($debian_chroot)}\u@\h:\[\e[1;34m\]\w\[\e[32m\]$(__git_ps1)\[\e[35m\]\$\[\e[0m\] '
+
+# pretty red root prompt
+# PS1='\[\e[1;91m\]${debian_chroot:+($debian_chroot)}\u@\h:\[\e[1;34m\]\w\[\e[35m\]\$\[\e[0m\] '
+
 
 
