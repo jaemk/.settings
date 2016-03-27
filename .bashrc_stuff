@@ -11,17 +11,17 @@ export VISUAL=vim
 export EDITOR="$VISUAL"
 PATH=$PATH:~/bin
 
-# if for some reason you need to add repl readline support
+#~ If for some reason you need to add repl readline support
 # export PYTHONSTARTUP=$HOME/.pythonstartup.py
 
-# ssh login notifications
+#~ ssh login notifications
 # ~/.installs/pushlogin/ssh_login.py
 
-# pretty git prompt
+#~ Pretty git prompt
+#~ might need to curl git-prompt.sh and source it for __git_ps1
+# source ~/.git-prompt.sh
 # PS1='\[\e[1;32m\]${debian_chroot:+($debian_chroot)}\u@\h:\[\e[1;34m\]\w\[\e[32m\]$(__git_ps1)\[\e[35m\]\$\[\e[0m\] '
 
-# pretty red root prompt
+#~ Pretty red root prompt
 # PS1='\[\e[1;91m\]${debian_chroot:+($debian_chroot)}\u@\h:\[\e[1;34m\]\w\[\e[35m\]\$\[\e[0m\] '
-
-
 
