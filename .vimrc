@@ -1,15 +1,15 @@
 " " Vim settings
-" 
-" " Vundle/YouCompleteMe setup
-" "   in ~/.vim/bundle/Vundle.vim
+" "
+" " Vundle setup
+" "   in ~/.vim/bundle
 " "      git clone https://github.com/VundleVim/Vundle.vim.git
-" "   
 " "   start vim -> :PluginInstall
 " "   
+" " For YouCompleteMe
 " "   go to ~/.vim/bundle/YouCompleteMe
 " "       ./install.py
-
-"" Optional Vundle Plugins
+" "
+" " Optional Vundle Plugins
 set nocompatible
 filetype off
 " set rtp+=~/.vim/bundle/Vundle.vim
@@ -23,6 +23,7 @@ filetype off
 " Plugin 'https://github.com/guns/vim-clojure-highlight.git'
 " Plugin 'https://github.com/kien/rainbow_parentheses.vim.git'
 " Plugin 'https://github.com/altercation/vim-colors-solarized.git'
+" Plugin 'mileszs/ack.vim'
 " call vundle#end()
 
 "" If you install vim-colors-solarized
@@ -74,6 +75,11 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" Map // to search current file for visually selected text
+vnoremap // y/<C-R>"<CR>
+
+" Map f/ to ack for visually selected text
+vnoremap f/ y:Ack <C-R>"<CR>
 
 " Cool function to keep vim's smart indenter from messing up pasted in text
 " Paste Mode On/Off - Use F12 to toggle it.
@@ -90,3 +96,4 @@ let paste_mode = 0 " 0 = normal, 1 = paste
         endif
         return
 endfunc
+
