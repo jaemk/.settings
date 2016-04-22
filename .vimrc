@@ -24,6 +24,7 @@ filetype off
 " Plugin 'https://github.com/kien/rainbow_parentheses.vim.git'
 " Plugin 'https://github.com/altercation/vim-colors-solarized.git'
 " Plugin 'mileszs/ack.vim'
+" Plugin 'ntpeters/vim-better-whitespace'
 " call vundle#end()
 
 "" If you install vim-colors-solarized
@@ -41,6 +42,9 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab
 set spell spelllang=en_us   " Turn on spellcheck
+hi clear SpellCap
+hi clear SpellLocal
+hi clear SpellRare
 hi clear SpellBad
 hi SpellBad cterm=underline
 
@@ -81,9 +85,15 @@ vnoremap // y/<C-R>"<CR>
 " Map f/ to ack for visually selected text
 vnoremap f/ y:Ack <C-R>"<CR>
 
+" Map d/ to ack for function definition (python)
+vnoremap d/ y:Ack "def <C-R>""<CR>
+
+" Map c/ to ack for class definition (python)
+vnoremap c/ y:Ack "class <C-R>""<CR>
+
 " Cool function to keep vim's smart indenter from messing up pasted in text
 " Paste Mode On/Off - Use F12 to toggle it.
-map <F12> :call Paste_on_off()<CR>
+map <C-P> :call Paste_on_off()<CR>
 set pastetoggle=<F12>
 let paste_mode = 0 " 0 = normal, 1 = paste
     func! Paste_on_off()
