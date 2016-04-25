@@ -27,7 +27,7 @@ PATH=$PATH:~/bin
 #     IFS=. ID=(${STY})
 #     screen_pid='|'${ID[0]}
 # fi
-# PS1='\[\e[1;32m\]${debian_chroot:+($debian_chroot)}\u@\h\[\e[93m$screen_pid\]\[\e[1;32m\]:\[\e[1;34m\]\w\[\e[32m\]$(__git_ps1)\[\e[35m\]\$\[\e[0m\] '
+# PS1='\[\e[1;32m\]${debian_chroot:+($debian_chroot)}\u@\h\[\e[93m\]${screen_pid}\[\e[1;32m\]:\[\e[1;34m\]\w\[\e[32m\]$(__git_ps1)\[\e[35m\]\$\[\e[0m\] '
 
 
 #~ Pretty red root prompt
