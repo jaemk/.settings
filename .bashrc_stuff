@@ -9,6 +9,7 @@ alias cp='cp -i'
 set -o vi
 export VISUAL=vim
 export EDITOR="$VISUAL"
+export TERM=xterm-256color
 PATH=$PATH:~/bin
 
 #~ If for some reason you need to add repl readline support
