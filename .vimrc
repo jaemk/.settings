@@ -4,7 +4,7 @@
 " "   in ~/.vim/bundle
 " "      git clone https://github.com/VundleVim/Vundle.vim.git
 " "   start vim -> :PluginInstall
-" "   
+" "
 " " For YouCompleteMe
 " "   go to ~/.vim/bundle/YouCompleteMe
 " "       ./install.py
@@ -25,6 +25,8 @@ filetype off
 " Plugin 'https://github.com/altercation/vim-colors-solarized.git'
 " Plugin 'mileszs/ack.vim'
 " Plugin 'ntpeters/vim-better-whitespace'
+" Plugin 'rust-lang/rust.vim'
+" Plugin 'scrooloose/nerdTree'
 " call vundle#end()
 
 "" If you install vim-colors-solarized
@@ -90,6 +92,9 @@ vnoremap d/ y:Ack "def <C-R>""<CR>
 
 " Map c/ to ack for class definition (python)
 vnoremap c/ y:Ack "class <C-R>""<CR>
+
+" NERDTree sidebar toggle (Requires NERDTree plugin)
+map <C-l> :NERDTreeToggle<CR>
 
 " Cool function to keep vim's smart indenter from messing up pasted in text
 " Paste Mode On/Off - Use F12 to toggle it.
