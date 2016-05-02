@@ -50,6 +50,9 @@ hi clear SpellRare
 hi clear SpellBad
 hi SpellBad cterm=underline
 
+set cursorline  " Set cursor line highlighting
+hi CursorLine cterm=NONE ctermbg=24 guibg=darkred
+
 set esckeys       " better handling of arrow keys and such... keep vim from popping into command mode.
 set ruler         " Shows percentage through file and cursor position
 set showcmd       " Shows uncompleted vim commands next to the ruler
@@ -97,9 +100,8 @@ vnoremap c/ y:Ack "class <C-R>""<CR>
 map <C-l> :NERDTreeToggle<CR>
 
 " Cool function to keep vim's smart indenter from messing up pasted in text
-" Paste Mode On/Off - Use F12 to toggle it.
+" Paste Mode On/Off
 map <C-P> :call Paste_on_off()<CR>
-set pastetoggle=<F12>
 let paste_mode = 0 " 0 = normal, 1 = paste
     func! Paste_on_off()
         if g:paste_mode == 0
@@ -110,5 +112,19 @@ let paste_mode = 0 " 0 = normal, 1 = paste
             let g:paste_mode = 0
         endif
         return
+endfunc
+
+" Toggle line numbers!
+map <C-n> :call Toggle_numbers()<CR>
+let num_tog = 0
+func! Toggle_numbers()
+    if g:num_tog == 0
+        set number
+        let g:num_tog = 1
+    else
+        set nonumber
+        let g:num_tog = 0
+    endif
+    return
 endfunc
 
