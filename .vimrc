@@ -39,7 +39,6 @@ filetype off
 filetype plugin indent on
 syntax on
 au BufNewFile,BufRead *.hy set filetype=clojure  " Use clj syntax for .hy files
-au FileType python call PareditInitBuffer()      " Use Paredit in python files
 set nocp
 set t_Co=256         " Set colors for dark background
 set background=dark
