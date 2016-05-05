@@ -61,11 +61,21 @@ set ruler         " Shows percentage through file and cursor position
 set showcmd       " Shows uncompleted vim commands next to the ruler
 set incsearch     " Shows matches to searches before pattern is complete
 set showmatch     " Show the matching thing for parens and braces (when closing is typed, cursor flashes over to the opening.)
-set modeline      " Make vim look for a modeline when it loads a file up.  So I don't go bezerk thinking I had it in there incorrectly
-set nohls         " No highlighting for searches
+set modeline      " Make vim look for a modeline (command in first line comment) when it loads a file up.
+"set nohls         " No highlighting for searches
 set noerrorbells  " Quiet!
 set visualbell    " Less obnoxious to others, but you still know something went wrong.
-set smartindent   " Make vim format code indention correctly
+set wildmenu      " Better command-line completion
+
+"set smartindent   " Smart indent messes up indented lines starting with '#'
+set cindent        " Make vim format code indention correctly
+set cinkeys-=0#
+set indentkeys-=0#
+set autoindent
+
+" Ignore case in searches unless search has uppercase
+set ignorecase
+set smartcase
 
 " Setting list makes you see the list chars (lcs) This is good for makefiles and Python code, but little else
 set lcs=tab:»*
@@ -105,20 +115,8 @@ vnoremap c/ y:Ack "class <C-R>""<CR>
 " NERDTree sidebar toggle (Requires NERDTree plugin) (lower-case L)
 map <Leader>l :NERDTreeToggle<CR>
 
-" Cool function to keep vim's smart indenter from messing up pasted in text
 " Paste Mode On/Off
-map <C-P> :call Paste_on_off()<CR>
-let paste_mode = 0 " 0 = normal, 1 = paste
-func! Paste_on_off()
-    if g:paste_mode == 0
-        set paste
-        let g:paste_mode = 1
-    else
-        set nopaste
-        let g:paste_mode = 0
-    endif
-    return
-endfunc
+set pastetoggle=<C-P>
 
 " Toggle line numbers!
 map <C-n> :call Toggle_numbers()<CR>
