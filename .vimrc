@@ -116,7 +116,7 @@ vnoremap c/ y:Ack "class <C-R>""<CR>
 map <Leader>l :NERDTreeToggle<CR>
 
 " Paste Mode On/Off
-set pastetoggle=<C-P>
+set pastetoggle=<Leader>p
 
 " Toggle line numbers!
 map <C-n> :call Toggle_numbers()<CR>
