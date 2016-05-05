@@ -103,8 +103,8 @@ vnoremap d/ y:Ack "def <C-R>""<CR>
 " Map c/ to ack for class definition (python)
 vnoremap c/ y:Ack "class <C-R>""<CR>
 
-" NERDTree sidebar toggle (Requires NERDTree plugin)
-map <C-m> :NERDTreeToggle<CR>
+" NERDTree sidebar toggle (Requires NERDTree plugin) (lower-case L)
+map <Leader>l :NERDTreeToggle<CR>
 
 " Cool function to keep vim's smart indenter from messing up pasted in text
 " Paste Mode On/Off
