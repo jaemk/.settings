@@ -19,8 +19,10 @@ filetype off
 " "" Plugin 'https://github.com/Valloric/YouCompleteMe.git'
 " Plugin 'https://github.com/tpope/vim-fireplace.git'
 " Plugin 'https://github.com/tpope/vim-classpath.git'
+" Plugin 'https://github.com/tpope/vim-surround.git'
 " Plugin 'https://github.com/guns/vim-clojure-static.git'
 " Plugin 'https://github.com/guns/vim-clojure-highlight.git'
+" Plugin 'https://github.com/vim-scripts/paredit.vim.git'
 " Plugin 'https://github.com/kien/rainbow_parentheses.vim.git'
 " Plugin 'https://github.com/altercation/vim-colors-solarized.git'
 " Plugin 'mileszs/ack.vim'
@@ -36,6 +38,8 @@ filetype off
 " Regular settings
 filetype plugin indent on
 syntax on
+au BufNewFile,BufRead *.hy set filetype=clojure  " Use clj syntax for .hy files
+au FileType python call PareditInitBuffer()      " Use Paredit in python files
 set nocp
 set t_Co=256         " Set colors for dark background
 set background=dark
@@ -84,6 +88,9 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" Set <Leader>
+let mapleader=","
+
 " Map // to search current file for visually selected text
 vnoremap // y/<C-R>"<CR>
 
@@ -97,21 +104,21 @@ vnoremap d/ y:Ack "def <C-R>""<CR>
 vnoremap c/ y:Ack "class <C-R>""<CR>
 
 " NERDTree sidebar toggle (Requires NERDTree plugin)
-map <C-l> :NERDTreeToggle<CR>
+map <C-m> :NERDTreeToggle<CR>
 
 " Cool function to keep vim's smart indenter from messing up pasted in text
 " Paste Mode On/Off
 map <C-P> :call Paste_on_off()<CR>
 let paste_mode = 0 " 0 = normal, 1 = paste
-    func! Paste_on_off()
-        if g:paste_mode == 0
-            set paste
-            let g:paste_mode = 1
-        else
-            set nopaste
-            let g:paste_mode = 0
-        endif
-        return
+func! Paste_on_off()
+    if g:paste_mode == 0
+        set paste
+        let g:paste_mode = 1
+    else
+        set nopaste
+        let g:paste_mode = 0
+    endif
+    return
 endfunc
 
 " Toggle line numbers!
