@@ -120,15 +120,100 @@ set pastetoggle=<Leader>p
 
 " Toggle line numbers!
 map <C-n> :call Toggle_numbers()<CR>
-let num_tog = 0
+let numtog = 0
 func! Toggle_numbers()
-    if g:num_tog == 0
+    if g:numtog == 0
         set number
-        let g:num_tog = 1
     else
         set nonumber
-        let g:num_tog = 0
     endif
-    return
+    let g:numtog = <SID>toggler(g:numtog)
+endfunc
+
+" Surround visually selected text!
+" augments vim.surround functionality
+vnoremap <Leader>' xi'<ESC>pa'<ESC>
+vnoremap <Leader>" xi"<ESC>pa"<ESC>
+vnoremap <Leader>( xi(<ESC>pa)<ESC>
+vnoremap <Leader>[ xi[<ESC>pa]<ESC>
+vnoremap <Leader>{ xi{<ESC>pa}<ESC>
+
+" ------------------------------------------
+" Auto closing forms!
+" -----------------------------------------
+inoremap ( ()<left>
+inoremap [ []<left>
+inoremap { {}<left>
+inoremap <expr> " <SID>pairquotes('"')
+inoremap <expr> ' <SID>pairquotes("'")
+inoremap <expr> ) <SID>escapepair(')')
+inoremap <expr> ] <SID>escapepair(']')
+inoremap <expr> } <SID>escapepair('}')
+inoremap <expr> <bs> <SID>delpair()
+
+" Make quote completion toggle-able
+let pairsingles = 1 " pair single quotes - on
+let pairdoubles = 1 " pair double quotes - on
+au BufNewFile,BufRead *.clj let pairsingles = 0 " pair singles off for clojure files
+map <leader>s :call Toggle_pairsingles()<CR>
+map <leader>d :call Toggle_pairdoubles()<CR>
+func! Toggle_pairsingles()
+    let g:pairsingles = <SID>toggler(g:pairsingles)
+    echo "pairsingles: " . g:pairsingles
+endfunc
+func! Toggle_pairdoubles()
+    let g:pairdoubles = <SID>toggler(g:pairdoubles)
+    echo "pairdoubles: " . g:pairdoubles
+endfunc
+
+func! s:pairquotes(quote)
+    if a:quote == "'" && g:pairsingles == 0
+        return a:quote
+    elseif a:quote == '"' && g:pairdoubles == 0
+        return a:quote
+    endif
+    let l:col = col('.')
+    let l:line = getline('.')
+    let l:chr = l:line[l:col-1]
+    if a:quote == l:chr
+        return "\<right>"
+    else
+        return a:quote.a:quote."\<left>"
+    endif
+endfunc
+
+func! s:escapepair(rightchr)
+    let l:col = col('.')
+    let l:chr = getline('.')[l:col-1]
+    if a:rightchr == l:chr
+        return "\<right>"
+    else
+        return a:rightchr
+    endif
+endfunc
+
+func! s:delpair()
+    let l:pairs = ['""', "''", '{}', '[]', '()']
+    let l:col = col('.')
+    let l:line = getline('.')
+    let l:chrs = l:line[l:col-2 : l:col-1]
+    if index(l:pairs, l:chrs) > -1
+        return "\<bs>\<del>"
+    else
+        let l:chrs = l:line[l:col-3 : l:col-2]
+        if index(l:pairs, l:chrs) > -1
+            return "\<bs>\<bs>"
+        endif
+        return "\<bs>"
+    endif
+endfunc
+
+" Boolean toggler
+func! s:toggler(bool)
+    if a:bool == 0
+        return 1
+    else
+        return 0
+    endif
 endfunc
 
