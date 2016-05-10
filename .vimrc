@@ -29,6 +29,7 @@ filetype off
 " Plugin 'ntpeters/vim-better-whitespace'
 " Plugin 'rust-lang/rust.vim'
 " Plugin 'scrooloose/nerdTree'
+" Plugin 'https://github.com/vim-scripts/Screen-vim---gnu-screentmux.git'
 " call vundle#end()
 
 "" If you install vim-colors-solarized
