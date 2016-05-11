@@ -15,8 +15,8 @@ filetype off
 " set rtp+=~/.vim/bundle/Vundle.vim
 " call vundle#begin()
 " Plugin 'VundleVim/Vundle.vim'
-" "" YouCompleteMe requires building some extra stuff
-" "" Plugin 'https://github.com/Valloric/YouCompleteMe.git'
+" " YouCompleteMe requires building some extra stuff
+" " Plugin 'https://github.com/Valloric/YouCompleteMe.git'
 " Plugin 'https://github.com/tpope/vim-fireplace.git'
 " Plugin 'https://github.com/tpope/vim-classpath.git'
 " Plugin 'https://github.com/tpope/vim-surround.git'
@@ -31,6 +31,7 @@ filetype off
 " Plugin 'scrooloose/nerdTree'
 " Plugin 'https://github.com/vim-scripts/Screen-vim---gnu-screentmux.git'
 " Plugin 'https://github.com/kshenoy/vim-signature.git'
+" Plugin 'https://github.com/scrooloose/syntastic.git'
 " call vundle#end()
 
 "" If you install vim-colors-solarized
@@ -50,12 +51,31 @@ set softtabstop=4
 set expandtab
 set spell spelllang=en_us   " Turn on spellcheck
 
-" Turn of spell-error highlighting, change to underline
+" Turn off spell-error highlighting, change to underline
 hi clear SpellCap
 hi clear SpellLocal
 hi clear SpellRare
 hi clear SpellBad
 hi SpellBad cterm=underline
+
+" Set <Leader>
+let mapleader=","
+
+"" If you install syntastic
+"" - Make sure to setup a venv with a linter installed
+" Syntastic settings
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 2
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
+"let g:syntastic_python_python_exec = 'envs/flake/bin/python' " Point to the venv that has your linter installed
+"let g:syntastic_python_flake8_quiet_messages = { 'regex' : ['E501'] }
+"let g:syntastic_mode_map = {'mode': 'passive'}
+"map <Leader>m :SyntasticToggleMode<CR>
+"map <Leader>c :SyntasticCheck<CR>
 
 " Turn off gutter highlight (for marks)
 hi clear SignColumn
@@ -77,6 +97,7 @@ set noerrorbells  " Quiet!
 set visualbell    " Less obnoxious to others, but you still know something went wrong.
 set wildmenu      " Better command-line completion
 set cmdheight=2   " Make command window larger to see last command after changing to insert mode
+set showtabline=2 " Always show top-of-page tabline
 
 "set smartindent   " Smart indent messes up indented lines starting with '#'
 set cindent        " Make vim format code indention correctly
@@ -93,8 +114,8 @@ set lcs=tab:»*
 set lcs+=trail:*
 set listchars+=precedes:<,extends:>
 
-" These next two lines set up file location history in my .viminfo, so when I
-" exit a file and come back, I come back in at the last place I was.
+" Set up file location history in .viminfo
+" When returning to a file, return to the line you were on at exit
 set viminfo='50,\"100,:100,%,n~/.viminfo
 autocmd BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
 
@@ -107,9 +128,6 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
-
-" Set <Leader>
-let mapleader=","
 
 " Map // to search current file for visually selected text
 vnoremap // y/<C-R>"<CR>
