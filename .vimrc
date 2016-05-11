@@ -49,12 +49,19 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab
 set spell spelllang=en_us   " Turn on spellcheck
+
+" Turn of spell-error highlighting, change to underline
 hi clear SpellCap
 hi clear SpellLocal
 hi clear SpellRare
 hi clear SpellBad
 hi SpellBad cterm=underline
+
+" Turn off gutter highlight (for marks)
 hi clear SignColumn
+
+" Color linenumber column text grey
+hi LineNr ctermfg=grey
 
 set cursorline  " Set cursor line highlighting
 hi CursorLine cterm=NONE ctermbg=24 guibg=darkred
@@ -69,6 +76,7 @@ set modeline      " Make vim look for a modeline (command in first line comment)
 set noerrorbells  " Quiet!
 set visualbell    " Less obnoxious to others, but you still know something went wrong.
 set wildmenu      " Better command-line completion
+set cmdheight=2   " Make command window larger to see last command after changing to insert mode
 
 "set smartindent   " Smart indent messes up indented lines starting with '#'
 set cindent        " Make vim format code indention correctly
@@ -154,12 +162,14 @@ inoremap <expr> ] <SID>escapepair(']')
 inoremap <expr> } <SID>escapepair('}')
 inoremap <expr> <bs> <SID>delpair()
 
-" Make quote completion toggle-able
+" Make quote completion toggle-able from all modes
 let pairsingles = 1 " pair single quotes - on
 let pairdoubles = 1 " pair double quotes - on
 au BufNewFile,BufRead *.clj let pairsingles = 0 " pair singles off for clojure files
 map <leader>s :call Toggle_pairsingles()<CR>
 map <leader>d :call Toggle_pairdoubles()<CR>
+map! <leader>s <ESC>:call Toggle_pairsingles()<CR>a
+map! <leader>d <ESC>:call Toggle_pairdoubles()<CR>a
 func! Toggle_pairsingles()
     let g:pairsingles = <SID>toggler(g:pairsingles)
     echo "pairsingles: " . g:pairsingles
