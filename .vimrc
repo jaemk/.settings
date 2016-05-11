@@ -30,6 +30,7 @@ filetype off
 " Plugin 'rust-lang/rust.vim'
 " Plugin 'scrooloose/nerdTree'
 " Plugin 'https://github.com/vim-scripts/Screen-vim---gnu-screentmux.git'
+" Plugin 'https://github.com/kshenoy/vim-signature.git'
 " call vundle#end()
 
 "" If you install vim-colors-solarized
@@ -53,6 +54,7 @@ hi clear SpellLocal
 hi clear SpellRare
 hi clear SpellBad
 hi SpellBad cterm=underline
+hi clear SignColumn
 
 set cursorline  " Set cursor line highlighting
 hi CursorLine cterm=NONE ctermbg=24 guibg=darkred
