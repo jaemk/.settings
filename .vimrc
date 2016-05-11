@@ -134,6 +134,10 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" Remap split window resizing since ctrl+ & ctrl- change system font size
+nnoremap <Leader>w+ <C-W>+
+nnoremap <Leader>w- <C-W>-
+
 " Map // to search current file for visually selected text
 vnoremap // y/<C-R>"<CR>
 
