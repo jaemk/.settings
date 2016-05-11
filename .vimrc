@@ -62,8 +62,13 @@ hi SpellBad cterm=underline
 let mapleader=","
 
 "" If you install syntastic
-"" - Make sure to setup a venv with a linter installed
-" Syntastic settings
+"" - Make sure to setup a venv with a linter installed (like flake8).
+""   ! For python2, make sure to put a bash script somewhere on your
+""     path to link your linter's name to the venv's executable.
+""     (see the 'flake8' bash script)
+""   ! For python3, just uncomment the 'let g:syntastic_python_python_exec' line
+""     Note, this will simply override the python2 bash-linked workaround
+"" Syntastic settings
 "set statusline+=%#warningmsg#
 "set statusline+=%{SyntasticStatuslineFlag()}
 "set statusline+=%*
@@ -71,7 +76,7 @@ let mapleader=","
 "let g:syntastic_auto_loc_list = 2
 "let g:syntastic_check_on_open = 1
 "let g:syntastic_check_on_wq = 0
-"let g:syntastic_python_python_exec = 'envs/flake/bin/python' " Point to the venv that has your linter installed
+""let g:syntastic_python_python_exec = '~/envs/flake3/bin/python3'  " Point to the venv with your linter installed
 "let g:syntastic_python_flake8_quiet_messages = { 'regex' : ['E501'] }
 "let g:syntastic_mode_map = {'mode': 'passive'}
 "map <Leader>m :SyntasticToggleMode<CR>
