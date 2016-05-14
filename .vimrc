@@ -240,10 +240,10 @@ func! s:delpair()
     if index(l:pairs, l:chrs) > -1
         return "\<bs>\<del>"
     else
-        let l:chrs = l:line[l:col-3 : l:col-2]
-        if index(l:pairs, l:chrs) > -1
-            return "\<bs>\<bs>"
-        endif
+"        let l:chrs = l:line[l:col-3 : l:col-2]
+"        if index(l:pairs, l:chrs) > -1
+"            return "\<bs>\<bs>"
+"        endif
         return "\<bs>"
     endif
 endfunc
