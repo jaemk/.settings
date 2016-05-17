@@ -86,7 +86,7 @@ let mapleader=","
 hi clear SignColumn
 
 " Color linenumber column text grey
-hi LineNr ctermfg=grey
+hi LineNr ctermfg=grey ctermbg=89
 
 set cursorline  " Set cursor line highlighting
 hi CursorLine cterm=NONE ctermbg=24 guibg=darkred
@@ -158,12 +158,16 @@ set pastetoggle=<Leader>p
 
 " Toggle line numbers!
 map <C-n> :call Toggle_numbers()<CR>
-let numtog = 0
+set number
+set relativenumber
+let numtog = 1
 func! Toggle_numbers()
     if g:numtog == 0
         set number
+        set relativenumber
     else
         set nonumber
+        set norelativenumber
     endif
     let g:numtog = <SID>toggler(g:numtog)
 endfunc
