@@ -77,7 +77,7 @@ let mapleader=","
 "let g:syntastic_check_on_open = 1
 "let g:syntastic_check_on_wq = 0
 ""let g:syntastic_python_python_exec = '~/envs/flake3/bin/python3'  " Point to the venv with your linter installed
-"let g:syntastic_python_flake8_quiet_messages = { 'regex' : ['E501'] }
+"let g:syntastic_python_flake8_quiet_messages = { 'regex' : ['E501', 'W391'] }
 "let g:syntastic_mode_map = {'mode': 'passive'}
 "map <Leader>m :SyntasticToggleMode<CR>
 "map <Leader>c :SyntasticCheck<CR>
