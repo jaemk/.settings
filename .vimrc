@@ -128,6 +128,14 @@ autocmd BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '
 set splitbelow
 set splitright
 
+" Decrease mapping timeout and map an esc shortcut
+set timeoutlen=500
+imap qq <ESC>
+
+" remap 'recording' so it stops popping up
+nnoremap q <Nop>
+nnoremap <Leader>q q
+
 " Map ctrl+J/K/L/H to change between split windows
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
