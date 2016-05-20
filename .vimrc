@@ -32,9 +32,13 @@ filetype off
 " Plugin 'https://github.com/vim-scripts/Screen-vim---gnu-screentmux.git'
 " Plugin 'https://github.com/kshenoy/vim-signature.git'
 " Plugin 'https://github.com/scrooloose/syntastic.git'
+" Plugin 'Yggdroot/indentLine'
 " call vundle#end()
 
-"" If you install vim-colors-solarized
+"" indentLine stuff
+" let g:indentLine_color_term = 241
+
+"" vim-colors-solarized stuff
 " let g:solarized_termcolors=256
 " colorscheme solarized
 
