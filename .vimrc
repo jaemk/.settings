@@ -33,6 +33,7 @@ filetype off
 " Plugin 'https://github.com/kshenoy/vim-signature.git'
 " Plugin 'https://github.com/scrooloose/syntastic.git'
 " Plugin 'Yggdroot/indentLine'
+" Plugin 'elixir-lang/vim-elixir'
 " call vundle#end()
 
 "" indentLine stuff
