@@ -34,7 +34,6 @@ filetype off
 " Plugin 'https://github.com/scrooloose/syntastic.git'
 " Plugin 'Yggdroot/indentLine'
 " Plugin 'elixir-lang/vim-elixir'
-" Plugin 'alvan/vim-closetag'
 " call vundle#end()
 
 "" indentLine stuff
@@ -59,6 +58,9 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab
 set spell spelllang=en_us   " Turn on spellcheck
+
+" Set html spacing
+au FileType html setl sw=2 sts=2
 
 " Turn off spell-error highlighting, change to underline
 hi clear SpellCap
