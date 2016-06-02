@@ -96,6 +96,9 @@ hi LineNr ctermfg=grey ctermbg=89
 set cursorline  " Set cursor line highlighting
 hi CursorLine cterm=NONE ctermbg=24 guibg=darkred
 
+" Make strings grey instead of purple
+hi String ctermfg=42
+
 set esckeys       " better handling of arrow keys and such... keep vim from popping into command mode.
 set ruler         " Shows percentage through file and cursor position
 set showcmd       " Shows uncompleted vim commands next to the ruler
