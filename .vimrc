@@ -34,10 +34,14 @@ filetype off
 " Plugin 'https://github.com/scrooloose/syntastic.git'
 " Plugin 'Yggdroot/indentLine'
 " Plugin 'elixir-lang/vim-elixir'
+" Plugin 'alvan/vim-closetag'
 " call vundle#end()
 
 "" indentLine stuff
 " let g:indentLine_color_term = 241
+
+"" closetag stuff
+"let g:closetag_filenames = "*.html,*.xhtml,*.phtml"
 
 "" vim-colors-solarized stuff
 " let g:solarized_termcolors=256
