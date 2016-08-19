@@ -21,15 +21,19 @@ PATH=$PATH:~/bin
 #~ Pretty git & screen prompt
 #~ might need to curl git-prompt.sh and source it for __git_ps1
 # source ~/.git-prompt.sh
-#
-#~ Need to set screen_pid with below if block before PS1
-# screen_pid=""
-# if [ "$STY" ]; then
-#     IFS=. ID=(${STY})
-#     screen_pid='|'${ID[0]}
-# fi
-# PS1='\[\e[1;32m\]${debian_chroot:+($debian_chroot)}\u@\h\[\e[93m\]${screen_pid}\[\e[1;32m\]:\[\e[1;34m\]\w\[\e[32m\]$(__git_ps1)\[\e[35m\]\$\[\e[0m\] '
 
+#~ If we're in a plexed shell, set the mltplxr's session id
+#plexed_id=""
+#if [ "$STY" ]; then
+#    IFS=. ID=(${STY})
+#    plexed_id='|s.'${ID[0]}
+#fi
+#if [ "$TMUX" ]; then
+#    plexed_id=$plexed_id'|t.'$(tmux display-message -p "#S")
+#fi
+#
+
+#PS1='\[\e[1;32m\]${debian_chroot:+($debian_chroot)}\u@\h\[\e[93m\]${plexed_id}\[\e[1;32m\]:\[\e[1;34m\]\w\[\e[32m\]$(__git_ps1)\[\e[35m\]\$\[\e[0m\] '
 
 #~ Pretty red root prompt
 # PS1='\[\e[1;91m\]${debian_chroot:+($debian_chroot)}\u@\h:\[\e[1;34m\]\w\[\e[35m\]\$\[\e[0m\] '
