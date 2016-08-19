@@ -26,20 +26,22 @@ filetype off
 " Plugin 'https://github.com/guns/vim-clojure-static.git'
 " Plugin 'https://github.com/guns/vim-clojure-highlight.git'
 " Plugin 'https://github.com/kien/rainbow_parentheses.vim.git'
-" Plugin 'https://github.com/altercation/vim-colors-solarized.git'
-" Plugin 'mileszs/ack.vim'
-" Plugin 'ntpeters/vim-better-whitespace'
 " Plugin 'rust-lang/rust.vim'
+" Plugin 'elixir-lang/vim-elixir'
+" Plugin 'mileszs/ack.vim'
 " Plugin 'scrooloose/nerdTree'
+" Plugin 'ntpeters/vim-better-whitespace'
 " Plugin 'https://github.com/vim-scripts/Screen-vim---gnu-screentmux.git'
 " Plugin 'https://github.com/kshenoy/vim-signature.git'
 " Plugin 'https://github.com/scrooloose/syntastic.git'
-" Plugin 'Yggdroot/indentLine'
-" Plugin 'elixir-lang/vim-elixir'
+" Plugin 'https://github.com/nathanaelkane/vim-indent-guides.git'
+" Plugin 'Yggdroot/indentLine'  " indent-guides is faster and toggle-able
+" Plugin 'https://github.com/altercation/vim-colors-solarized.git'
 " call vundle#end()
 
 "" indentLine stuff
 " let g:indentLine_color_term = 241
+let g:indent_guides_guide_size=1
 
 "" closetag stuff
 "let g:closetag_filenames = "*.html,*.xhtml,*.phtml"
