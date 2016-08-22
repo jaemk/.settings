@@ -26,6 +26,7 @@ filetype off
 " Plugin 'https://github.com/guns/vim-clojure-static.git'
 " Plugin 'https://github.com/guns/vim-clojure-highlight.git'
 " Plugin 'https://github.com/kien/rainbow_parentheses.vim.git'
+" Plugin 'https://github.com/fatih/vim-go.git'
 " Plugin 'rust-lang/rust.vim'
 " Plugin 'elixir-lang/vim-elixir'
 " Plugin 'mileszs/ack.vim'
@@ -39,98 +40,50 @@ filetype off
 " Plugin 'https://github.com/altercation/vim-colors-solarized.git'
 " call vundle#end()
 
-"" indentLine stuff
-" let g:indentLine_color_term = 241
-let g:indent_guides_guide_size=1
+" Set <Leader>
+let mapleader=","
 
-"" closetag stuff
-"let g:closetag_filenames = "*.html,*.xhtml,*.phtml"
 
-"" vim-colors-solarized stuff
-" let g:solarized_termcolors=256
-" colorscheme solarized
-
-" Regular settings
+"" ---- Regular settings -----
+""
 filetype plugin indent on
 syntax on
-au BufNewFile,BufRead *.hy set filetype=clojure  " Use clj syntax for .hy files
 set nocp
-set t_Co=256         " Set colors for dark background
-set background=dark
+set t_Co=256         " Set colors...
+set background=dark  " ... with dark background
 set tabstop=4        " Make all tabs 4 spaces and make 4 spaces feel like tabs
 set shiftwidth=4
 set softtabstop=4
 set expandtab
 set spell spelllang=en_us   " Turn on spellcheck
-
-" Set html spacing
-au FileType html setl sw=2 sts=2
-
-" Turn off spell-error highlighting, change to underline
-hi clear SpellCap
-hi clear SpellLocal
-hi clear SpellRare
-hi clear SpellBad
-hi SpellBad cterm=underline
-
-" Set <Leader>
-let mapleader=","
-
-"" If you install syntastic
-"" - Make sure to setup a venv with a linter installed (like flake8).
-""   ! For python2, make sure to put a bash script somewhere on your
-""     path to link your linter's name to the venv's executable.
-""     (see the 'flake8' bash script)
-""   ! For python3, just uncomment the 'let g:syntastic_python_python_exec' line
-""     Note, this will simply override the python2 bash-linked workaround
-"" Syntastic settings
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 2
-"let g:syntastic_check_on_open = 1
-"let g:syntastic_check_on_wq = 0
-""let g:syntastic_python_python_exec = '~/envs/flake3/bin/python3'  " Point to the venv with your linter installed
-"let g:syntastic_python_flake8_quiet_messages = { 'regex' : ['E501', 'W391'] }
-"let g:syntastic_mode_map = {'mode': 'passive'}
-"map <Leader>m :SyntasticToggleMode<CR>
-"map <Leader>c :SyntasticCheck<CR>
-
-" Turn off gutter highlight (for marks)
-hi clear SignColumn
-
-" Color linenumber column text grey
-hi LineNr ctermfg=grey ctermbg=89
-
-set cursorline  " Set cursor line highlighting
-hi CursorLine cterm=NONE ctermbg=24 guibg=darkred
-
-" Make strings grey instead of purple
-hi String ctermfg=42
-
-set esckeys       " better handling of arrow keys and such... keep vim from popping into command mode.
+set cursorline    " Enable cursor line highlighting
+set esckeys       " better handling of arrow keys\keep vim from popping into command mode.
 set ruler         " Shows percentage through file and cursor position
 set showcmd       " Shows uncompleted vim commands next to the ruler
 set incsearch     " Shows matches to searches before pattern is complete
+set ignorecase    " Ignore case in searches
+set smartcase     " ... unless search contains uppercase
 set showmatch     " Show the matching thing for parens and braces (when closing is typed, cursor flashes over to the opening.)
 set modeline      " Make vim look for a modeline (command in first line comment) when it loads a file up.
 "set nohls         " No highlighting for searches
 set noerrorbells  " Quiet!
-set visualbell    " Less obnoxious to others, but you still know something went wrong.
+set visualbell    " Less obnoxious
 set wildmenu      " Better command-line completion
 set cmdheight=2   " Make command window larger to see last command after changing to insert mode
 set showtabline=2 " Always show top-of-page tabline
-
-"set smartindent   " Smart indent messes up indented lines starting with '#'
+"set smartindent   " Smart indent messes up indented lines starting with '#', see below...
 set cindent        " Make vim format code indention correctly
 set cinkeys-=0#
 set indentkeys-=0#
 set autoindent
+set number          " Show line numbers
+set relativenumber  " ... relative to cursor
+set splitbelow   " More logical window splits
+set splitright
+set pumheight=10    " Completion window max size
 
-" Ignore case in searches unless search has uppercase
-set ignorecase
-set smartcase
+set noswapfile
+set nobackup
 
 " Setting list makes you see the list chars (lcs) This is good for makefiles and Python code, but little else
 set lcs=tab:»*
@@ -142,10 +95,41 @@ set listchars+=precedes:<,extends:>
 set viminfo='50,\"100,:100,%,n~/.viminfo
 autocmd BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
 
-" Set defaults for window splits
-set splitbelow
-set splitright
+if has('persistent_undo')
+    set undofile
+    set undodir=~/.config/vim/tmp/undo//
+endif
 
+
+
+"" ------ Colors --------
+""
+" Turn off spell-error highlighting, change to underline
+hi clear SpellCap
+hi clear SpellLocal
+hi clear SpellRare
+hi clear SpellBad
+hi SpellBad cterm=underline
+
+" Turn off gutter highlight (for marks)
+hi clear SignColumn
+
+" Color linenumber column text grey
+hi LineNr ctermfg=grey ctermbg=89
+
+" Set cursor line highlight color
+hi CursorLine cterm=NONE ctermbg=24 guibg=darkred
+
+" Make strings grey instead of purple
+hi String ctermfg=42
+
+" make comments grey
+hi Comment ctermfg=246
+
+
+
+"" ----- Bindings -------
+""
 " Decrease mapping timeout and map an esc shortcut
 set timeoutlen=500
 imap qq <ESC>
@@ -182,10 +166,95 @@ map <Leader>l :NERDTreeToggle<CR>
 " Paste Mode On/Off
 set pastetoggle=<Leader>p
 
+" Act like D and C
+nnoremap Y y$
+
+" Moving down searches will center the on the current line
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+
+
+"" ----- Plugin settings ------
+""
+"" indentLine stuff
+" let g:indentLine_color_term = 241
+let g:indent_guides_guide_size=1
+
+"" closetag stuff
+"let g:closetag_filenames = "*.html,*.xhtml,*.phtml"
+
+"" vim-colors-solarized stuff
+" let g:solarized_termcolors=256
+" colorscheme solarized
+
+"" If you install syntastic
+"" - Make sure to setup a venv with a linter installed (like flake8).
+""   ! For python2, make sure to put a bash script somewhere on your
+""     path to link your linter's name to the venv's executable.
+""     (see the 'flake8' bash script)
+""   ! For python3, just uncomment the 'let g:syntastic_python_python_exec' line
+""     Note, this will simply override the python2 bash-linked workaround
+"" Syntastic settings
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 2
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
+""let g:syntastic_python_python_exec = '~/envs/flake3/bin/python3'  " Point to the venv with your linter installed
+"let g:syntastic_python_flake8_quiet_messages = { 'regex' : ['E501', 'W391'] }
+"let g:syntastic_mode_map = {'mode': 'passive'}
+"map <Leader>m :SyntasticToggleMode<CR>
+"map <Leader>c :SyntasticCheck<CR>
+
+" Clojure
+autocmd FileType clojure nmap <leader>r :Require!<CR>
+
+" Go
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_types = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+
+map <Leader>ne :cnext<CR>
+map <Leader>pe :cprevious<CR>
+nnoremap <Leader>ce :cclose<CR>
+
+autocmd FileType go nmap <leader>r  <Plug>(go-run)
+autocmd FileType go nmap <leader>ta  <Plug>(go-test)
+autocmd FileType go nmap <leader>tf  :GoTestFunc<CR>
+autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
+
+" run :GoBuild or :GoTestCompile based on the go file
+function! s:build_go_files()
+  let l:file = expand('%')
+  if l:file =~# '^\f\+_test\.go$'
+    call go#cmd#Test(0, 1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
+endfunction
+autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+
+
+
+"" ----- other File specifics ------
+""
+au BufNewFile,BufRead *.hy set filetype=clojure  " Use clj syntax for .hy files
+
+" Set html spacing
+au FileType html setl sw=2 sts=2
+
+
+
+"" ----- custom stuff (funcs and bindings) ------
+""
 " Toggle line numbers!
 map <C-n> :call Toggle_numbers()<CR>
-set number
-set relativenumber
 let numtog = 1
 func! Toggle_numbers()
     if g:numtog == 0
