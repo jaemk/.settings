@@ -28,6 +28,7 @@ filetype off
 " Plugin 'https://github.com/kien/rainbow_parentheses.vim.git'
 " Plugin 'https://github.com/fatih/vim-go.git'
 " Plugin 'rust-lang/rust.vim'
+" Plugin 'racer-rust/vim-racer'
 " Plugin 'elixir-lang/vim-elixir'
 " Plugin 'mileszs/ack.vim'
 " Plugin 'scrooloose/nerdTree'
@@ -240,6 +241,11 @@ function! s:build_go_files()
 endfunction
 autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 
+" Rust (vim-racer)
+" -- use C-x-C-o
+set hidden
+let g:racer_cmd = "racer"
+let $RUST_SRC_PATH = "/home/james/bin/src/rustc-1.11.0/src"
 
 
 "" ----- other File specifics ------

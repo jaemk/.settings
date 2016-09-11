@@ -12,6 +12,9 @@ export EDITOR="$VISUAL"
 export TERM=xterm-256color
 PATH=$PATH:~/bin
 
+# For rustup, if it puts it in the wrong file
+#export PATH="$HOME/.cargo/bin:$PATH"
+
 #~ If for some reason you need to add repl readline support
 # export PYTHONSTARTUP=$HOME/.pythonstartup.py
 
