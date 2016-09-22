@@ -29,6 +29,8 @@ filetype off
 " Plugin 'https://github.com/fatih/vim-go.git'
 " Plugin 'rust-lang/rust.vim'
 " Plugin 'racer-rust/vim-racer'
+" Plugin 'pangloss/vim-javascript'
+" Plugin 'mxw/vim-jsx'
 " Plugin 'elixir-lang/vim-elixir'
 " Plugin 'mileszs/ack.vim'
 " Plugin 'scrooloose/nerdTree'
@@ -246,6 +248,9 @@ autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 set hidden
 let g:racer_cmd = "racer"
 let $RUST_SRC_PATH = "/home/james/bin/src/rustc-1.11.0/src"
+
+" js
+let g:jsx_ext_required = 0  " Allow jsx in js files
 
 
 "" ----- other File specifics ------

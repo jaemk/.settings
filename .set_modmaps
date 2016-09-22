@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Load Xmodmap settings
+# -- add to startup scripts
+xmodmap ~/.Xmodmap
