@@ -29,6 +29,7 @@ filetype off
 " Plugin 'https://github.com/fatih/vim-go.git'
 " Plugin 'rust-lang/rust.vim'
 " Plugin 'racer-rust/vim-racer'
+" Plugin 'cespare/vim-toml'
 " Plugin 'pangloss/vim-javascript'
 " Plugin 'mxw/vim-jsx'
 " Plugin 'elixir-lang/vim-elixir'
