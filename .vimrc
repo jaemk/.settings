@@ -34,6 +34,7 @@ filetype off
 " Plugin 'mxw/vim-jsx'
 " Plugin 'elixir-lang/vim-elixir'
 " Plugin 'mileszs/ack.vim'
+" Plugin 'https://github.com/jremmen/vim-ripgrep.git'
 " Plugin 'scrooloose/nerdTree'
 " Plugin 'ntpeters/vim-better-whitespace'
 " Plugin 'https://github.com/vim-scripts/Screen-vim---gnu-screentmux.git'
@@ -248,7 +249,7 @@ autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 " -- use C-x-C-o
 set hidden
 let g:racer_cmd = "racer"
-let $RUST_SRC_PATH = "/home/james/bin/src/rustc-1.11.0/src"
+let $RUST_SRC_PATH = "/home/james/bin/src/rustc-1.13.0/src"
 
 " js
 let g:jsx_ext_required = 0  " Allow jsx in js files
