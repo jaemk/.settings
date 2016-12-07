@@ -245,11 +245,15 @@ function! s:build_go_files()
 endfunction
 autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 
+
+"""" !!!!!!!!!!
 " Rust (vim-racer)
 " -- use C-x-C-o
 set hidden
 let g:racer_cmd = "racer"
-let $RUST_SRC_PATH = "/home/james/bin/src/rustc-1.13.0/src"
+let g:racer_experimental_completer = 1
+" RUST_SRC_PATH should be specified in .bashrc
+
 
 " js
 let g:jsx_ext_required = 0  " Allow jsx in js files
