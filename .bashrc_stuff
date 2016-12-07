@@ -13,7 +13,11 @@ export TERM=xterm-256color
 PATH=$PATH:~/bin
 
 # For rustup, if it puts it in the wrong file
-#export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
+
+# For rust-racer, if rust source is managed by rustup
+#  `rustup component add rust-src`
+export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 
 #~ If for some reason you need to add repl readline support
 # export PYTHONSTARTUP=$HOME/.pythonstartup.py
