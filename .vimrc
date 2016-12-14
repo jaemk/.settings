@@ -32,6 +32,7 @@ filetype off
 " Plugin 'cespare/vim-toml'
 " Plugin 'pangloss/vim-javascript'
 " Plugin 'mxw/vim-jsx'
+" Plugin 'https://github.com/heavenshell/vim-jsdoc.git'
 " Plugin 'elixir-lang/vim-elixir'
 " Plugin 'mileszs/ack.vim'
 " Plugin 'https://github.com/jremmen/vim-ripgrep.git'
@@ -257,6 +258,10 @@ let g:racer_experimental_completer = 1
 
 " js
 let g:jsx_ext_required = 0  " Allow jsx in js files
+
+" js doc
+let g:jsdoc_enable_es6 = 1
+autocmd FileType javascript.jsx nnoremap <Leader>a :JsDoc<CR>
 
 
 "" ----- other File specifics ------
