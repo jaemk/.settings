@@ -297,6 +297,23 @@ vnoremap <Leader>( xi(<ESC>pa)<ESC>
 vnoremap <Leader>[ xi[<ESC>pa]<ESC>
 vnoremap <Leader>{ xi{<ESC>pa}<ESC>
 
+" ---------------------------------------
+" Auto expanding forms!
+" ---------------------------------------
+inoremap <expr> <enter> <SID>expand_pair()
+
+func! s:expand_pair()
+    let l:pairs = ['{}', '[]', '()']
+    let l:col = col('.')
+    let l:line = getline('.')
+    let l:chrs = l:line[l:col-2 : l:col-1]
+    if index(l:pairs, l:chrs) > -1
+        return "\<enter>\<Esc>\<up>o"
+    else
+        return "\<enter>"
+    endif
+endfunc
+
 " ------------------------------------------
 " Auto closing forms!
 " -----------------------------------------
@@ -361,10 +378,11 @@ func! s:delpair()
     if index(l:pairs, l:chrs) > -1
         return "\<bs>\<del>"
     else
-"        let l:chrs = l:line[l:col-3 : l:col-2]
-"        if index(l:pairs, l:chrs) > -1
-"            return "\<bs>\<bs>"
-"        endif
+        " Delete both <open> & <close> when backspacing on <close>
+        "let l:chrs = l:line[l:col-3 : l:col-2]
+        "if index(l:pairs, l:chrs) > -1
+        "    return '\<bs>\<bs>'
+        "endif
         return "\<bs>"
     endif
 endfunc
