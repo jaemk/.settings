@@ -22,6 +22,11 @@ export PATH="$HOME/.cargo/bin:$PATH"
 #  `rustup component add rust-src`
 export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 
+# For Go...
+export GOROOT="/usr/local/go"   # install location
+export PATH=$PATH:$GOROOT/bin   # ^^
+export GOPATH=$HOME/projects/go # default go working dir
+
 #~ If for some reason you need to add repl readline support
 # export PYTHONSTARTUP=$HOME/.pythonstartup.py
 
