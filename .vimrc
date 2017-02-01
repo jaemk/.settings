@@ -27,6 +27,8 @@ filetype off
 " Plugin 'https://github.com/guns/vim-clojure-highlight.git'
 " Plugin 'https://github.com/kien/rainbow_parentheses.vim.git'
 " Plugin 'https://github.com/fatih/vim-go.git'
+" Plugin 'https://github.com/tpope/vim-fugitive.git'
+" Plugin 'https://github.com/christoomey/vim-conflicted.git'
 " Plugin 'rust-lang/rust.vim'
 " Plugin 'racer-rust/vim-racer'
 " Plugin 'cespare/vim-toml'
@@ -158,13 +160,16 @@ nnoremap <Leader>w- <C-W>-
 vnoremap // y/<C-R>"<CR>
 
 " Map f/ to ack for visually selected text
-vnoremap f/ y:Ack <C-R>"<CR>
+""vnoremap f/ y:Ack <C-R>"<CR>
+vnoremap f/ y:Rg <C-R>"<CR>
 
 " Map d/ to ack for function definition (python)
-vnoremap d/ y:Ack "def <C-R>""<CR>
+""vnoremap d/ y:Ack "def <C-R>""<CR>
+vnoremap d/ y:Rg "def <C-R>""<CR>
 
 " Map c/ to ack for class definition (python)
-vnoremap c/ y:Ack "class <C-R>""<CR>
+""vnoremap c/ y:Ack "class <C-R>""<CR>
+vnoremap c/ y:Rg "class <C-R>""<CR>
 
 " NERDTree sidebar toggle (Requires NERDTree plugin) (lower-case L)
 map <Leader>l :NERDTreeToggle<CR>
@@ -202,18 +207,21 @@ let g:indent_guides_guide_size=1
 ""   ! For python3, just uncomment the 'let g:syntastic_python_python_exec' line
 ""     Note, this will simply override the python2 bash-linked workaround
 "" Syntastic settings
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 2
-"let g:syntastic_check_on_open = 1
-"let g:syntastic_check_on_wq = 0
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 2
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 ""let g:syntastic_python_python_exec = '~/envs/flake3/bin/python3'  " Point to the venv with your linter installed
 "let g:syntastic_python_flake8_quiet_messages = { 'regex' : ['E501', 'W391'] }
-"let g:syntastic_mode_map = {'mode': 'passive'}
-"map <Leader>m :SyntasticToggleMode<CR>
-"map <Leader>c :SyntasticCheck<CR>
+let g:syntastic_mode_map = {'mode': 'passive'}
+let g:syntastic_rust_checkers = ['rustc']
+" Hide the left error location gutter
+nnoremap <Leader>sr :SyntasticReset<CR>
+nnoremap <Leader>sc :SyntasticCheck<CR>
+nnoremap <Leader>sm :SyntasticToggleMode<CR>
 
 " Clojure
 autocmd FileType clojure nmap <leader>r :Require!<CR>
@@ -262,6 +270,11 @@ let g:jsx_ext_required = 0  " Allow jsx in js files
 " js doc
 let g:jsdoc_enable_es6 = 1
 autocmd FileType javascript.jsx nnoremap <Leader>a :JsDoc<CR>
+
+
+" Git stuff -- Requires vim.fugitive and vim.conflicted
+nnoremap <Leader>gb :Gblame
+nnoremap <Leader>cf :Conflicted
 
 
 "" ----- other File specifics ------
@@ -328,7 +341,7 @@ inoremap <expr> } <SID>escapepair('}')
 inoremap <expr> <bs> <SID>delpair()
 
 " Make quote completion toggle-able from all modes
-let pairsingles = 1 " pair single quotes - on
+let pairsingles = 0 " pair single quotes - off
 let pairdoubles = 1 " pair double quotes - on
 au BufNewFile,BufRead *.clj let pairsingles = 0 " pair singles off for clojure files
 map <leader>s :call Toggle_pairsingles()<CR>
