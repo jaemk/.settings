@@ -53,3 +53,12 @@ export GOPATH=$HOME/projects/go # default go working dir
 #~ Pretty red root prompt
 # PS1='\[\e[1;91m\]${debian_chroot:+($debian_chroot)}\u@\h:\[\e[1;34m\]\w\[\e[35m\]\$\[\e[0m\] '
 
+# building static rust binaries
+# docker pull clux/muslrust
+# docker run -v $PWD:/volume -w /volume -t clux/muslrust cargo build
+#musl-build() {
+#  docker run \
+#    -v cargo-cache:/root/.cargo \
+#    -v "$PWD:/volume" -w /volume \
+#    --rm -it clux/muslrust cargo build --release
+#}
