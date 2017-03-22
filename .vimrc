@@ -29,6 +29,7 @@ filetype off
 " Plugin 'https://github.com/fatih/vim-go.git'
 " Plugin 'https://github.com/tpope/vim-fugitive.git'
 " Plugin 'https://github.com/christoomey/vim-conflicted.git'
+" Plugin 'https://github.com/jaemk/vim-upaste.git'
 " Plugin 'rust-lang/rust.vim'
 " Plugin 'racer-rust/vim-racer'
 " Plugin 'cespare/vim-toml'
@@ -184,6 +185,8 @@ nnoremap Y y$
 nnoremap n nzzzv
 nnoremap N Nzzzv
 
+" UPaste visual select mapping
+vnoremap <C-t> :<C-U>UPaste<CR>
 
 
 "" ----- Plugin settings ------
