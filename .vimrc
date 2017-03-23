@@ -285,7 +285,7 @@ nnoremap <Leader>cf :Conflicted
 au BufNewFile,BufRead *.hy set filetype=clojure  " Use clj syntax for .hy files
 
 " Set html spacing
-au FileType html setl sw=2 sts=2
+au FileType html setl sw=4 sts=4
 
 
 
