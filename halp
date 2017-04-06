@@ -1,0 +1,12 @@
+# suspend, background, and orphan something
+ctrl-z
+bg %%; disown %%
+
+# do something in each immediate sub-dir
+for dir in ./*; do test -d "$dir" || continue; echo "cleaning $dir"; (cd $dir; cargo clean); done
+
+# build a rust .rlib crate and then run some `main` file referencing our rlibs
+# printing out a macro-expanded source (must use nightly)
+rustup default nightly
+cargo build
+rustc examples/basic.rs --extern <YOUR_LIB>=target/debug/lib<YOUR_LIB>.rlib --extern <DEP_LIB>=target/debug/deps/<DEP_LIB_WITH_HASH>.rlib -Z unstable-options --pretty=expanded
