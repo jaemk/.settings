@@ -10,3 +10,7 @@ for dir in ./*; do test -d "$dir" || continue; echo "cleaning $dir"; (cd $dir; c
 rustup default nightly
 cargo build
 rustc examples/basic.rs --extern <YOUR_LIB>=target/debug/lib<YOUR_LIB>.rlib --extern <DEP_LIB>=target/debug/deps/<DEP_LIB_WITH_HASH>.rlib -Z unstable-options --pretty=expanded
+
+# multiple tmux sessions on same window group
+tmux new-session -s main         # first session with name 'main'
+tmux new-session -t main -s aug  # create second session with name 'aug', attach to 'main'
