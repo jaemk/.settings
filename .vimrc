@@ -7,7 +7,7 @@
 " "
 " " For YouCompleteMe
 " "   go to ~/.vim/bundle/YouCompleteMe
-" "       ./install.py
+" "       ./install.py --clang-completer --racer-completer
 " "
 " " Optional Vundle Plugins
 set nocompatible
@@ -36,6 +36,7 @@ filetype off
 " Plugin 'pangloss/vim-javascript'
 " Plugin 'mxw/vim-jsx'
 " Plugin 'https://github.com/heavenshell/vim-jsdoc.git'
+" Plugin 'octol/vim-cpp-enhanced-highlight'
 " Plugin 'elixir-lang/vim-elixir'
 " Plugin 'mileszs/ack.vim'
 " Plugin 'https://github.com/jremmen/vim-ripgrep.git'
@@ -266,6 +267,8 @@ let g:racer_cmd = "racer"
 let g:racer_experimental_completer = 1
 " RUST_SRC_PATH should be specified in .bashrc
 
+" YouCompleteMe Rust
+let g:ycm_rust_src_path = $RUST_SRC_PATH
 
 " js
 let g:jsx_ext_required = 0  " Allow jsx in js files
