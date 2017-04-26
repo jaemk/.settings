@@ -9,45 +9,54 @@
 " "   go to ~/.vim/bundle/YouCompleteMe
 " "       ./install.py --clang-completer --racer-completer
 " "
+" " For vim-markdown-composer
+" "   go to ~/.vim/bundle/vim-markdown-composer
+" "       cargo build --release --no-default-features --features json-rpc
+" "
 " " Optional Vundle Plugins
 set nocompatible
 filetype off
 " set rtp+=~/.vim/bundle/Vundle.vim
 " call vundle#begin()
 " Plugin 'VundleVim/Vundle.vim'
-" " YouCompleteMe requires building some extra stuff
+" " ----------- extra building required
 " " Plugin 'https://github.com/Valloric/YouCompleteMe.git'
+" " Plugin 'euclio/vim-markdown-composer'
+" "
+" " ----------- linting
+" Plugin 'https://github.com/scrooloose/syntastic.git'
+" "
+" " ----------- misc util
+" Plugin 'https://github.com/tpope/vim-repeat.git'
+" Plugin 'https://github.com/tpope/vim-surround.git'
+" Plugin 'https://github.com/kshenoy/vim-signature.git'
+" Plugin 'https://github.com/nathanaelkane/vim-indent-guides.git'
+" Plugin 'https://github.com/jremmen/vim-ripgrep.git'
+" Plugin 'mileszs/ack.vim'
+" Plugin 'scrooloose/nerdTree'
+" Plugin 'ntpeters/vim-better-whitespace'
+" Plugin 'https://github.com/jaemk/vim-upaste.git'
+" "
+" " ----------- git
+" Plugin 'https://github.com/tpope/vim-fugitive.git'
+" Plugin 'https://github.com/christoomey/vim-conflicted.git'
+" "
+" " ----------- Langs
+" Plugin 'rust-lang/rust.vim'
+" Plugin 'racer-rust/vim-racer'
+" Plugin 'cespare/vim-toml'
 " Plugin 'https://github.com/tpope/vim-fireplace.git'
 " Plugin 'https://github.com/tpope/vim-classpath.git'
 " Plugin 'https://github.com/guns/vim-sexp.git'
 " Plugin 'https://github.com/tpope/vim-sexp-mappings-for-regular-people.git'
-" Plugin 'https://github.com/tpope/vim-repeat.git'
-" Plugin 'https://github.com/tpope/vim-surround.git'
 " Plugin 'https://github.com/guns/vim-clojure-static.git'
 " Plugin 'https://github.com/guns/vim-clojure-highlight.git'
 " Plugin 'https://github.com/kien/rainbow_parentheses.vim.git'
 " Plugin 'https://github.com/fatih/vim-go.git'
-" Plugin 'https://github.com/tpope/vim-fugitive.git'
-" Plugin 'https://github.com/christoomey/vim-conflicted.git'
-" Plugin 'https://github.com/jaemk/vim-upaste.git'
-" Plugin 'rust-lang/rust.vim'
-" Plugin 'racer-rust/vim-racer'
-" Plugin 'cespare/vim-toml'
 " Plugin 'pangloss/vim-javascript'
 " Plugin 'mxw/vim-jsx'
 " Plugin 'https://github.com/heavenshell/vim-jsdoc.git'
 " Plugin 'octol/vim-cpp-enhanced-highlight'
-" Plugin 'elixir-lang/vim-elixir'
-" Plugin 'mileszs/ack.vim'
-" Plugin 'https://github.com/jremmen/vim-ripgrep.git'
-" Plugin 'scrooloose/nerdTree'
-" Plugin 'ntpeters/vim-better-whitespace'
-" Plugin 'https://github.com/vim-scripts/Screen-vim---gnu-screentmux.git'
-" Plugin 'https://github.com/kshenoy/vim-signature.git'
-" Plugin 'https://github.com/scrooloose/syntastic.git'
-" Plugin 'https://github.com/nathanaelkane/vim-indent-guides.git'
-" Plugin 'Yggdroot/indentLine'  " indent-guides is faster and toggle-able
-" Plugin 'https://github.com/altercation/vim-colors-solarized.git'
 " call vundle#end()
 
 " Set <Leader>
@@ -261,14 +270,14 @@ autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 
 """" !!!!!!!!!!
 " Rust (vim-racer)
-" -- use C-x-C-o
+" -- use C-x-C-o, will autocomplete with ycm
 set hidden
 let g:racer_cmd = "racer"
 let g:racer_experimental_completer = 1
 " RUST_SRC_PATH should be specified in .bashrc
-
 " YouCompleteMe Rust
 let g:ycm_rust_src_path = $RUST_SRC_PATH
+
 " YouCompleteMe Cpp
 let g:ycm_global_ycm_extra_conf = '~/.settings/.ycm_extra_conf.py'
 
