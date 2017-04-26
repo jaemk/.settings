@@ -269,6 +269,8 @@ let g:racer_experimental_completer = 1
 
 " YouCompleteMe Rust
 let g:ycm_rust_src_path = $RUST_SRC_PATH
+" YouCompleteMe Cpp
+let g:ycm_global_ycm_extra_conf = '~/.settings/.ycm_extra_conf.py'
 
 " js
 let g:jsx_ext_required = 0  " Allow jsx in js files
