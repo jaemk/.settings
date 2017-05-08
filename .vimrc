@@ -213,12 +213,12 @@ let g:indent_guides_guide_size=1
 " colorscheme solarized
 
 "" If you install syntastic
-"" - Make sure to setup a venv with a linter installed (like flake8).
-""   ! For python2, make sure to put a bash script somewhere on your
-""     path to link your linter's name to the venv's executable.
-""     (see the 'flake8' bash script)
-""   ! For python3, just uncomment the 'let g:syntastic_python_python_exec' line
-""     Note, this will simply override the python2 bash-linked workaround
+"" - Make sure to either:
+""   - install 'flake8' in your working venv
+""   - make a shell script (named 'flake8') on your path that pipes input
+""     into the correct python interpreter. See the 'flake8' bash script
+""   - install 'flake8' in some arbitrary venv and use:
+""     let g:syntastic_python_python_exec = '~/path/to/env/bin/python'
 "" Syntastic settings
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -227,14 +227,16 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 2
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-""let g:syntastic_python_python_exec = '~/envs/flake3/bin/python3'  " Point to the venv with your linter installed
-"let g:syntastic_python_flake8_quiet_messages = { 'regex' : ['E501', 'W391'] }
-let g:syntastic_mode_map = {'mode': 'passive'}
 let g:syntastic_rust_checkers = ['rustc']
-" Hide the left error location gutter
-nnoremap <Leader>sr :SyntasticReset<CR>
-nnoremap <Leader>sc :SyntasticCheck<CR>
-nnoremap <Leader>sm :SyntasticToggleMode<CR>
+" let g:syntastic_python_python_exec = '~/envs/flake3/bin/python3'  " Point to the venv with your linter installed
+let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_python_flake8_quiet_messages = { 'regex' : ['E501', 'W391', 'E301', 'E221', 'E226', 'E127', 'E128'] }
+let g:syntastic_mode_map = {'mode': 'passive'}
+nnoremap <Leader>cr :SyntasticReset<CR>
+nnoremap <Leader>cc :SyntasticCheck<CR>
+nnoremap <Leader>cm :SyntasticToggleMode<CR>
+nnoremap <Leader>cn :lnext<CR>
+nnoremap <Leader>cp :lprevious<CR>
 
 " Clojure
 autocmd FileType clojure nmap <leader>r :Require!<CR>
@@ -251,10 +253,10 @@ map <Leader>ne :cnext<CR>
 map <Leader>pe :cprevious<CR>
 nnoremap <Leader>ce :cclose<CR>
 
-autocmd FileType go nmap <leader>r  <Plug>(go-run)
-autocmd FileType go nmap <leader>ta  <Plug>(go-test)
-autocmd FileType go nmap <leader>tf  :GoTestFunc<CR>
-autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
+autocmd FileType go nmap <leader>gr  <Plug>(go-run)
+autocmd FileType go nmap <leader>gt  <Plug>(go-test)
+autocmd FileType go nmap <leader>gft  :GoTestFunc<CR>
+autocmd FileType go nmap <Leader>goc <Plug>(go-coverage-toggle)
 
 " run :GoBuild or :GoTestCompile based on the go file
 function! s:build_go_files()
@@ -265,7 +267,7 @@ function! s:build_go_files()
     call go#cmd#Build(0)
   endif
 endfunction
-autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+autocmd FileType go nmap <leader>gob :<C-u>call <SID>build_go_files()<CR>
 
 
 """" !!!!!!!!!!
@@ -291,7 +293,8 @@ autocmd FileType javascript.jsx nnoremap <Leader>a :JsDoc<CR>
 
 " Git stuff -- Requires vim.fugitive and vim.conflicted
 nnoremap <Leader>gb :Gblame
-nnoremap <Leader>cf :Conflicted
+nnoremap <Leader>gc :Conflicted
+nnoremap <Leader>gn :GitNextConflict
 
 
 "" ----- other File specifics ------
