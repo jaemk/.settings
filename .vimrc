@@ -230,7 +230,7 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_rust_checkers = ['rustc']
 " let g:syntastic_python_python_exec = '~/envs/flake3/bin/python3'  " Point to the venv with your linter installed
 let g:syntastic_python_checkers = ['flake8']
-let g:syntastic_python_flake8_quiet_messages = { 'regex' : ['E501', 'W391', 'E301', 'E221', 'E226', 'E127', 'E128'] }
+let g:syntastic_python_flake8_quiet_messages = { 'regex' : ['E501', 'W391', 'E301', 'E221', 'E266', 'E127', 'E128'] }
 let g:syntastic_mode_map = {'mode': 'passive'}
 nnoremap <Leader>cr :SyntasticReset<CR>
 nnoremap <Leader>cc :SyntasticCheck<CR>
