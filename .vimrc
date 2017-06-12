@@ -36,6 +36,7 @@ filetype off
 " Plugin 'scrooloose/nerdTree'
 " Plugin 'ntpeters/vim-better-whitespace'
 " Plugin 'https://github.com/jaemk/vim-upaste.git'
+" Plugin 'jszakmeister/vim-togglecursor'
 " "
 " " ----------- git
 " Plugin 'https://github.com/tpope/vim-fugitive.git'
@@ -118,10 +119,6 @@ if has('persistent_undo')
     set undofile
     set undodir=~/.config/vim/tmp/undo//
 endif
-
-" Change cursor to | in insert mode and block in normal mode
-au InsertEnter * silent execute "!echo -en \<esc>[5 q"
-au InsertLeave * silent execute "!echo -en \<esc>[2 q"
 
 
 "" ------ Colors --------
