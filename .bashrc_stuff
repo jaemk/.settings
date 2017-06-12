@@ -28,7 +28,7 @@ export PATH=$PATH:$GOROOT/bin   # ^^
 export GOPATH=$HOME/projects/go # default go working dir
 
 # Put VMs on an external drive
-export VAGRANT_HOME=/media/james/sdstore/vagrant_home
+#export VAGRANT_HOME=/media/james/sdstore/vagrant_home
 
 #~ If for some reason you need to add repl readline support
 # export PYTHONSTARTUP=$HOME/.pythonstartup.py
