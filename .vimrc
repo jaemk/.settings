@@ -120,6 +120,11 @@ if has('persistent_undo')
     set undodir=~/.config/vim/tmp/undo//
 endif
 
+" If the toggle-cursor plugin doesn't work
+" Change cursor to | in insert mode and block in normal mode
+"au InsertEnter * silent execute "!echo -en \<esc>[5 q"
+"au InsertLeave * silent execute "!echo -en \<esc>[2 q"
+
 
 "" ------ Colors --------
 ""
