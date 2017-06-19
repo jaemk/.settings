@@ -124,6 +124,10 @@ endif
 " Change cursor to | in insert mode and block in normal mode
 "au InsertEnter * silent execute "!echo -en \<esc>[5 q"
 "au InsertLeave * silent execute "!echo -en \<esc>[2 q"
+" Or
+"let &t_SI = "\<Esc>[6 q"
+"let &t_SR = "\<Esc>[4 q"
+"let &t_EI = "\<Esc>[2 q"
 
 
 "" ------ Colors --------
