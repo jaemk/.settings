@@ -143,7 +143,7 @@ hi SpellBad cterm=underline
 hi clear SignColumn
 
 " Color linenumber column text grey
-hi LineNr ctermfg=grey ctermbg=89
+hi LineNr ctermfg=black ctermbg=35
 
 " Set cursor line highlight color
 hi CursorLine cterm=NONE ctermbg=24 guibg=darkred
