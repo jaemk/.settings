@@ -6,6 +6,10 @@ alias rm='rm -i'
 alias mv='mv -i'
 alias cp='cp -i'
 
+# work git
+#WORK_GIT_KEY='secret'
+#alias workgit="GIT_SSH_COMMAND='ssh -i ~/.ssh/$WORK_GIT_KEY' git"
+
 set -o vi
 export VISUAL=vim
 export EDITOR="$VISUAL"
