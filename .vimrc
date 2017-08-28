@@ -359,11 +359,15 @@ endfunc
 " ------------------------------------------
 " Auto closing forms!
 " -----------------------------------------
-inoremap ( ()<left>
-inoremap [ []<left>
-inoremap { {}<left>
+"inoremap ( ()<left>
+"inoremap [ []<left>
+"inoremap { {}<left>
+inoremap <expr> ( <SID>pairform('(', ')')
+inoremap <expr> [ <SID>pairform('[', ']')
+inoremap <expr> { <SID>pairform('{', '}')
 inoremap <expr> " <SID>pairquotes('"')
 inoremap <expr> ' <SID>pairquotes("'")
+
 inoremap <expr> ) <SID>escapepair(')')
 inoremap <expr> ] <SID>escapepair(']')
 inoremap <expr> } <SID>escapepair('}')
@@ -373,10 +377,12 @@ inoremap <expr> <bs> <SID>delpair()
 let pairsingles = 0 " pair single quotes - off
 let pairdoubles = 1 " pair double quotes - on
 au BufNewFile,BufRead *.clj let pairsingles = 0 " pair singles off for clojure files
+
 map <leader>s :call Toggle_pairsingles()<CR>
 map <leader>d :call Toggle_pairdoubles()<CR>
 map! <leader>s <ESC>:call Toggle_pairsingles()<CR>a
 map! <leader>d <ESC>:call Toggle_pairdoubles()<CR>a
+
 func! Toggle_pairsingles()
     let g:pairsingles = <SID>toggler(g:pairsingles)
     echo "pairsingles: " . g:pairsingles
@@ -384,6 +390,18 @@ endfunc
 func! Toggle_pairdoubles()
     let g:pairdoubles = <SID>toggler(g:pairdoubles)
     echo "pairdoubles: " . g:pairdoubles
+endfunc
+
+" Only auto pair a start-end pair if there's nothing to the immediate right of the cursor
+func! s:pairform(start, end)
+    let l:col = col('.')
+    let l:line = getline('.')
+    let l:chr = l:line[l:col-1]
+    if len(l:chr) > 0
+        return a:start
+    else
+        return a:start.a:end."\<left>"
+    endif
 endfunc
 
 func! s:pairquotes(quote)
@@ -398,7 +416,7 @@ func! s:pairquotes(quote)
     if a:quote == l:chr
         return "\<right>"
     else
-        return a:quote.a:quote."\<left>"
+        return s:pairform(a:quote, a:quote)
     endif
 endfunc
 
