@@ -46,6 +46,8 @@ filetype off
 " Plugin 'rust-lang/rust.vim'
 " Plugin 'racer-rust/vim-racer'
 " Plugin 'cespare/vim-toml'
+" Plugin 'hdima/python-syntax'
+" Plugin 'derekwyatt/vim-scala'
 " Plugin 'https://github.com/tpope/vim-fireplace.git'
 " Plugin 'https://github.com/tpope/vim-classpath.git'
 " Plugin 'https://github.com/guns/vim-sexp.git'
@@ -305,6 +307,8 @@ nnoremap <Leader>gb :Gblame
 nnoremap <Leader>gc :Conflicted
 nnoremap <Leader>gn :GitNextConflict
 
+" python
+let python_highlight_all = 1
 
 "" ----- other File specifics ------
 ""
