@@ -7,7 +7,7 @@ alias mv='mv -i'
 alias cp='cp -i'
 
 # work git
-#WORK_GIT_KEY='secret'
+#WORK_GIT_KEY='secretkeyname'
 #alias workgit="GIT_SSH_COMMAND='ssh -i ~/.ssh/$WORK_GIT_KEY' git"
 
 set -o vi
@@ -30,6 +30,9 @@ export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 export GOROOT="/usr/local/go"   # install location
 export PATH=$PATH:$GOROOT/bin   # ^^
 export GOPATH=$HOME/projects/go # default go working dir
+
+# For boost
+export BOOST_ROOT="/home/james/.installs/boost_1_65_0"
 
 # Put VMs on an external drive
 #export VAGRANT_HOME=/media/james/sdstore/vagrant_home
