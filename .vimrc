@@ -103,6 +103,7 @@ set relativenumber  " ... relative to cursor
 set splitbelow   " More logical window splits
 set splitright
 set pumheight=10    " Completion window max size
+set backspace=indent,eol,start  "fix backspace in insert mode
 
 set noswapfile
 set nobackup
