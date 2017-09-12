@@ -37,6 +37,7 @@ filetype off
 " Plugin 'ntpeters/vim-better-whitespace'
 " Plugin 'https://github.com/jaemk/vim-upaste.git'
 " Plugin 'jszakmeister/vim-togglecursor'
+" Plugin 'sjl/gundo.vim'
 " "
 " " ----------- git
 " Plugin 'https://github.com/tpope/vim-fugitive.git'
@@ -48,6 +49,7 @@ filetype off
 " Plugin 'cespare/vim-toml'
 " Plugin 'hdima/python-syntax'
 " Plugin 'derekwyatt/vim-scala'
+" Plugin 'posva/vim-vue'
 " Plugin 'https://github.com/tpope/vim-fireplace.git'
 " Plugin 'https://github.com/tpope/vim-classpath.git'
 " Plugin 'https://github.com/guns/vim-sexp.git'
@@ -296,6 +298,10 @@ let g:ycm_rust_src_path = $RUST_SRC_PATH
 " YouCompleteMe Cpp
 let g:ycm_global_ycm_extra_conf = '~/.settings/.ycm_extra_conf.py'
 
+" Gundo
+nnoremap <leader>u :GundoToggle<CR>
+let g:gundo_prefer_python3 = 1
+
 " js
 let g:jsx_ext_required = 0  " Allow jsx in js files
 
@@ -312,12 +318,21 @@ nnoremap <Leader>gn :GitNextConflict
 " python
 let python_highlight_all = 1
 
+" cpp
+let g:cpp_class_scope_highlight = 1
+let g:cpp_member_variable_highlight = 1
+let g:cpp_class_decl_highlight = 1
+let g:cpp_experimental_simple_template_highlight = 1
+
 "" ----- other File specifics ------
 ""
+au BufNewFile,BufRead *.ron set filetype=rust  " Use rust syntax for .ron files
 au BufNewFile,BufRead *.hy set filetype=clojure  " Use clj syntax for .hy files
 
-" Set html spacing
+" Set spacing
 au FileType html setl sw=4 sts=4
+au FileType vue setl sw=2 sts=2
+au FileType javascript setl sw=2 sts=2
 
 
 
