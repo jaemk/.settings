@@ -389,7 +389,7 @@ endfunc
 "inoremap [ []<left>
 "inoremap { {}<left>
 let is_lispy = 0    " always auto pair all forms when lispy
-au BufNewFile,BufRead *.clj let is_lispy = 1
+au BufNewFile,BufRead *.clj* let is_lispy = 1
 
 inoremap <expr> ( <SID>pairform('(', ')', [ ']', '}', '>', '"', ''''], g:is_lispy)
 inoremap <expr> [ <SID>pairform('[', ']', [ ')', '}', '>', '"', ''''], g:is_lispy)
