@@ -388,10 +388,13 @@ endfunc
 "inoremap ( ()<left>
 "inoremap [ []<left>
 "inoremap { {}<left>
-inoremap <expr> ( <SID>pairform('(', ')', [ ']', '}', '>', '"', ''''])
-inoremap <expr> [ <SID>pairform('[', ']', [ ')', '}', '>', '"', ''''])
-inoremap <expr> { <SID>pairform('{', '}', [ ']', ')', '>', '"', ''''])
-inoremap <expr> < <SID>pairform('<', '>', [ ']', ')', '}', '"', ''''])
+let is_lispy = 0    " always auto pair all forms when lispy
+au BufNewFile,BufRead *.clj let is_lispy = 1
+
+inoremap <expr> ( <SID>pairform('(', ')', [ ']', '}', '>', '"', ''''], g:is_lispy)
+inoremap <expr> [ <SID>pairform('[', ']', [ ')', '}', '>', '"', ''''], g:is_lispy)
+inoremap <expr> { <SID>pairform('{', '}', [ ']', ')', '>', '"', ''''], g:is_lispy)
+inoremap <expr> < <SID>pairform('<', '>', [ ']', ')', '}', '"', ''''], g:is_lispy)
 inoremap <expr> " <SID>pairquotes('"')
 inoremap <expr> ' <SID>pairquotes("'")
 
@@ -423,11 +426,12 @@ endfunc
 " Auto pair a start-close pair if there's nothing to the immediate right of the cursor.
 " If there's something there and it's the closing character or it isn't in the
 " set of chars for which pairing is allowed, don't add the closing char
-func! s:pairform(start, close, pair_ok)
+" If we're lispy, always auto-close pairs.
+func! s:pairform(start, close, pair_ok, is_lispy)
     let l:col = col('.')
     let l:line = getline('.')
     let l:chr = l:line[l:col-1]
-    if len(l:chr) > 0
+    if len(l:chr) > 0 && a:is_lispy == 0
         if l:chr == a:close || index(a:pair_ok, l:chr) < 0
             " don't add a close if the next is a close or isn't in the set of
             " 'pair_ok' characters
@@ -454,7 +458,7 @@ func! s:pairquotes(quote)
         elseif a:quote == '"'
             let l:pair_ok = ["'", ')', ']', '}', '>']
         endif
-        return s:pairform(a:quote, a:quote, l:pair_ok)
+        return s:pairform(a:quote, a:quote, l:pair_ok, 0)
     endif
 endfunc
 
