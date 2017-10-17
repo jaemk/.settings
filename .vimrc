@@ -48,6 +48,7 @@ filetype off
 " Plugin 'racer-rust/vim-racer'
 " Plugin 'cespare/vim-toml'
 " Plugin 'hdima/python-syntax'
+" Plugin 'artur-shaik/vim-javacomplete2'
 " Plugin 'derekwyatt/vim-scala'
 " Plugin 'posva/vim-vue'
 " Plugin 'https://github.com/tpope/vim-fireplace.git'
@@ -309,6 +310,9 @@ let g:jsx_ext_required = 0  " Allow jsx in js files
 let g:jsdoc_enable_es6 = 1
 autocmd FileType javascript.jsx nnoremap <Leader>a :JsDoc<CR>
 
+" Java
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
+
 
 " Git stuff -- Requires vim.fugitive and vim.conflicted
 nnoremap <Leader>gb :Gblame
@@ -359,6 +363,7 @@ vnoremap <Leader>" xi"<ESC>pa"<ESC>
 vnoremap <Leader>( xi(<ESC>pa)<ESC>
 vnoremap <Leader>[ xi[<ESC>pa]<ESC>
 vnoremap <Leader>{ xi{<ESC>pa}<ESC>
+vnoremap <Leader>< xi<<ESC>pa><ESC>
 
 " ---------------------------------------
 " Auto expanding forms!
@@ -383,15 +388,17 @@ endfunc
 "inoremap ( ()<left>
 "inoremap [ []<left>
 "inoremap { {}<left>
-inoremap <expr> ( <SID>pairform('(', ')')
-inoremap <expr> [ <SID>pairform('[', ']')
-inoremap <expr> { <SID>pairform('{', '}')
+inoremap <expr> ( <SID>pairform('(', ')', [ ']', '}', '>', '"', ''''])
+inoremap <expr> [ <SID>pairform('[', ']', [ ')', '}', '>', '"', ''''])
+inoremap <expr> { <SID>pairform('{', '}', [ ']', ')', '>', '"', ''''])
+inoremap <expr> < <SID>pairform('<', '>', [ ']', ')', '}', '"', ''''])
 inoremap <expr> " <SID>pairquotes('"')
 inoremap <expr> ' <SID>pairquotes("'")
 
 inoremap <expr> ) <SID>escapepair(')')
 inoremap <expr> ] <SID>escapepair(']')
 inoremap <expr> } <SID>escapepair('}')
+inoremap <expr> > <SID>escapepair('>')
 inoremap <expr> <bs> <SID>delpair()
 
 " Make quote completion toggle-able from all modes
@@ -413,16 +420,21 @@ func! Toggle_pairdoubles()
     echo "pairdoubles: " . g:pairdoubles
 endfunc
 
-" Only auto pair a start-end pair if there's nothing to the immediate right of the cursor
-func! s:pairform(start, end)
+" Auto pair a start-close pair if there's nothing to the immediate right of the cursor.
+" If there's something there and it's the closing character or it isn't in the
+" set of chars for which pairing is allowed, don't add the closing char
+func! s:pairform(start, close, pair_ok)
     let l:col = col('.')
     let l:line = getline('.')
     let l:chr = l:line[l:col-1]
     if len(l:chr) > 0
-        return a:start
-    else
-        return a:start.a:end."\<left>"
+        if l:chr == a:close || index(a:pair_ok, l:chr) < 0
+            " don't add a close if the next is a close or isn't in the set of
+            " 'pair_ok' characters
+            return a:start
+        endif
     endif
+    return a:start.a:close."\<left>"
 endfunc
 
 func! s:pairquotes(quote)
@@ -437,7 +449,12 @@ func! s:pairquotes(quote)
     if a:quote == l:chr
         return "\<right>"
     else
-        return s:pairform(a:quote, a:quote)
+        if a:quote == "'"
+            let l:pair_ok = ['"', ')', ']', '}', '>']
+        elseif a:quote == '"'
+            let l:pair_ok = ["'", ')', ']', '}', '>']
+        endif
+        return s:pairform(a:quote, a:quote, l:pair_ok)
     endif
 endfunc
 
@@ -452,7 +469,7 @@ func! s:escapepair(rightchr)
 endfunc
 
 func! s:delpair()
-    let l:pairs = ['""', "''", '{}', '[]', '()']
+    let l:pairs = ['""', "''", '{}', '[]', '()', '<>']
     let l:col = col('.')
     let l:line = getline('.')
     let l:chrs = l:line[l:col-2 : l:col-1]
