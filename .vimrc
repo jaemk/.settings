@@ -38,6 +38,8 @@ filetype off
 " Plugin 'https://github.com/jaemk/vim-upaste.git'
 " Plugin 'jszakmeister/vim-togglecursor'
 " Plugin 'sjl/gundo.vim'
+" Plugin 'junegunn/goyo.vim'
+" Plugin 'tpope/vim-commentary'
 " "
 " " ----------- git
 " Plugin 'https://github.com/tpope/vim-fugitive.git'
@@ -286,8 +288,8 @@ endfunction
 autocmd FileType go nmap <leader>gob :<C-u>call <SID>build_go_files()<CR>
 
 
-"""" !!!!!!!!!!
-" Rust (vim-racer)
+" Rust
+" (vim-racer)
 " -- use C-x-C-o, will autocomplete with ycm
 set hidden
 let g:racer_cmd = "racer"
@@ -295,6 +297,7 @@ let g:racer_experimental_completer = 1
 " RUST_SRC_PATH should be specified in .bashrc
 " YouCompleteMe Rust
 let g:ycm_rust_src_path = $RUST_SRC_PATH
+autocmd FileType rust nnoremap <leader>a O///<space>
 
 " YouCompleteMe Cpp
 let g:ycm_global_ycm_extra_conf = '~/.settings/.ycm_extra_conf.py'
@@ -312,7 +315,7 @@ autocmd FileType javascript.jsx nnoremap <Leader>a :JsDoc<CR>
 
 " Java
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
-
+autocmd FileType java nnoremap <leader>a O/**<CR><CR>/<ESC>kA<space>
 
 " Git stuff -- Requires vim.fugitive and vim.conflicted
 nnoremap <Leader>gb :Gblame
@@ -321,6 +324,7 @@ nnoremap <Leader>gn :GitNextConflict
 
 " python
 let python_highlight_all = 1
+autocmd FileType python nnoremap <leader>a o""""""<ESC>hhi<CR><CR><ESC>kA
 
 " cpp
 let g:cpp_class_scope_highlight = 1
