@@ -395,10 +395,10 @@ endfunc
 let is_lispy = 0    " always auto pair all forms when lispy
 au BufNewFile,BufRead *.clj* let is_lispy = 1
 
-inoremap <expr> ( <SID>pairform('(', ')', [ ']', '}', '>', '"', ''''], g:is_lispy)
-inoremap <expr> [ <SID>pairform('[', ']', [ ')', '}', '>', '"', ''''], g:is_lispy)
-inoremap <expr> { <SID>pairform('{', '}', [ ']', ')', '>', '"', ''''], g:is_lispy)
-inoremap <expr> < <SID>pairform('<', '>', [ ']', ')', '}', '"', ''''], g:is_lispy)
+inoremap <expr> ( <SID>pairform('(', ')', [ ')', ']', '}', '>', '"', ''''], g:is_lispy)
+inoremap <expr> [ <SID>pairform('[', ']', [ ')', ']', '}', '>', '"', ''''], g:is_lispy)
+inoremap <expr> { <SID>pairform('{', '}', [ ')', ']', '}', '>', '"', ''''], g:is_lispy)
+inoremap <expr> < <SID>pairform('<', '>', [ ')', ']', '}', '>', '"', ''''], g:is_lispy)
 inoremap <expr> " <SID>pairquotes('"')
 inoremap <expr> ' <SID>pairquotes("'")
 
@@ -436,7 +436,7 @@ func! s:pairform(start, close, pair_ok, is_lispy)
     let l:line = getline('.')
     let l:chr = l:line[l:col-1]
     if len(l:chr) > 0 && a:is_lispy == 0
-        if l:chr == a:close || index(a:pair_ok, l:chr) < 0
+        if index(a:pair_ok, l:chr) < 0
             " don't add a close if the next is a close or isn't in the set of
             " 'pair_ok' characters
             return a:start
