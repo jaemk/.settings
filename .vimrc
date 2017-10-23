@@ -14,22 +14,22 @@
 " "
 call plug#begin('~/.vim/bundle')
 " " ----------- extra building required
-" Plug 'https://github.com/Valloric/YouCompleteMe.git'
+" Plug 'Valloric/YouCompleteMe'
 " Plug 'euclio/vim-markdown-composer'
 " "
 " " ----------- linting
-" Plug 'https://github.com/scrooloose/syntastic.git'
+" Plug 'scrooloose/syntastic'
 " "
 " " ----------- misc util
-" Plug 'tpope/vim-repeat.git'
-" Plug 'tpope/vim-surround.git'
-" Plug 'kshenoy/vim-signature.git'
-" Plug 'nathanaelkane/vim-indent-guides.git'
-" Plug 'jremmen/vim-ripgrep.git'
+" Plug 'tpope/vim-repeat'
+" Plug 'tpope/vim-surround'
+" Plug 'kshenoy/vim-signature'
+" Plug 'nathanaelkane/vim-indent-guides'
+" Plug 'jremmen/vim-ripgrep'
 " Plug 'mileszs/ack.vim'
 " Plug 'scrooloose/nerdTree'
 " Plug 'ntpeters/vim-better-whitespace'
-" Plug 'jaemk/vim-upaste.git'
+" Plug 'jaemk/vim-upaste'
 " Plug 'jszakmeister/vim-togglecursor'
 " Plug 'sjl/gundo.vim'
 " Plug 'junegunn/goyo.vim'
@@ -38,8 +38,8 @@ call plug#begin('~/.vim/bundle')
 " Plug 'junegunn/fzf.vim'
 " "
 " " ----------- git
-" Plug 'tpope/vim-fugitive.git'
-" Plug 'christoomey/vim-conflicted.git'
+" Plug 'tpope/vim-fugitive'
+" Plug 'christoomey/vim-conflicted'
 " "
 " " ----------- Langs
 " Plug 'rust-lang/rust.vim'
@@ -49,17 +49,17 @@ call plug#begin('~/.vim/bundle')
 " Plug 'artur-shaik/vim-javacomplete2'
 " Plug 'derekwyatt/vim-scala'
 " Plug 'posva/vim-vue'
-" Plug 'tpope/vim-fireplace.git'
-" Plug 'tpope/vim-classpath.git'
-" Plug 'guns/vim-sexp.git'
-" Plug 'tpope/vim-sexp-mappings-for-regular-people.git'
-" Plug 'guns/vim-clojure-static.git'
-" Plug 'guns/vim-clojure-highlight.git'
-" Plug 'kien/rainbow_parentheses.vim.git'
-" Plug 'fatih/vim-go.git'
+" Plug 'tpope/vim-fireplace'
+" Plug 'tpope/vim-classpath'
+" Plug 'guns/vim-sexp'
+" Plug 'tpope/vim-sexp-mappings-for-regular-people'
+" Plug 'guns/vim-clojure-static'
+" Plug 'guns/vim-clojure-highlight'
+" Plug 'kien/rainbow_parentheses.vim'
+" Plug 'fatih/vim-go'
 " Plug 'pangloss/vim-javascript'
 " Plug 'mxw/vim-jsx'
-" Plug 'heavenshell/vim-jsdoc.git'
+" Plug 'heavenshell/vim-jsdoc'
 " Plug 'octol/vim-cpp-enhanced-highlight'
 " Plug 'vim-scripts/groovy.vim'
 call plug#end()
@@ -186,20 +186,23 @@ map <leader>F :Files<CR>
 map <leader>f :Find<space>
 command! -bang -nargs=* Find call fzf#vim#grep( 'rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --color "always" '.shellescape(<q-args>), 1, <bang>0)
 
+let g:ackprg = 'rg --vimgrep'
+map <leader>rg :Ack<space>
+
 " Map // to search current file for visually selected text
 vnoremap // y/<C-R>"<CR>
 
 " Map f/ to ack for visually selected text
-""vnoremap f/ y:Ack <C-R>"<CR>
-vnoremap f/ y:Rg <C-R>"<CR>
+vnoremap f/ y:Ack <C-R>"<CR>
+"vnoremap f/ y:Rg <C-R>"<CR>
 
 " Map d/ to ack for function definition (python)
-""vnoremap d/ y:Ack "def <C-R>""<CR>
-vnoremap d/ y:Rg "def <C-R>""<CR>
+vnoremap d/ y:Ack "def <C-R>""<CR>
+"vnoremap d/ y:Rg "def <C-R>""<CR>
 
 " Map c/ to ack for class definition (python)
-""vnoremap c/ y:Ack "class <C-R>""<CR>
-vnoremap c/ y:Rg "class <C-R>""<CR>
+vnoremap c/ y:Ack "class <C-R>""<CR>
+"vnoremap c/ y:Rg "class <C-R>""<CR>
 
 " NERDTree sidebar toggle (Requires NERDTree plugin) (lower-case L)
 map <Leader>l :NERDTreeToggle<CR>
@@ -259,7 +262,7 @@ nnoremap <Leader>cn :lnext<CR>
 nnoremap <Leader>cp :lprevious<CR>
 
 " Clojure
-autocmd FileType clojure nmap <leader>r :Require!<CR>
+"autocmd FileType clojure nmap <leader>r :Require!<CR>
 
 " Go
 let g:go_highlight_functions = 1
