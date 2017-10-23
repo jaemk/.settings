@@ -26,13 +26,18 @@ export PATH="$HOME/.cargo/bin:$PATH"
 #  `rustup component add rust-src`
 export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 
+# FZF use ripgrep & ctrl-p to open in vim from the shell
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+bind -x '"\C-p": vim $(fzf);'
+
 # For Go...
 export GOROOT="/usr/local/go"   # install location
 export PATH=$PATH:$GOROOT/bin   # ^^
 export GOPATH=$HOME/projects/go # default go working dir
 
 # For boost
-export BOOST_ROOT="/home/james/.installs/boost_1_65_0"
+#export BOOST_ROOT="/home/james/.installs/boost_1_65_0"
 
 # Put VMs on an external drive
 #export VAGRANT_HOME=/media/james/sdstore/vagrant_home
