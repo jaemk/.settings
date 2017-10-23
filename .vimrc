@@ -1,8 +1,7 @@
 " " Vim settings
 " "
-" " Vundle setup
-" "   in ~/.vim/bundle
-" "      git clone https://github.com/VundleVim/Vundle.vim.git
+" " Plug setup
+" "   curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 " "   start vim -> :PluginInstall
 " "
 " " For YouCompleteMe
@@ -13,59 +12,58 @@
 " "   go to ~/.vim/bundle/vim-markdown-composer
 " "       cargo build --release --no-default-features --features json-rpc
 " "
-" " Optional Vundle Plugins
-set nocompatible
-filetype off
-" set rtp+=~/.vim/bundle/Vundle.vim
-" call vundle#begin()
-" Plugin 'VundleVim/Vundle.vim'
+call plug#begin('~/.vim/bundle')
+" Plug 'VundleVim/Vundle.vim'
 " " ----------- extra building required
-" " Plugin 'https://github.com/Valloric/YouCompleteMe.git'
-" " Plugin 'euclio/vim-markdown-composer'
+" Plug 'https://github.com/Valloric/YouCompleteMe.git'
+" Plug 'euclio/vim-markdown-composer'
 " "
 " " ----------- linting
-" Plugin 'https://github.com/scrooloose/syntastic.git'
+" Plug 'https://github.com/scrooloose/syntastic.git'
 " "
 " " ----------- misc util
-" Plugin 'https://github.com/tpope/vim-repeat.git'
-" Plugin 'https://github.com/tpope/vim-surround.git'
-" Plugin 'https://github.com/kshenoy/vim-signature.git'
-" Plugin 'https://github.com/nathanaelkane/vim-indent-guides.git'
-" Plugin 'https://github.com/jremmen/vim-ripgrep.git'
-" Plugin 'mileszs/ack.vim'
-" Plugin 'scrooloose/nerdTree'
-" Plugin 'ntpeters/vim-better-whitespace'
-" Plugin 'https://github.com/jaemk/vim-upaste.git'
-" Plugin 'jszakmeister/vim-togglecursor'
-" Plugin 'sjl/gundo.vim'
-" Plugin 'junegunn/goyo.vim'
-" Plugin 'tpope/vim-commentary'
+" Plug 'tpope/vim-repeat.git'
+" Plug 'tpope/vim-surround.git'
+" Plug 'kshenoy/vim-signature.git'
+" Plug 'nathanaelkane/vim-indent-guides.git'
+" Plug 'jremmen/vim-ripgrep.git'
+" Plug 'mileszs/ack.vim'
+" Plug 'scrooloose/nerdTree'
+" Plug 'ntpeters/vim-better-whitespace'
+" Plug 'jaemk/vim-upaste.git'
+" Plug 'jszakmeister/vim-togglecursor'
+" Plug 'sjl/gundo.vim'
+" Plug 'junegunn/goyo.vim'
+" Plug 'tpope/vim-commentary'
+" Plug 'junegunn/fzf', { 'dir': '~/.fzf' }
+" Plug 'junegunn/fzf.vim'
 " "
 " " ----------- git
-" Plugin 'https://github.com/tpope/vim-fugitive.git'
-" Plugin 'https://github.com/christoomey/vim-conflicted.git'
+" Plug 'tpope/vim-fugitive.git'
+" Plug 'christoomey/vim-conflicted.git'
 " "
 " " ----------- Langs
-" Plugin 'rust-lang/rust.vim'
-" Plugin 'racer-rust/vim-racer'
-" Plugin 'cespare/vim-toml'
-" Plugin 'hdima/python-syntax'
-" Plugin 'artur-shaik/vim-javacomplete2'
-" Plugin 'derekwyatt/vim-scala'
-" Plugin 'posva/vim-vue'
-" Plugin 'https://github.com/tpope/vim-fireplace.git'
-" Plugin 'https://github.com/tpope/vim-classpath.git'
-" Plugin 'https://github.com/guns/vim-sexp.git'
-" Plugin 'https://github.com/tpope/vim-sexp-mappings-for-regular-people.git'
-" Plugin 'https://github.com/guns/vim-clojure-static.git'
-" Plugin 'https://github.com/guns/vim-clojure-highlight.git'
-" Plugin 'https://github.com/kien/rainbow_parentheses.vim.git'
-" Plugin 'https://github.com/fatih/vim-go.git'
-" Plugin 'pangloss/vim-javascript'
-" Plugin 'mxw/vim-jsx'
-" Plugin 'https://github.com/heavenshell/vim-jsdoc.git'
-" Plugin 'octol/vim-cpp-enhanced-highlight'
-" call vundle#end()
+" Plug 'rust-lang/rust.vim'
+" Plug 'racer-rust/vim-racer'
+" Plug 'cespare/vim-toml'
+" Plug 'hdima/python-syntax'
+" Plug 'artur-shaik/vim-javacomplete2'
+" Plug 'derekwyatt/vim-scala'
+" Plug 'posva/vim-vue'
+" Plug 'tpope/vim-fireplace.git'
+" Plug 'tpope/vim-classpath.git'
+" Plug 'guns/vim-sexp.git'
+" Plug 'tpope/vim-sexp-mappings-for-regular-people.git'
+" Plug 'guns/vim-clojure-static.git'
+" Plug 'guns/vim-clojure-highlight.git'
+" Plug 'kien/rainbow_parentheses.vim.git'
+" Plug 'fatih/vim-go.git'
+" Plug 'pangloss/vim-javascript'
+" Plug 'mxw/vim-jsx'
+" Plug 'heavenshell/vim-jsdoc.git'
+" Plug 'octol/vim-cpp-enhanced-highlight'
+" Plug 'vim-scripts/groovy.vim'
+call plug#end()
 
 " Set <Leader>
 let mapleader=","
@@ -183,6 +181,11 @@ nnoremap <C-H> <C-W><C-H>
 " Remap split window resizing since ctrl+ & ctrl- change system font size
 nnoremap <Leader>w+ <C-W>+
 nnoremap <Leader>w- <C-W>-
+
+" FZF!
+map <leader>F :Files<CR>
+map <leader>f :Find<space>
+command! -bang -nargs=* Find call fzf#vim#grep( 'rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --color "always" '.shellescape(<q-args>), 1, <bang>0)
 
 " Map // to search current file for visually selected text
 vnoremap // y/<C-R>"<CR>
