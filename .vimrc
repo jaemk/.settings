@@ -13,7 +13,6 @@
 " "       cargo build --release --no-default-features --features json-rpc
 " "
 call plug#begin('~/.vim/bundle')
-" Plug 'VundleVim/Vundle.vim'
 " " ----------- extra building required
 " Plug 'https://github.com/Valloric/YouCompleteMe.git'
 " Plug 'euclio/vim-markdown-composer'
