@@ -31,6 +31,7 @@ call plug#begin('~/.vim/bundle')
 " Plug 'ntpeters/vim-better-whitespace'
 " Plug 'jaemk/vim-upaste'
 " Plug 'jszakmeister/vim-togglecursor'
+" Plug 'alvan/vim-closetag'
 " Plug 'sjl/gundo.vim'
 " Plug 'junegunn/goyo.vim'
 " Plug 'tpope/vim-commentary'
@@ -229,7 +230,8 @@ vnoremap <C-t> :<C-U>UPaste<CR>
 let g:indent_guides_guide_size=1
 
 "" closetag stuff
-"let g:closetag_filenames = "*.html,*.xhtml,*.phtml"
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.js,*.jsx'
+let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.js'
 
 "" vim-colors-solarized stuff
 " let g:solarized_termcolors=256
@@ -400,11 +402,13 @@ endfunc
 "inoremap { {}<left>
 let is_lispy = 0    " always auto pair all forms when lispy
 au BufNewFile,BufRead *.clj* let is_lispy = 1
+let is_html_like = 0
+au FileType html,javascript.jsx let is_html_like = 1
 
-inoremap <expr> ( <SID>pairform('(', ')', [ ')', ']', '}', '>', '"', ''''], g:is_lispy)
-inoremap <expr> [ <SID>pairform('[', ']', [ ')', ']', '}', '>', '"', ''''], g:is_lispy)
-inoremap <expr> { <SID>pairform('{', '}', [ ')', ']', '}', '>', '"', ''''], g:is_lispy)
-inoremap <expr> < <SID>pairform('<', '>', [ ')', ']', '}', '>', '"', ''''], g:is_lispy)
+inoremap <expr> ( <SID>pairform('(', ')', [ ')', ']', '}', '>', '"', ''''], g:is_lispy, g:is_html_like)
+inoremap <expr> [ <SID>pairform('[', ']', [ ')', ']', '}', '>', '"', ''''], g:is_lispy, g:is_html_like)
+inoremap <expr> { <SID>pairform('{', '}', [ ')', ']', '}', '>', '"', ''''], g:is_lispy, g:is_html_like)
+inoremap <expr> < <SID>pairform('<', '>', [ ')', ']', '}', '>', '"', ''''], g:is_lispy, g:is_html_like)
 inoremap <expr> " <SID>pairquotes('"')
 inoremap <expr> ' <SID>pairquotes("'")
 
@@ -412,6 +416,7 @@ inoremap <expr> ) <SID>escapepair(')')
 inoremap <expr> ] <SID>escapepair(']')
 inoremap <expr> } <SID>escapepair('}')
 inoremap <expr> > <SID>escapepair('>')
+
 inoremap <expr> <bs> <SID>delpair()
 
 " Make quote completion toggle-able from all modes
@@ -437,7 +442,10 @@ endfunc
 " If there's something there and it's the closing character or it isn't in the
 " set of chars for which pairing is allowed, don't add the closing char
 " If we're lispy, always auto-close pairs.
-func! s:pairform(start, close, pair_ok, is_lispy)
+func! s:pairform(start, close, pair_ok, is_lispy, is_html_like)
+    if a:is_html_like
+        return a:start
+    endif
     let l:col = col('.')
     let l:line = getline('.')
     let l:chr = l:line[l:col-1]
@@ -468,7 +476,7 @@ func! s:pairquotes(quote)
         elseif a:quote == '"'
             let l:pair_ok = ["'", ')', ']', '}', '>']
         endif
-        return s:pairform(a:quote, a:quote, l:pair_ok, 0)
+        return s:pairform(a:quote, a:quote, l:pair_ok, 0, 0)
     endif
 endfunc
 
