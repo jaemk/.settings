@@ -442,17 +442,21 @@ endfunc
 " If there's something there and it's the closing character or it isn't in the
 " set of chars for which pairing is allowed, don't add the closing char
 " If we're lispy, always auto-close pairs.
+" If we're html-like, don't pair tag openings.
+" Only pair '<>' when left-adjacent char is non-whitespace.
 func! s:pairform(start, close, pair_ok, is_lispy, is_html_like)
-    if a:is_html_like
+    if a:is_html_like && a:start == "<"
         return a:start
     endif
     let l:col = col('.')
     let l:line = getline('.')
     let l:chr = l:line[l:col-1]
+    let l:prev = l:line[l:col-2]
+    if a:start == "<" && l:prev == " "
+        return a:start
+    endif
     if len(l:chr) > 0 && a:is_lispy == 0
         if index(a:pair_ok, l:chr) < 0
-            " don't add a close if the next is a close or isn't in the set of
-            " 'pair_ok' characters
             return a:start
         endif
     endif
