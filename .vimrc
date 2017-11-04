@@ -161,7 +161,6 @@ hi String ctermfg=42
 hi Comment ctermfg=246
 
 
-
 "" ----- Bindings -------
 ""
 " Decrease mapping timeout and map an esc shortcut
@@ -188,6 +187,7 @@ map <leader>f :Find<space>
 vnoremap <leader>f y:Find <C-R>"<CR>
 command! -bang -nargs=* Find call fzf#vim#grep( 'rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --color "always" '.shellescape(<q-args>), 1, <bang>0)
 
+" Make Ack.vim use ripgrep!
 let g:ackprg = 'rg --vimgrep'
 map <leader>rg :Ack<space>
 
@@ -196,15 +196,12 @@ vnoremap // y/<C-R>"<CR>
 
 " Map f/ to ack for visually selected text
 vnoremap f/ y:Ack <C-R>"<CR>
-"vnoremap f/ y:Rg <C-R>"<CR>
 
 " Map d/ to ack for function definition (python)
 vnoremap d/ y:Ack "def <C-R>""<CR>
-"vnoremap d/ y:Rg "def <C-R>""<CR>
 
 " Map c/ to ack for class definition (python)
 vnoremap c/ y:Ack "class <C-R>""<CR>
-"vnoremap c/ y:Rg "class <C-R>""<CR>
 
 " NERDTree sidebar toggle (Requires NERDTree plugin) (lower-case L)
 map <Leader>l :NERDTreeToggle<CR>
@@ -220,7 +217,7 @@ nnoremap n nzzzv
 nnoremap N Nzzzv
 
 " UPaste visual select mapping
-vnoremap <C-t> :<C-U>UPaste<CR>
+"vnoremap <C-t> :<C-U>UPaste<CR>
 
 
 "" ----- Plugin settings ------
@@ -305,6 +302,7 @@ let g:racer_experimental_completer = 1
 " RUST_SRC_PATH should be specified in .bashrc
 " YouCompleteMe Rust
 let g:ycm_rust_src_path = $RUST_SRC_PATH
+" doc string shortcut
 autocmd FileType rust nnoremap <leader>a O///<space>
 
 " YouCompleteMe Cpp
@@ -323,6 +321,7 @@ autocmd FileType javascript.jsx nnoremap <Leader>a :JsDoc<CR>
 
 " Java
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
+" doc string shortcut
 autocmd FileType java nnoremap <leader>a O/**<CR><CR>/<ESC>kA<space>
 
 " Git stuff -- Requires vim.fugitive and vim.conflicted
@@ -332,6 +331,7 @@ nnoremap <Leader>gn :GitNextConflict
 
 " python
 let python_highlight_all = 1
+" doc string shortcut
 autocmd FileType python nnoremap <leader>a o""""""<ESC>hhi<CR><CR><ESC>kA
 
 " cpp
