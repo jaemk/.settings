@@ -37,6 +37,8 @@ call plug#begin('~/.vim/bundle')
 " Plug 'tpope/vim-commentary'
 " Plug 'junegunn/fzf', { 'dir': '~/.fzf' }
 " Plug 'junegunn/fzf.vim'
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
 " "
 " " ----------- git
 " Plug 'tpope/vim-fugitive'
@@ -183,7 +185,7 @@ nnoremap <Leader>w- <C-W>-
 
 " FZF!
 map <leader>F :Files<CR>
-map <leader>f :Find<space>
+nnoremap <leader>f :Find<space>
 vnoremap <leader>f y:Find <C-R>"<CR>
 command! -bang -nargs=* Find call fzf#vim#grep( 'rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --color "always" '.shellescape(<q-args>), 1, <bang>0)
 
@@ -221,6 +223,10 @@ nnoremap N Nzzzv
 
 
 "" ----- Plugin settings ------
+" Airline and tmuxline setings
+let g:airline_symbols_ascii = 1
+"let g:airline_theme='deus'
+
 ""
 "" indentLine stuff
 " let g:indentLine_color_term = 241
