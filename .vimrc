@@ -43,6 +43,7 @@ call plug#begin('~/.vim/bundle')
 " " ----------- git
 " Plug 'tpope/vim-fugitive'
 " Plug 'christoomey/vim-conflicted'
+" Plug 'airblade/vim-gitgutter'
 " "
 " " ----------- Langs
 " Plug 'rust-lang/rust.vim'
@@ -148,7 +149,10 @@ hi clear SpellBad
 hi SpellBad cterm=underline
 
 " Turn off gutter highlight (for marks)
-hi clear SignColumn
+"hi clear SignColumn
+
+" Set gutter background black
+hi SignColumn ctermbg=0
 
 " Color linenumber column text grey
 hi LineNr ctermfg=black ctermbg=35
@@ -229,6 +233,14 @@ nnoremap N Nzzzv
 " Airline and tmuxline setings
 let g:airline_symbols_ascii = 1
 "let g:airline_theme='deus'
+
+" gitgutter settings
+" disable making the sign column look like the line number column
+let g:gitgutter_override_sign_column_highlight = 0
+" make gutter black
+hi SignColumn ctermbg=0
+let g:gitgutter_enabled = 0
+nnoremap <leader>gg :GitGutterToggle<CR>
 
 ""
 "" indentLine stuff
