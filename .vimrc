@@ -162,6 +162,9 @@ hi String ctermfg=42
 " make comments grey
 hi Comment ctermfg=246
 
+" Set tab line background black
+hi TabLineFill cterm=bold ctermbg=0
+
 
 "" ----- Bindings -------
 ""
