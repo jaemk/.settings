@@ -154,8 +154,11 @@ hi SpellBad cterm=underline
 " Set gutter background black
 hi SignColumn ctermbg=0
 
-" Color linenumber column text grey
-hi LineNr ctermfg=black ctermbg=35
+" Color linenumber column text and background colors
+" green background, black text
+"hi LineNr ctermfg=black ctermbg=35
+" black background, white text
+hi LineNr ctermfg=255 ctermbg=0
 
 " Set cursor line highlight color
 hi CursorLine cterm=NONE ctermbg=24 guibg=darkred
@@ -239,7 +242,7 @@ let g:airline_symbols_ascii = 1
 let g:gitgutter_override_sign_column_highlight = 0
 " make gutter black
 hi SignColumn ctermbg=0
-let g:gitgutter_enabled = 0
+let g:gitgutter_enabled = 1
 nnoremap <leader>gg :GitGutterToggle<CR>
 
 ""
