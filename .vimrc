@@ -39,6 +39,7 @@ call plug#begin('~/.vim/bundle')
 " Plug 'junegunn/fzf.vim'
 " Plug 'vim-airline/vim-airline'
 " Plug 'vim-airline/vim-airline-themes'
+" Plug 'ap/vim-buftabline'
 " "
 " " ----------- git
 " Plug 'tpope/vim-fugitive'
@@ -110,6 +111,7 @@ set splitbelow   " More logical window splits
 set splitright
 set pumheight=10    " Completion window max size
 set backspace=indent,eol,start  "fix backspace in insert mode
+set hidden
 
 set noswapfile
 set nobackup
@@ -181,7 +183,8 @@ imap qq <ESC>
 
 " remap 'recording' so it stops popping up
 nnoremap q <Nop>
-nnoremap <Leader>q q
+nnoremap <Leader>r q
+nnoremap <leader>q :bd<CR>
 
 " Map ctrl+J/K/L/H to change between split windows
 nnoremap <C-J> <C-W><C-J>
@@ -236,6 +239,23 @@ nnoremap N Nzzzv
 " Airline and tmuxline setings
 let g:airline_symbols_ascii = 1
 "let g:airline_theme='deus'
+
+" vim-buftabline
+let g:buftabline_indicators = 1
+let g:buftabline_numbers = 2
+nnoremap gr :bnext<CR>
+nnoremap gR :bprev<CR>
+nnoremap <leader>l :ls<CR>
+nmap <leader>1 <Plug>BufTabLine.Go(1)
+nmap <leader>2 <Plug>BufTabLine.Go(2)
+nmap <leader>3 <Plug>BufTabLine.Go(3)
+nmap <leader>4 <Plug>BufTabLine.Go(4)
+nmap <leader>5 <Plug>BufTabLine.Go(5)
+nmap <leader>6 <Plug>BufTabLine.Go(6)
+nmap <leader>7 <Plug>BufTabLine.Go(7)
+nmap <leader>8 <Plug>BufTabLine.Go(8)
+nmap <leader>9 <Plug>BufTabLine.Go(9)
+nmap <leader>0 <Plug>BufTabLine.Go(10)
 
 " gitgutter settings
 " disable making the sign column look like the line number column
@@ -320,7 +340,6 @@ autocmd FileType go nmap <leader>gob :<C-u>call <SID>build_go_files()<CR>
 " Rust
 " (vim-racer)
 " -- use C-x-C-o, will autocomplete with ycm
-set hidden
 let g:racer_cmd = "racer"
 let g:racer_experimental_completer = 1
 " RUST_SRC_PATH should be specified in .bashrc
