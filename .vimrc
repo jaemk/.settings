@@ -184,7 +184,6 @@ imap qq <ESC>
 " remap 'recording' so it stops popping up
 nnoremap q <Nop>
 nnoremap <Leader>r q
-nnoremap <leader>q :bd<CR>
 
 " Map ctrl+J/K/L/H to change between split windows
 nnoremap <C-J> <C-W><C-J>
@@ -240,12 +239,16 @@ nnoremap N Nzzzv
 let g:airline_symbols_ascii = 1
 "let g:airline_theme='deus'
 
-" vim-buftabline
+" Buftabline
 let g:buftabline_indicators = 1
 let g:buftabline_numbers = 2
+" list buffers
+nnoremap <leader>l :ls<CR>
+" close buffer
+nnoremap <leader>q :bd<CR>
+" navigate buffers
 nnoremap gr :bnext<CR>
 nnoremap gR :bprev<CR>
-nnoremap <leader>l :ls<CR>
 nmap <leader>1 <Plug>BufTabLine.Go(1)
 nmap <leader>2 <Plug>BufTabLine.Go(2)
 nmap <leader>3 <Plug>BufTabLine.Go(3)
