@@ -243,9 +243,10 @@ let g:airline_symbols_ascii = 1
 let g:buftabline_indicators = 1
 let g:buftabline_numbers = 2
 " list buffers
-nnoremap <leader>l :ls<CR>
+nnoremap <leader>l :ls<CR>:b
 " close buffer
 nnoremap <leader>q :bd<CR>
+nnoremap <leader>Q :bd!<CR>
 " navigate buffers
 nnoremap gr :bnext<CR>
 nnoremap gR :bprev<CR>
