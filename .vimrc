@@ -218,7 +218,7 @@ vnoremap d/ y:Ack "def <C-R>""<CR>
 vnoremap c/ y:Ack "class <C-R>""<CR>
 
 " NERDTree sidebar toggle (Requires NERDTree plugin) (lower-case L)
-map <Leader>l :NERDTreeToggle<CR>
+map <Leader>L :NERDTreeToggle<CR>
 
 " Paste Mode On/Off
 set pastetoggle=<Leader>p
