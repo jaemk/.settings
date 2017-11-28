@@ -196,14 +196,15 @@ nnoremap <Leader>w+ <C-W>+
 nnoremap <Leader>w- <C-W>-
 
 " FZF!
-map <leader>F :Files<CR>
-nnoremap <leader>f :Find<space>
+nnoremap <leader>f :Files<CR>
+nnoremap <leader>F :Find<CR>
 vnoremap <leader>f y:Find <C-R>"<CR>
 command! -bang -nargs=* Find call fzf#vim#grep( 'rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --color "always" '.shellescape(<q-args>), 1, <bang>0)
 
 " Make Ack.vim use ripgrep!
 let g:ackprg = 'rg --vimgrep'
-map <leader>rg :Ack<space>
+nnoremap <leader>rg :Ack<space>
+vnoremap <leader>rg y:Ack <C-R>"<CR>
 
 " Map // to search current file for visually selected text
 vnoremap // y/<C-R>"<CR>
