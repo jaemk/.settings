@@ -196,8 +196,10 @@ nnoremap <Leader>w+ <C-W>+
 nnoremap <Leader>w- <C-W>-
 
 " FZF!
-nnoremap <leader>f :Files<CR>
-nnoremap <leader>F :Find<CR>
+nnoremap <leader>e :Files<CR>
+nnoremap <leader>E :Files<space>
+nnoremap <leader>f :Find<CR>
+nnoremap <leader>F :Find<space>
 vnoremap <leader>f y:Find <C-R>"<CR>
 command! -bang -nargs=* Find call fzf#vim#grep( 'rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --color "always" '.shellescape(<q-args>), 1, <bang>0)
 
