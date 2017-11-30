@@ -198,10 +198,12 @@ nnoremap <Leader>w- <C-W>-
 " FZF!
 nnoremap <leader>e :Files<CR>
 nnoremap <leader>E :Files<space>
+nnoremap f/ :FindHere<CR>
 nnoremap <leader>f :Find<CR>
 nnoremap <leader>F :Find<space>
 vnoremap <leader>f y:Find <C-R>"<CR>
 command! -bang -nargs=* Find call fzf#vim#grep( 'rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --color "always" --glob "!.git/objects" '.shellescape(<q-args>), 1, <bang>0)
+command! -bang -nargs=* FindHere call fzf#vim#grep( 'rg --glob '.shellescape(@%).' --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --color "always" --glob "!.git/objects" '.shellescape(<q-args>), 1, <bang>0)
 
 " Make Ack.vim use ripgrep!
 let g:ackprg = 'rg --vimgrep'
