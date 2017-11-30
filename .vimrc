@@ -220,11 +220,14 @@ vnoremap d/ y:Ack "def <C-R>""<CR>
 " Map c/ to ack for class definition (python)
 vnoremap c/ y:Ack "class <C-R>""<CR>
 
-" NERDTree sidebar toggle (Requires NERDTree plugin) (lower-case L)
+" NERDTree sidebar toggle (Requires NERDTree plugin)
 map <Leader>L :NERDTreeToggle<CR>
 
 " Paste Mode On/Off
 set pastetoggle=<Leader>p
+
+" Toggle line wrap
+nnoremap <leader>[ :set wrap!<CR>
 
 " Act like D and C
 nnoremap Y y$
@@ -251,8 +254,8 @@ nnoremap <leader>l :ls<CR>:b
 nnoremap <leader>q :bd<CR>
 nnoremap <leader>Q :bd!<CR>
 " navigate buffers
-nnoremap gr :bnext<CR>
-nnoremap gR :bprev<CR>
+nnoremap fe :bnext<CR>
+nnoremap fE :bprev<CR>
 nmap <leader>1 <Plug>BufTabLine.Go(1)
 nmap <leader>2 <Plug>BufTabLine.Go(2)
 nmap <leader>3 <Plug>BufTabLine.Go(3)
