@@ -14,21 +14,29 @@ if BOOST_ROOT:
 # Set default flags
 DEFAULT_FLAGS = [
     '-Wall',
-    '-Wall',
     '-Wextra',
     '-Werror',
     '-Warray-bounds',
     '-Wpedantic',
-    '-std=c++11',
-    '-stdlib=libc++',
-    '-x',
-    'c++',
     '-I/usr/include',
     '-I/usr/lib',
     '-I/usr/local/include',
     '-I/usr/local/lib',
     '-Iinclude/',
     '-Llibs/',
+]
+
+C_FLAGS = [
+    '-std=c99',
+    '-x',
+    'c',
+]
+
+CPP_FLAGS = [
+    '-std=c++11',
+    '-stdlib=libc++',
+    '-x',
+    'c++',
     BOOST_INCLUDE,
     BOOST_LIB,
 ]
@@ -61,13 +69,30 @@ def _load_cmake_compile_flags(dir_):
 
 
 def FlagsForFile(filename, **kwargs):
+    if filename.endswith('.cpp'):
+        flags = CPP_FLAGS
+    elif filename.endswith('.c'):
+        flags = C_FLAGS
+    else:
+        flags = []
+    flags.extend(DEFAULT_FLAGS)
+
     cmake_dir = _find_cmake_dir(os.path.dirname(filename))
     if cmake_dir:
         cmake_flags = _load_cmake_compile_flags(cmake_dir)
         if cmake_flags:
-            DEFAULT_FLAGS.extend(cmake_flags)
+            flags.extend(cmake_flags)
 
     return {
-        'flags': DEFAULT_FLAGS,
+        'flags': flags,
     }
+
+
+if __name__ == '__main__':
+    import sys
+    args = sys.argv[1:]
+    f = ''
+    if args:
+        f = args[0]
+    print(FlagsForFile(f))
 

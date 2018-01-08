@@ -360,8 +360,8 @@ let g:ycm_rust_src_path = $RUST_SRC_PATH
 " doc string shortcut
 autocmd FileType rust nnoremap <leader>a O///<space>
 
-" YouCompleteMe Cpp
-let g:ycm_global_ycm_extra_conf = '~/.settings/.ycm_extra_conf.py'
+" YouCompleteMe C/Cpp
+autocmd FileType cpp,c let g:ycm_global_ycm_extra_conf = '~/.settings/.ycm_extra_conf.py'
 
 " Gundo
 nnoremap <leader>u :GundoToggle<CR>
