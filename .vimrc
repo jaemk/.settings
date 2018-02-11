@@ -507,8 +507,10 @@ func! s:pairform(start, close, pair_ok, is_lispy, is_html_like)
     let l:line = getline('.')
     let l:chr = l:line[l:col-1]
     let l:prev = l:line[l:col-2]
-    if a:start == "<" && l:prev == " "
-        return a:start
+    if a:start == "<"
+        if l:prev == "<" || l:prev == " "
+            return a:start
+        endif
     endif
     if len(l:chr) > 0 && a:is_lispy == 0
         if index(a:pair_ok, l:chr) < 0
