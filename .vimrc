@@ -226,7 +226,9 @@ vnoremap c/ y:Ack "class <C-R>""<CR>
 map <Leader>L :NERDTreeToggle<CR>
 
 " Paste Mode On/Off
-set pastetoggle=<Leader>p
+set pastetoggle=<Leader>P
+map <leader>y "+y
+map <leader>p "+p
 
 " Toggle line wrap
 nnoremap <leader>[ :set wrap!<CR>
