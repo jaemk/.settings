@@ -10,6 +10,12 @@ alias cp='cp -i'
 #WORK_GIT_KEY='secretkeyname'
 #alias workgit="GIT_SSH_COMMAND='ssh -i ~/.ssh/$WORK_GIT_KEY' git"
 
+#alias we=watchexec
+#
+#if command -v exa >/dev/null 2>&1; then
+#    alias l=exa
+#fi
+
 set -o vi
 export VISUAL=vim
 export EDITOR="$VISUAL"
