@@ -24,3 +24,7 @@ dark-red: fe88b3
 # multiple tmux sessions on same window group
 tmux new-session -s main         # first session with name 'main'
 tmux new-session -t main -s aug  # create second session with name 'aug', attach to 'main'
+
+# vim pad line with whitespace
+:%s/$/\=repeat(' ', 64-virtcol('$'))
+
