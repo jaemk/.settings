@@ -1,5 +1,20 @@
 ## stuff to append to .bashrc
 
+if command -v watchexec >/dev/null 2>&1; then
+    alias we='watchexec'
+fi
+if command -v exa >/dev/null 2>&1; then
+    alias ls='exa'
+fi
+if command -v docker-compose >/dev/null 2>&1; then
+    alias dcomp='docker-compose'
+fi
+if command -v nvim >/dev/null 2>&1; then
+    alias vim='nvim'
+fi
+
+
+alias l='ls'
 # make destructive things interactive
 alias ll='ls -l'
 alias rm='rm -i'
@@ -10,17 +25,15 @@ alias cp='cp -i'
 #WORK_GIT_KEY='secretkeyname'
 #alias workgit="GIT_SSH_COMMAND='ssh -i ~/.ssh/$WORK_GIT_KEY' git"
 
-#alias we=watchexec
-#
-#if command -v exa >/dev/null 2>&1; then
-#    alias l=exa
-#fi
 
 set -o vi
 export VISUAL=vim
 export EDITOR="$VISUAL"
 export TERM=xterm-256color
-PATH=$PATH:~/bin
+
+# postgres
+# mac only
+#PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.6/bin
 
 # For node/npm, assumes node binaries have been unpacked into ~/bin/node
 PATH=$PATH:~/bin/node/bin
@@ -28,9 +41,17 @@ PATH=$PATH:~/bin/node/bin
 # For rustup, to access any binaries install via `cargo install`
 export PATH="$HOME/.cargo/bin:$PATH"
 
+PATH=$PATH:~/bin
+
 # For rust-racer, if rust source is managed by rustup
 #  `rustup component add rust-src`
 export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+
+# For python/jedi ycm -- set the default location for the jedi env
+# mac
+#export PYTHON_JEDI_PATH="/Users/james/bin/envs/jedi/bin/python"
+# linux
+#export PYTHON_JEDI_PATH="/home/james/bin/envs/jedi/bin/python"
 
 # FZF use ripgrep & ctrl-p to open in vim from the shell
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/objects"'
@@ -38,9 +59,10 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 bind -x '"\C-p": vim $(fzf);'
 
 # For Go...
-export GOROOT="~/.installs/go"   # install location
-export PATH=$PATH:$GOROOT/bin   # ^^
 export GOPATH=$HOME/projects/go # default go working dir
+export GOROOT=$GOPATH   # install location
+export PATH=$PATH:$GOROOT/bin   # ^^
+export PATH=$PATH:$GOPATH/bin   # ^^
 
 # For boost
 #export BOOST_ROOT="/home/james/.installs/boost_1_65_0"
@@ -83,3 +105,7 @@ export GOPATH=$HOME/projects/go # default go working dir
 #    -v "$PWD:/volume" -w /volume \
 #    --rm -it clux/muslrust cargo build --release
 #}
+
+# auto-env mac
+#source $(brew --prefix autoenv)/activate.sh
+
