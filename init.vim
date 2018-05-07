@@ -82,7 +82,8 @@ let g:python3_host_prog = '/Users/james/bin/envs/nvim/bin/python'
 " linting env
 let g:syntastic_python_python_exec = '~/bin/env/flake8/bin/python'
 " autocomplete env
-let g:ycm_python_binary_path = '/Users/james/bin/envs/jedi/bin/python'
+" let g:ycm_python_binary_path = '/Users/james/bin/envs/jedi/bin/python'
+let g:ycm_python_binary_path = $PYTHON_JEDI_PATH
 
 
 "" ---- Regular settings -----
@@ -250,6 +251,12 @@ nnoremap N Nzzzv
 "vnoremap <C-t> :<C-U>UPaste<CR>
 
 "" ----- Plugin settings ------
+" vim easy align
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
 " Airline and tmuxline setings
 let g:airline_symbols_ascii = 1
 "let g:airline_theme='deus'
