@@ -134,6 +134,9 @@ set lcs=tab:»*
 set lcs+=trail:*
 set listchars+=precedes:<,extends:>
 
+" When returning to a file, return to the line you were on at exit
+autocmd BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
+
 if has('persistent_undo')
     set undofile
     set undodir=~/.config/vim/tmp/undo//
