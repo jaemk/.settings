@@ -176,7 +176,7 @@ hi LineNr ctermfg=255 ctermbg=0
 " Set cursor line highlight color
 hi CursorLine cterm=NONE ctermbg=24 guibg=darkred
 
-" Make strings grey instead of purple
+" Make strings green instead of purple
 hi String ctermfg=42
 
 " make comments grey
@@ -185,8 +185,11 @@ hi Comment ctermfg=246
 " Set tab line background black
 hi TabLineFill cterm=bold ctermbg=0
 
+" Set function items color so highlighting can modify the fg color
+hi Function cterm=NONE ctermfg=45
+
 " Set search highlight colors
-hi Search ctermfg=0 ctermbg=lightGray
+hi Search ctermfg=0 ctermbg=8
 
 
 "" ----- Bindings -------
