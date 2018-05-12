@@ -186,7 +186,7 @@ hi Comment ctermfg=246
 hi TabLineFill cterm=bold ctermbg=0
 
 " Set function items color so highlighting can modify the fg color
-hi Function cterm=NONE ctermfg=45
+hi Function cterm=NONE ctermfg=87
 
 " Set search highlight colors
 hi Search ctermfg=0 ctermbg=8
