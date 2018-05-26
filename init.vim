@@ -71,6 +71,7 @@ Plug 'mxw/vim-jsx'
 Plug 'heavenshell/vim-jsdoc'
 Plug 'octol/vim-cpp-enhanced-highlight'
 "" Plug 'vim-scripts/groovy.vim'
+Plug 'jparise/vim-graphql'
 call plug#end()
 
 " Set <Leader>
