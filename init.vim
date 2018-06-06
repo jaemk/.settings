@@ -321,13 +321,25 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 2
-let g:syntastic_check_on_open = 0
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_rust_checkers = ['rustc']
 let g:syntastic_python_checkers = ['flake8', 'mypy']
-let g:syntastic_python_flake8_quiet_messages = { 'regex' : ['E501', 'W391', 'E301', 'E221', 'E266', 'E127', 'E128', 'E114', 'E116', 'E502', 'E124'] }
-let g:syntastic_mode_map = {'mode': 'passive'}
+" -- Flake8 config stuff
+" E501 - line length
+" W391 - allow trailing new ilnes
+" E221 - allow multiple spaces before operators
+" E222 - allow multiple spaces after operators
+" E124 - allow closing bracket to not match visual indent
+" -- Set default ignored codes
+" - Harsh
+let g:syntastic_python_flake8_quiet_messages = { 'regex' : ['E501', 'E221'] }
+" - Permissive
+" let g:syntastic_python_flake8_quiet_messages = { 'regex' : ['E501', 'W391', 'E301', 'E221', 'E266', 'E127', 'E128', 'E114', 'E116', 'E502', 'E124'] }
+" -- Look for a project specific config / set default line length
+let g:syntastic_python_flake8_args = '--config=setup.cfg --max-line-length=120'
+let g:syntastic_mode_map = {'mode': 'active'}
 nnoremap <Leader>cr :SyntasticReset<CR>
 nnoremap <Leader>cs :SyntasticCheck flake8<CR>
 nnoremap <Leader>cc :SyntasticCheck mypy<CR>
