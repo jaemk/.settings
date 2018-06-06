@@ -418,8 +418,8 @@ nnoremap <Leader>gc :Conflicted
 nnoremap <Leader>gn :GitNextConflict
 
 " xml/json auto formatting
-vnoremap <Leader>Fx :!xmllint --format -<CR>
-vnoremap <Leader>Fj :!jq "." -M<CR>
+vnoremap <Leader>ox :!xmllint --format -<CR>
+vnoremap <Leader>oj :!jq "." -M<CR>
 
 " python
 let python_highlight_all = 1
