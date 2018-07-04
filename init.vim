@@ -82,7 +82,8 @@ let mapleader=","
 let g:python_host_prog = '/Users/james/bin/envs/nvim2/bin/python'
 let g:python3_host_prog = '/Users/james/bin/envs/nvim/bin/python'
 " linting env
-let g:syntastic_python_python_exec = '~/bin/env/flake8/bin/python'
+" let g:syntastic_python_python_exec = '~/bin/env/flake8/bin/python'
+let g:syntastic_python_python_exec = $PYTHON_FLAKE8_PATH
 " autocomplete env
 " let g:ycm_python_binary_path = '/Users/james/bin/envs/jedi/bin/python'
 let g:ycm_python_binary_path = $PYTHON_JEDI_PATH
@@ -130,10 +131,18 @@ set hidden
 set noswapfile
 set nobackup
 
+" mouse support off
+"set mouse=
+" mouse support on
+set mouse=a
+
 " Setting list makes you see the list chars (lcs) This is good for makefiles and Python code, but little else
 set lcs=tab:»*
 set lcs+=trail:*
 set listchars+=precedes:<,extends:>
+
+set colorcolumn=121
+hi ColorColumn ctermbg=lightgrey
 
 " When returning to a file, return to the line you were on at exit
 autocmd BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
@@ -268,6 +277,9 @@ xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
+" undo alignment in visual selection
+vnoremap <leader>ga :s/\(\w\S*\s\)\s\+/\1/g<CR>
+
 " Airline and tmuxline setings
 let g:airline_symbols_ascii = 1
 "let g:airline_theme='deus'
@@ -334,7 +346,7 @@ let g:syntastic_python_checkers = ['flake8', 'mypy']
 " E124 - allow closing bracket to not match visual indent
 " -- Set default ignored codes
 " - Harsh
-let g:syntastic_python_flake8_quiet_messages = { 'regex' : ['E501', 'E221'] }
+let g:syntastic_python_flake8_quiet_messages = { 'regex' : ['E221'] }
 " - Permissive
 " let g:syntastic_python_flake8_quiet_messages = { 'regex' : ['E501', 'W391', 'E301', 'E221', 'E266', 'E127', 'E128', 'E114', 'E116', 'E502', 'E124'] }
 " -- Look for a project specific config / set default line length
