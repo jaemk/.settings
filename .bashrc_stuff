@@ -53,6 +53,12 @@ export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 # linux
 #export PYTHON_JEDI_PATH="/home/james/bin/envs/jedi/bin/python"
 
+# For syntastic python -- set the default location for the flake8 env
+# mac
+#export PYTHON_FLAKE8_PATH="/Users/james/bin/envs/flake8/bin/python"
+# linux
+#export PYTHON_FLAKE8_PATH="/home/james/bin/envs/flake8/bin/python"
+
 # FZF use ripgrep & ctrl-p to open in vim from the shell
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/objects"'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -78,12 +84,12 @@ export PATH=$PATH:$GOPATH/bin   # ^^
 
 #~ Git things:
 #~ See https://github.com/git/git/tree/master/contrib/completion
-function __init_git_stuff {
-    # branch prompt
-    #source ~/bin/git-prompt.sh
-    # branch completion -- may error out
-    #source ~/bin/git-completions.bash
-}
+# function __init_git_stuff {
+#     # branch prompt
+#     source ~/bin/git-prompt.sh
+#     # branch completion -- may error out
+#     source ~/bin/git-completions.bash
+# }
 
 
 #~ If we're in a plexed shell, set the mltplxr's session id
