@@ -20,7 +20,8 @@ Plug 'euclio/vim-markdown-composer'
 Plug 'Valloric/YouCompleteMe'
 " "
 " " ----------- linting
-Plug 'scrooloose/syntastic'
+" Plug 'scrooloose/syntastic'
+Plug 'w0rp/ale'
 " "
 " " ----------- misc util
 Plug 'junegunn/vim-easy-align'
@@ -44,6 +45,7 @@ Plug 'vim-airline/vim-airline'
 "" Plug 'vim-airline/vim-airline-themes'
 Plug 'ap/vim-buftabline'
 Plug 'jalvesaq/vimcmdline'
+Plug 'prakashdanish/vim-githubinator'
  "
  " ----------- git
 Plug 'tpope/vim-fugitive'
@@ -79,8 +81,10 @@ let mapleader=","
 
 "" -- Python Envs
 " neovim envs
-let g:python_host_prog = '/Users/james/bin/envs/nvim2/bin/python'
-let g:python3_host_prog = '/Users/james/bin/envs/nvim/bin/python'
+" let g:python_host_prog = '/Users/james/bin/envs/nvim2/bin/python'
+" let g:python3_host_prog = '/Users/james/bin/envs/nvim/bin/python'
+let g:python_host_prog = '/home/james/bin/envs/nvim2/bin/python'
+let g:python3_host_prog = '/home/james/bin/envs/nvim/bin/python'
 " linting env
 " let g:syntastic_python_python_exec = '~/bin/env/flake8/bin/python'
 let g:syntastic_python_python_exec = $PYTHON_FLAKE8_PATH
@@ -326,6 +330,18 @@ let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.js'
 "" vim-colors-solarized stuff
 " let g:solarized_termcolors=256
 " colorscheme solarized
+
+" Ale settings
+let g:ale_python_flake8_options = '--config=setup.cfg --max-line-length=120'
+let g:ale_open_list = 1
+let g:ale_list_window_size = 5
+let g:ale_linters_explicit = 1
+let g:ale_linters = {
+\    'python': ['flake8'],
+\}
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
 " Syntastic settings
 " - make sure flake8 env exists (listed up top)
