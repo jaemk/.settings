@@ -36,16 +36,19 @@ export TERM=xterm-256color
 #PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.6/bin
 
 # For node/npm, assumes node binaries have been unpacked into ~/bin/node
-PATH=$PATH:~/bin/node/bin
+export PATH=$PATH:~/bin/node/bin
+export PATH=$PATH:~/.node_modules/bin
 
 # For rustup, to access any binaries install via `cargo install`
 export PATH="$HOME/.cargo/bin:$PATH"
 
-PATH=$PATH:~/bin
+export PATH=$PATH:~/bin
 
 # For rust-racer, if rust source is managed by rustup
 #  `rustup component add rust-src`
 export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+# `rustup toolchain add nightly && cargo +nightly install racer`
+export RACER_PATH="$(which racer)"
 
 # For python/jedi ycm -- set the default location for the jedi env
 # mac
@@ -55,9 +58,9 @@ export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 
 # For syntastic python -- set the default location for the flake8 env
 # mac
-#export PYTHON_FLAKE8_PATH="/Users/james/bin/envs/flake8/bin/python"
+#export PYTHON_FLAKE8_PATH="/Users/james/bin/envs/flake8/bin/flake8"
 # linux
-#export PYTHON_FLAKE8_PATH="/home/james/bin/envs/flake8/bin/python"
+#export PYTHON_FLAKE8_PATH="/home/james/bin/envs/flake8/bin/flake8"
 
 # FZF use ripgrep & ctrl-p to open in vim from the shell
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/objects"'

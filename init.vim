@@ -10,17 +10,16 @@
 " "   go to ~/.local/share/nvim/plugged/vim-markdown-composer
 " "       cargo build --release --no-default-features --features json-rpc
 " "
-" " cargo install racer
-" " install rust-src from rustup
-" " setup nvim & jedi venvs
-" "
 call plug#begin('~/.local/share/nvim/plugged')
 " " ----------- extra building required
 Plug 'euclio/vim-markdown-composer'
-Plug 'Valloric/YouCompleteMe'
+" Plug 'Valloric/YouCompleteMe'
+Plug 'Shougo/deoplete.nvim'
+Plug 'zchee/deoplete-jedi'
+Plug 'sebastianmarkow/deoplete-rust'
+Plug 'Shougo/echodoc.vim'
 " "
 " " ----------- linting
-" Plug 'scrooloose/syntastic'
 Plug 'w0rp/ale'
 " "
 " " ----------- misc util
@@ -85,12 +84,6 @@ let mapleader=","
 " let g:python3_host_prog = '/Users/james/bin/envs/nvim/bin/python'
 let g:python_host_prog = '/home/james/bin/envs/nvim2/bin/python'
 let g:python3_host_prog = '/home/james/bin/envs/nvim/bin/python'
-" linting env
-" let g:syntastic_python_python_exec = '~/bin/env/flake8/bin/python'
-let g:syntastic_python_python_exec = $PYTHON_FLAKE8_PATH
-" autocomplete env
-" let g:ycm_python_binary_path = '/Users/james/bin/envs/jedi/bin/python'
-let g:ycm_python_binary_path = $PYTHON_JEDI_PATH
 
 
 "" ---- Regular settings -----
@@ -241,6 +234,10 @@ let g:ackprg = 'rg --vimgrep'
 nnoremap <leader>rg :Ack<space>
 vnoremap <leader>rg y:Ack <C-R>"<CR>
 
+" Close quickfix and preview windows
+nnoremap <leader>cq :cclose<CR>
+nnoremap <leader>pq :pclose<CR>
+
 " Map // to search current file for visually selected text
 vnoremap // y/<C-R>"<CR>
 
@@ -334,7 +331,8 @@ let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.js'
 " Ale settings
 let g:ale_python_flake8_options = '--config=setup.cfg --max-line-length=120'
 let g:ale_open_list = 1
-let g:ale_list_window_size = 5
+let g:ale_keep_list_window_open = 1
+let g:ale_list_window_size = 2
 let g:ale_linters_explicit = 1
 let g:ale_linters = {
 \    'python': ['flake8'],
@@ -343,35 +341,6 @@ let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
-" Syntastic settings
-" - make sure flake8 env exists (listed up top)
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_rust_checkers = ['rustc']
-let g:syntastic_python_checkers = ['flake8', 'mypy']
-" -- Flake8 config stuff
-" E501 - line length
-" W391 - allow trailing new ilnes
-" E221 - allow multiple spaces before operators
-" E222 - allow multiple spaces after operators
-" E124 - allow closing bracket to not match visual indent
-" -- Set default ignored codes
-" - Harsh
-let g:syntastic_python_flake8_quiet_messages = { 'regex' : ['E221'] }
-" - Permissive
-" let g:syntastic_python_flake8_quiet_messages = { 'regex' : ['E501', 'W391', 'E301', 'E221', 'E266', 'E127', 'E128', 'E114', 'E116', 'E502', 'E124'] }
-" -- Look for a project specific config / set default line length
-let g:syntastic_python_flake8_args = '--config=setup.cfg --max-line-length=120'
-let g:syntastic_mode_map = {'mode': 'active'}
-nnoremap <Leader>cr :SyntasticReset<CR>
-nnoremap <Leader>cs :SyntasticCheck flake8<CR>
-nnoremap <Leader>cc :SyntasticCheck mypy<CR>
-nnoremap <Leader>cm :SyntasticToggleMode<CR>
 nnoremap <Leader>cn :lnext<CR>
 nnoremap <Leader>cp :lprevious<CR>
 
@@ -406,19 +375,25 @@ function! s:build_go_files()
 endfunction
 autocmd FileType go nmap <leader>gob :<C-u>call <SID>build_go_files()<CR>
 
-" python
-" - make sure jedi env exists (listed up top)
-" let g:ycm_filetype_blacklist = { 'python': 1 }
 
-" Rust
-" (vim-racer)
-" -- use C-x-C-o, will autocomplete with ycm
-let g:racer_cmd = "racer"
-let g:racer_experimental_completer = 1
-" RUST_SRC_PATH should be specified in .bashrc
-" YouCompleteMe Rust
-let g:ycm_rust_src_path = $RUST_SRC_PATH
-" doc string shortcut
+" Enable echo doc
+let g:echodoc#enable_at_startup = 1
+
+" Enable deoplete and tab-complete
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
+" autoclose doc
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+let g:deoplete#enable_at_startup = 1
+
+" python completion
+" - make sure jedi is installed in the env (virtual or system (--user))
+let g:deoplete#sources#jedi#show_docstring = 1
+let g:jedi#completions_enabled = 1
+
+" Rust completion
+let g:deoplete#sources#rust#racer_binary = $RACER_PATH
+let g:deoplete#sources#rust#rust_source_path = $RUST_SRC_PATH
 autocmd FileType rust nnoremap <leader>a O///<space>
 
 " YouCompleteMe C/Cpp
