@@ -294,8 +294,16 @@ nnoremap <leader>L :ls<CR>:b
 nnoremap <leader>q :bd<CR>
 nnoremap <leader>Q :bd!<CR>
 " navigate buffers
-nnoremap fe :bnext<CR>
-nnoremap fE :bprev<CR>
+" nnoremap fe :bnext<CR>
+" nnoremap fE :bprev<CR>
+func! NextBuf(cmd)
+    execute a:cmd
+    while &buftype == 'quickfix'
+        execute a:cmd
+    endwhile
+endfunc
+nnoremap fe :call NextBuf(':bnext')<CR>
+nnoremap fE :call NextBuf(':bprev')<CR>
 nmap <leader>1 <Plug>BufTabLine.Go(1)
 nmap <leader>2 <Plug>BufTabLine.Go(2)
 nmap <leader>3 <Plug>BufTabLine.Go(3)
