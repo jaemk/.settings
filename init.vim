@@ -337,14 +337,18 @@ let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.js'
 " colorscheme solarized
 
 " Ale settings
+let g:ale_linters = {
+\    'python': ['flake8'],
+\    'rust': ['rls'],
+\}
 let g:ale_python_flake8_options = '--config=setup.cfg --max-line-length=120'
+let g:ale_rust_rls_executable = 'rls'
+let g:ale_rust_rls_toolchain = 'stable'
+
 let g:ale_open_list = 1
 let g:ale_keep_list_window_open = 1
 let g:ale_list_window_size = 2
 let g:ale_linters_explicit = 1
-let g:ale_linters = {
-\    'python': ['flake8'],
-\}
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
