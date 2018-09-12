@@ -65,7 +65,11 @@ export RACER_PATH="$(which racer)"
 # FZF use ripgrep & ctrl-p to open in vim from the shell
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/objects"'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-bind -x '"\C-p": vim $(fzf);'
+if command -v bat >/dev/null 2>&1; then
+    bind -x '"\C-p": vim $(fzf --preview '"'bat --color \"always\" {}'"');'
+else
+    bind -x '"\C-p": vim $(fzf);'
+fi
 
 # For Go...
 export GOPATH=$HOME/projects/go # default go working dir
