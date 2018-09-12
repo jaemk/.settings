@@ -14,7 +14,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 " " ----------- extra building required
 Plug 'euclio/vim-markdown-composer'
 " Plug 'Valloric/YouCompleteMe'
-Plug 'Shougo/deoplete.nvim'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-jedi'
 Plug 'sebastianmarkow/deoplete-rust'
 Plug 'Shougo/echodoc.vim'
@@ -73,6 +73,8 @@ Plug 'heavenshell/vim-jsdoc'
 Plug 'octol/vim-cpp-enhanced-highlight'
 "" Plug 'vim-scripts/groovy.vim'
 Plug 'jparise/vim-graphql'
+Plug 'elixir-editors/vim-elixir'
+Plug 'slashmili/alchemist.vim'
 call plug#end()
 
 " Set <Leader>
@@ -356,8 +358,33 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 nnoremap <Leader>cn :lnext<CR>
 nnoremap <Leader>cp :lprevious<CR>
 
+" Enable echo doc
+let g:echodoc#enable_at_startup = 1
+
+" Enable deoplete and tab-complete
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
+" autoclose doc
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#ignore_sources = {}
+let g:deoplete#auto_complete_delay = 0
+let g:deoplete#keyword_patterns = {}
+
 " Clojure
-"autocmd FileType clojure nmap <leader>r :Require!<CR>
+autocmd FileType clojure nmap <leader>r :Require!<CR>
+autocmd FileType clojure nmap <leader>t :RunTests<CR>
+" Disable mapping hooks
+let g:sexp_filetypes = ''
+function! s:vim_sexp_mappings()
+    nmap <silent><buffer> <leader>b         <Plug>(sexp_capture_prev_element)
+    nmap <silent><buffer> <leader>B         <Plug>(sexp_emit_head_element)
+    nmap <silent><buffer> <leader>a         <Plug>(sexp_capture_next_element)
+    nmap <silent><buffer> <leader>A         <Plug>(sexp_emit_tail_element)
+    nmap <silent><buffer> <leader>x         <Plug>(sexp_splice_list)
+endfunction
+autocmd FileType clojure,scheme,lisp,timl call s:vim_sexp_mappings()
+let g:deoplete#keyword_patterns.clojure = '[\w!$%&*+/:<=>?@\^_~\-\.#]*'
 
 " Go
 let g:go_highlight_functions = 1
@@ -366,10 +393,6 @@ let g:go_highlight_fields = 1
 let g:go_highlight_types = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
-
-map <Leader>ne :cnext<CR>
-map <Leader>pe :cprevious<CR>
-nnoremap <Leader>ce :cclose<CR>
 
 autocmd FileType go nmap <leader>gr  <Plug>(go-run)
 autocmd FileType go nmap <leader>gt  <Plug>(go-test)
@@ -386,17 +409,6 @@ function! s:build_go_files()
   endif
 endfunction
 autocmd FileType go nmap <leader>gob :<C-u>call <SID>build_go_files()<CR>
-
-
-" Enable echo doc
-let g:echodoc#enable_at_startup = 1
-
-" Enable deoplete and tab-complete
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
-" autoclose doc
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-let g:deoplete#enable_at_startup = 1
 
 " python completion
 " - make sure jedi is installed in the env (virtual or system (--user))
@@ -440,6 +452,8 @@ vnoremap <Leader>oj :!jq "." -M<CR>
 let python_highlight_all = 1
 " doc string shortcut
 autocmd FileType python nnoremap <leader>a o""""""<ESC>hhi<CR><CR><ESC>kA
+au FileType python nnoremap <leader>bb Oimport pdb; pdb.set_trace()<esc>
+au FileType python nnoremap <leader>bt Ofrom nose.tools import set_trace(); set_trace()<esc>
 
 " cpp
 let g:cpp_class_scope_highlight = 1
@@ -448,6 +462,10 @@ let g:cpp_class_decl_highlight = 1
 let g:cpp_experimental_simple_template_highlight = 1
 " doc string shortcut
 autocmd FileType cpp nnoremap <leader>a O/*<CR>/<ESC>kA<space>
+
+" elixir
+" doc string shortcut
+autocmd FileType elixir nnoremap <leader>a O@doc<space>""""""<esc>hhi<cr><esc>O
 
 "" ----- other File specifics ------
 ""
