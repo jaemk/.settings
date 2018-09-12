@@ -98,6 +98,8 @@ export PATH=$PATH:$GOPATH/bin   # ^^
 #     source ~/bin/git-completions.bash
 # }
 
+# git-completions may error out
+#__init_git_stuff
 
 #~ If we're in a plexed shell, set the mltplxr's session id
 #plexed_id=""
@@ -127,7 +129,4 @@ export PATH=$PATH:$GOPATH/bin   # ^^
 
 # auto-env mac
 #source $(brew --prefix autoenv)/activate.sh
-
-# git-completions may error out
-#__init_git_stuff
 
