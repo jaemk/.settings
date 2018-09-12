@@ -130,3 +130,15 @@ export PATH=$PATH:$GOPATH/bin   # ^^
 # auto-env mac
 #source $(brew --prefix autoenv)/activate.sh
 
+# or a simpler version
+# cd () {
+#     builtin cd $1
+#     if [ -f .env ]; then
+#         read -p "Source .env? [Y/n]" yn
+#         case $yn in
+#             "" ) echo "sourcing .env"; source .env;;
+#             [Yy] ) echo "sourcing .env"; source .env;;
+#             * ) echo "ignoring";;
+#         esac
+#     fi
+# }
