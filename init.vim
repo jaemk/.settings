@@ -20,7 +20,7 @@ Plug 'sebastianmarkow/deoplete-rust'
 Plug 'Shougo/echodoc.vim'
 " "
 " " ----------- linting
-Plug 'w0rp/ale'
+Plug 'w0rp/ale', { 'tag': 'v2.1.1' }
 " "
 " " ----------- misc util
 Plug 'junegunn/vim-easy-align'
