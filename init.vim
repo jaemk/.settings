@@ -44,10 +44,10 @@ Plug 'vim-airline/vim-airline'
 "" Plug 'vim-airline/vim-airline-themes'
 Plug 'ap/vim-buftabline'
 Plug 'jalvesaq/vimcmdline'
-Plug 'prakashdanish/vim-githubinator'
  "
  " ----------- git
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 Plug 'christoomey/vim-conflicted'
 Plug 'airblade/vim-gitgutter'
 " "
@@ -443,6 +443,8 @@ autocmd FileType java nnoremap <leader>a O/**<CR><CR>/<ESC>kA<space>
 nnoremap <Leader>gb :Gblame
 nnoremap <Leader>gc :Conflicted
 nnoremap <Leader>gn :GitNextConflict
+vnoremap gho :Gbrowse<CR>
+vnoremap ghc :Gbrowse!<CR>
 
 " xml/json auto formatting
 vnoremap <Leader>ox :!xmllint --format -<CR>
