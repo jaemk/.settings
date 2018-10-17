@@ -1,0 +1,33 @@
+source ~/.config/nvim/init.vim
+
+unmap fe
+unmap fE
+nnoremap fe gt
+nnoremap fE gT
+
+"Map common used global vim letter bookmarks to Intellij number bookmarks
+nnoremap mm :action ToggleBookmark0<CR>
+nnoremap mn :action ToggleBookmark1<CR>
+nnoremap mj :action ToggleBookmark2<CR>
+nnoremap mk :action ToggleBookmark3<CR>
+nnoremap mh :action ToggleBookmark4<CR>
+nnoremap ml :action ToggleBookmark5<CR>
+nnoremap my :action ToggleBookmark6<CR>
+nnoremap mi :action ToggleBookmark7<CR>
+nnoremap ma :action ToggleBookmark8<CR>
+nnoremap mb :action ToggleBookmark9<CR>
+
+nnoremap 'm :action GotoBookmark0<CR>
+nnoremap 'n :action GotoBookmark1<CR>
+nnoremap 'j :action GotoBookmark2<CR>
+nnoremap 'k :action GotoBookmark3<CR>
+nnoremap 'h :action GotoBookmark4<CR>
+nnoremap 'l :action GotoBookmark5<CR>
+nnoremap 'y :action GotoBookmark6<CR>
+nnoremap 'i :action GotoBookmark7<CR>
+nnoremap 'a :action GotoBookmark8<CR>
+nnoremap 'b :action GotoBookmark9<CR>
+
+"Use Intellij letter bookmarks comes with an annoying popup window.
+nnoremap <Space>' :action ShowBookmarks<CR>
+nnoremap <Space>m :action ToggleBookmarkWithMnemonic<CR>
