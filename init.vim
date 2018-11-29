@@ -222,6 +222,7 @@ nnoremap <C-H> <C-W><C-H>
 nnoremap <Leader>w+ <C-W>+
 nnoremap <Leader>w- <C-W>-
 
+
 " FZF!
 nnoremap <leader>e :Files<CR>
 nnoremap <leader>E :Files<space>
@@ -368,9 +369,15 @@ inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
 " autoclose doc
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#auto_complete_start_length = 1
 let g:deoplete#ignore_sources = {}
 let g:deoplete#auto_complete_delay = 0
 let g:deoplete#keyword_patterns = {}
+let g:deoplete#omni_patterns = {}
+let g:deoplete#complete_method="omnifunc"
+call deoplete#custom#option('omni_patterns', {
+\ 'ocaml': '[^ ,;\t\[()\]]',
+\})
 
 " Clojure
 autocmd FileType clojure nmap <leader>r :Require!<CR>
@@ -386,6 +393,14 @@ function! s:vim_sexp_mappings()
 endfunction
 autocmd FileType clojure,scheme,lisp,timl call s:vim_sexp_mappings()
 let g:deoplete#keyword_patterns.clojure = '[\w!$%&*+/:<=>?@\^_~\-\.#]*'
+
+" ocaml
+autocmd FileType ocaml setlocal commentstring=(*\ %s\ *)
+autocmd FileType dune setlocal commentstring=;\ %s
+autocmd FileType opam setlocal commentstring=#\ %s
+
+let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
+execute "set rtp+=" . g:opamshare . "/merlin/vim"
 
 " Go
 let g:go_highlight_functions = 1
@@ -456,7 +471,7 @@ let python_highlight_all = 1
 " doc string shortcut
 autocmd FileType python nnoremap <leader>a o""""""<ESC>hhi<CR><CR><ESC>kA
 au FileType python nnoremap <leader>bb Oimport pdb; pdb.set_trace()<esc>
-au FileType python nnoremap <leader>bt Ofrom nose.tools import set_trace(); set_trace()<esc>
+au FileType python nnoremap <leader>bt Ofrom nose.tools import set_trace; set_trace()<esc>
 
 " cpp
 let g:cpp_class_scope_highlight = 1
