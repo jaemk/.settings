@@ -28,3 +28,8 @@ tmux new-session -t main -s aug  # create second session with name 'aug', attach
 # vim pad line with whitespace
 :%s/$/\=repeat(' ', 64-virtcol('$'))
 
+# devpi things
+pip install -U --pre -q devpi-client
+devpi use https://pip.repo
+devpi login pip --password=*******
+devpi upload
