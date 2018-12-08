@@ -130,6 +130,10 @@ export PATH=$PATH:$GOPATH/bin   # ^^
 # auto-env mac
 #source $(brew --prefix autoenv)/activate.sh
 
+# misc mac fixes
+#export PATH=$PATH:$(brew --prefix sqlite)/bin
+#export PATH=$PATH:/usr/local/mysql/bin
+
 # or a simpler version
 # cd () {
 #     builtin cd $1
@@ -142,3 +146,23 @@ export PATH=$PATH:$GOPATH/bin   # ^^
 #         esac
 #     fi
 # }
+
+# kube aliases
+#alias wk="watch -n1 kubectl get pods"
+#alias k="kubectl"
+#alias mfa="~/.install/aws-mfa/bin/aws-mfa"
+#alias kc="kubectx"
+#alias unprod="kubectx dev"
+#alias prod="kubectx prod"
+#alias dev="kubectx dev; kubens dev"
+#alias staging="kubectx dev; kubens staging"
+
+#function kexec {
+#    set +x
+#    if [ -z "$2" ]; then
+#        cmd=/bin/bash
+#    else
+#        cmd="$2"
+#    fi
+#    k exec -it $(k get pods | rg $1 | awk '{print $1}') $cmd
+#}
