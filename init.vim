@@ -395,12 +395,13 @@ autocmd FileType clojure,scheme,lisp,timl call s:vim_sexp_mappings()
 let g:deoplete#keyword_patterns.clojure = '[\w!$%&*+/:<=>?@\^_~\-\.#]*'
 
 " ocaml
-autocmd FileType ocaml setlocal commentstring=(*\ %s\ *)
-autocmd FileType dune setlocal commentstring=;\ %s
-autocmd FileType opam setlocal commentstring=#\ %s
+autocmd FileType ocaml setlocal commentstring=(*\ %s\ *) sw=2 ts=2 sts=2 et
+autocmd FileType dune setlocal commentstring=;\ %s sw=2 ts=2 sts=2 et
+autocmd FileType opam setlocal commentstring=#\ %s sw=2 ts=2 sts=2 et
 
 let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
 execute "set rtp+=" . g:opamshare . "/merlin/vim"
+execute "set rtp+=" . g:opamshare . "/ocp-indent/vim"
 
 " Go
 let g:go_highlight_functions = 1
