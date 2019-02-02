@@ -12,7 +12,7 @@
 " "   go to ~/.vim/bundle/vim-markdown-composer
 " "       cargo build --release --no-default-features --features json-rpc
 " "
-call plug#begin('~/.vim/bundle')
+"call plug#begin('~/.vim/bundle')
 " " ----------- extra building required
 " Plug 'Valloric/YouCompleteMe'
 " Plug 'euclio/vim-markdown-composer'
@@ -67,7 +67,7 @@ call plug#begin('~/.vim/bundle')
 " Plug 'heavenshell/vim-jsdoc'
 " Plug 'octol/vim-cpp-enhanced-highlight'
 " Plug 'vim-scripts/groovy.vim'
-call plug#end()
+"call plug#end()
 
 " Set <Leader>
 let mapleader=","
