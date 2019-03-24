@@ -4,6 +4,8 @@ unmap fe
 unmap fE
 nnoremap fe gt
 nnoremap fE gT
+set nu
+set rnu
 
 "Map common used global vim letter bookmarks to Intellij number bookmarks
 nnoremap mm :action ToggleBookmark0<CR>
