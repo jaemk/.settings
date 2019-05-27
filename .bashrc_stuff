@@ -156,13 +156,59 @@ export PATH=$PATH:$GOPATH/bin   # ^^
 #alias prod="kubectx prod"
 #alias dev="kubectx dev; kubens dev"
 #alias staging="kubectx dev; kubens staging"
+#alias kom="kubectx do-nyc1-kom; kubens default"
+#alias kom-refresh-cert="doctl kubernetes cluster kubeconfig save kom"
 
 #function kexec {
-#    set +x
+#    if [ -z "$1" ]; then
+#        echo "please specify a pod name..."
+#        k get pods
+#        return 1
+#    fi
+#
 #    if [ -z "$2" ]; then
 #        cmd=/bin/bash
+#        echo "defaulting to cmd=$cmd"
 #    else
 #        cmd="$2"
 #    fi
-#    k exec -it $(k get pods | rg $1 | awk '{print $1}') $cmd
+#    pod=$(k get pods | rg $1 | awk '{print $1}')
+#    k exec -it $pod $cmd
+#}
+#
+#function kpf {
+#    if [ -z "$1" ]; then
+#        echo "please specify a pod name..."
+#        k get pods
+#        return 1
+#    fi
+#
+#    if [ -z "$2" ]; then
+#        pf="4000:80"
+#        echo "defaulting to ports=$pf"
+#    else
+#        pf="$2"
+#    fi
+#    pod=$(k get pods | rg $1 | awk '{print $1}')
+#    k port-forward $pod $pf
+#}
+#
+#function krestart {
+#    if [ -z "$1" ]; then
+#        echo "please specify a deployment name..."
+#        k get deployments
+#        return 1
+#    fi
+#
+#    if [ -z "$2" ]; then
+#        echo "defaulting to replicas=1"
+#        replicanum=1
+#    else
+#        replicanum=$2
+#    fi
+#    depname=$(k get deployments | rg $1 | awk '{print $1}')
+#    echo "killing $depname ..."
+#    k scale deployment $depname --replicas=0
+#    echo "start $depname with $replicanum replicas ..."
+#    k scale deployment $depname --replicas=$replicanum
 #}
