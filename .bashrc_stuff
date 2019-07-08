@@ -193,22 +193,32 @@ export PATH=$PATH:$GOPATH/bin   # ^^
 #    k port-forward $pod $pf
 #}
 #
-#function krestart {
+#function kdesc {
 #    if [ -z "$1" ]; then
-#        echo "please specify a deployment name..."
-#        k get deployments
+#        echo "please specify a pod name (or [resource [name]])..."
+#        k get pods
 #        return 1
 #    fi
 #
 #    if [ -z "$2" ]; then
-#        echo "defaulting to replicas=1"
-#        replicanum=1
+#        podname="$1"
+#        resource="pod"
+#        echo "defaulting to resource=$resource"
 #    else
-#        replicanum=$2
+#        resource="$1"
+#        podname="$2"
 #    fi
-#    depname=$(k get deployments | rg $1 | awk '{print $1}')
-#    echo "killing $depname ..."
-#    k scale deployment $depname --replicas=0
-#    echo "start $depname with $replicanum replicas ..."
-#    k scale deployment $depname --replicas=$replicanum
+#    pod=$(k get pods | rg $podname | awk '{print $1}')
+#    k describe $resource $pod
+#}
+#
+#function klogs {
+#    if [ -z "$1" ]; then
+#        echo "please specify a pod name..."
+#        k get pods
+#        return 1
+#    fi
+#
+#    pod=$(k get pods | rg $1 | awk '{print $1}')
+#    k logs -f $pod
 #}
