@@ -432,10 +432,17 @@ autocmd FileType go nmap <leader>gob :<C-u>call <SID>build_go_files()<CR>
 let g:deoplete#sources#jedi#show_docstring = 1
 let g:jedi#completions_enabled = 1
 
+" Rust formatting
+let g:rustfmt_autosave = 1
 " Rust completion
 let g:deoplete#sources#rust#racer_binary = $RACER_PATH
 let g:deoplete#sources#rust#rust_source_path = $RUST_SRC_PATH
 autocmd FileType rust nnoremap <leader>a O///<space>
+
+au FileType rust nmap gd <Plug>(rust-def)
+au FileType rust nmap gs <Plug>(rust-def-split)
+au FileType rust nmap gx <Plug>(rust-def-vertical)
+au FileType rust nmap <leader>gd <Plug>(rust-doc)
 
 " YouCompleteMe C/Cpp
 autocmd FileType cpp,c let g:ycm_global_ycm_extra_conf = '~/.settings/.ycm_extra_conf.py'
