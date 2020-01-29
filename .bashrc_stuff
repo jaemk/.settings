@@ -94,6 +94,20 @@ export PATH=$PATH:$GOPATH/bin   # ^^
 # upaste
 export UPASTE_PASTEROOT=https://paste.kominick.com/new
 export UPASTE_READROOT=https://paste.kominick.com
+# and helpers
+function __open_upaste_from_output {
+    awk '{ print $6 }' | head -n 1 | xargs open
+}
+function pup {
+    if [ -z "$1" ]; then
+        upaste --raw | __open_upaste_from_output
+    else
+        upaste --raw --file $1 | __open_upaste_from_output
+    fi
+}
+function pdp {
+    upaste --pull $(echo "$1" | tr "/" "\n" | tail -n 1)
+}
 
 # For boost
 #export BOOST_ROOT="/home/james/.installs/boost_1_65_0"
