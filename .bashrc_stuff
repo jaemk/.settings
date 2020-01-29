@@ -42,13 +42,27 @@ export PATH=$PATH:~/.node_modules/bin
 # For rustup, to access any binaries install via `cargo install`
 export PATH="$HOME/.cargo/bin:$PATH"
 
-export PATH=$PATH:~/bin
+# local bins
+export PATH=~/bin:$PATH
+export PATH=~/.local/bin:$PATH
+
+# graalvm
+export PATH=~/bin/graalvm/Contents/Home/bin:$PATH
 
 # For rust-racer, if rust source is managed by rustup
 #  `rustup component add rust-src`
 export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 # `rustup toolchain add nightly && cargo +nightly install racer`
 export RACER_PATH="$(which racer)"
+
+# pyenv shim support
+#eval "$(pyenv init -)"
+
+# make gpg work on mac
+export GPG_TTY=$(tty)
+
+# mac, bash-on
+export BASH_SILENCE_DEPRECATION_WARNING=1
 
 # For python/jedi ycm -- set the default location for the jedi env
 # mac
@@ -72,10 +86,14 @@ else
 fi
 
 # For Go...
-export GOPATH=$HOME/projects/go # default go working dir
-export GOROOT=$GOPATH   # install location
+export GOPATH=$HOME/dev/go # default go working dir
+export GOROOT=$GOPATH/dev   # install location
 export PATH=$PATH:$GOROOT/bin   # ^^
 export PATH=$PATH:$GOPATH/bin   # ^^
+
+# upaste
+export UPASTE_PASTEROOT=https://paste.kominick.com/new
+export UPASTE_READROOT=https://paste.kominick.com
 
 # For boost
 #export BOOST_ROOT="/home/james/.installs/boost_1_65_0"
@@ -152,10 +170,14 @@ export PATH=$PATH:$GOPATH/bin   # ^^
 #alias k="kubectl"
 #alias mfa="~/.install/aws-mfa/bin/aws-mfa"
 #alias kc="kubectx"
-#alias unprod="kubectx dev"
-#alias prod="kubectx prod"
-#alias dev="kubectx dev; kubens dev"
-#alias staging="kubectx dev; kubens staging"
+#alias unprod="kubectx non-prod"
+#alias prod="kubectx prod; kubens core-services"
+#alias dev="kubectx non-prod; kubens core-services-dev"
+#alias staging="kubectx non-prod; kubens core-services-staging"
+#alias providers-prod="kubectx prod; kubens providers"
+#alias providers-staging="kubectx non-prod; kubens providers-staging"
+#alias providers-dev="kubectx non-prod; kubens providers-dev"
+#alias mk="kubectx minikube"
 #alias kom="kubectx do-nyc1-kom; kubens default"
 #alias kom-refresh-cert="doctl kubernetes cluster kubeconfig save kom"
 
