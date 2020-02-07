@@ -144,7 +144,24 @@ function pdp {
 #fi
 #
 
-#PS1='\[\e[1;32m\]${debian_chroot:+($debian_chroot)}\u@\h\[\e[93m\]${plexed_id}\[\e[1;32m\]:\[\e[1;34m\]\w\[\e[32m\]$(__git_ps1)\[\e[35m\]\$\[\e[0m\] '
+#~ grab the current kubernetes context
+# function __kube_ps1 {
+#     kinfo=""
+#     if command -v kubectx >/dev/null 2>&1; then
+#         kinfo="$(kubectx -c)"
+#     fi
+#     if command -v kubens >/dev/null 2>&1; then
+#         kinfo="${kinfo}.$(kubens -c)"
+#     fi
+#     if [ "$kinfo" ]; then
+#         kinfo="|k.${kinfo}"
+#     fi
+#     echo $kinfo
+# }
+
+
+# export PS1="\[\e[1;32m\]${debian_chroot:+($debian_chroot)}\u@\h\[\e[93m\]${plexed_id}\[\e[1;32m\]\[\e[90m\]\$(__kube_ps1)\[\e[1;32m\]:\[\e[1;34m\]\w\[\e[32m\]$(__git_ps1)\[\e[35m\]\$\[\e[0m\] "
+
 
 #~ Pretty red root prompt
 # PS1='\[\e[1;91m\]${debian_chroot:+($debian_chroot)}\u@\h:\[\e[1;34m\]\w\[\e[35m\]\$\[\e[0m\] '
