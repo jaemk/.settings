@@ -160,7 +160,7 @@ function pdp {
 # }
 
 
-# export PS1="\[\e[1;32m\]${debian_chroot:+($debian_chroot)}\u@\h\[\e[93m\]${plexed_id}\[\e[1;32m\]\[\e[90m\]\$(__kube_ps1)\[\e[1;32m\]:\[\e[1;34m\]\w\[\e[32m\]$(__git_ps1)\[\e[35m\]\$\[\e[0m\] "
+# export PS1="\[\e[1;32m\]${debian_chroot:+($debian_chroot)}\u@\h\[\e[93m\]${plexed_id}\[\e[1;32m\]\[\e[90m\]\$(__kube_ps1)\[\e[1;32m\]:\[\e[1;34m\]\w\[\e[32m\]\$(__git_ps1)\[\e[35m\]\$\[\e[0m\] "
 
 
 #~ Pretty red root prompt
