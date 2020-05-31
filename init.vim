@@ -262,6 +262,20 @@ set pastetoggle=<Leader>P
 map <leader>y "+y
 map <leader>p "+p
 
+"" copy/paste for WSL https://github.com/equalsraf/win32yank/releases/download/v0.0.4/win32yank-x64.zip
+"" https://github.com/neovim/neovim/wiki/FAQ#how-to-use-the-windows-clipboard-from-wsl
+"" https://github.com/neovim/neovim/issues/583
+"func! ClipboardYank()
+"    call system('win32yank.exe -i', @@)
+"endfunc
+"
+"func! ClipboardPaste()
+"    let @@ = system('win32yank.exe -o')
+"endfunc
+"map <leader>y y:call ClipboardYank()<cr>
+"map <leader>p :call ClipboardPaste()<cr>p
+
+
 " Toggle line wrap
 nnoremap <leader>[ :set wrap!<CR>
 
