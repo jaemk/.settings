@@ -116,11 +116,19 @@ br() {
     fi
 
     if [ "$n" -lt "0" ]; then
-        # br -1 goes to the previous (one back), br -2 goes two back
-        n="$(( ( $n - 1 ) * -1 ))"
-        git branch --sort=-committerdate | head -n "$n" | tail -n 1
+        # br -1 go to the first line (numbered -1),
+        # br -2 go to the second line..
+        n="$(( $n * -1 ))"
+        git branch --sort=-committerdate \
+            | head -n "$n" \
+            | tail -n 1 \
+            | xargs git checkout
+        br
     else
-        git branch --sort=-committerdate | head -n "$n"
+        # list lines with their number
+        git branch --sort=-committerdate \
+            | head -n "$n" \
+            | nl -w 4 -s " => " -i -1 -v -1
     fi
 }
 
