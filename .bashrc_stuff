@@ -109,6 +109,21 @@ function pdp {
     upaste --pull $(echo "$1" | tr "/" "\n" | tail -n 1)
 }
 
+br() {
+    n="10"
+    if [ ! -z "$1" ]; then
+        n="$1"
+    fi
+
+    if [ "$n" -lt "0" ]; then
+        # br -1 goes to the previous (one back), br -2 goes two back
+        n="$(( ( $n - 1 ) * -1 ))"
+        git branch --sort=-committerdate | head -n "$n" | tail -n 1
+    else
+        git branch --sort=-committerdate | head -n "$n"
+    fi
+}
+
 # For boost
 #export BOOST_ROOT="/home/james/.installs/boost_1_65_0"
 
