@@ -132,6 +132,14 @@ br() {
     fi
 }
 
+gitstats () {
+    since="01 Jan 2020"
+    if [ ! -z "$1" ]; then
+        since="$1"
+    fi
+    git shortlog -sne --since="$since"
+}
+
 # For boost
 #export BOOST_ROOT="/home/james/.installs/boost_1_65_0"
 
@@ -297,4 +305,17 @@ br() {
 #
 #    pod=$(k get pods | rg $1 | awk '{print $1}')
 #    k logs -f $pod
+#}
+#
+#function kstat {
+#    if [ -z "$1" ]; then
+#        echo "please specify a deploy name..."
+#        k get deploy
+#        return 1
+#    fi
+#    dep_data=$(k get deploy $1 -o json)
+#    echo "images: "
+#    echo $dep_data | jq ".spec.template.spec.containers | .[] | .name, .image"
+#    echo "updated and ready replicas:"
+#    echo $dep_data | jq ".status | .updatedReplicas, .readyReplicas"
 #}
