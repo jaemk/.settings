@@ -306,6 +306,24 @@ gitstats () {
 #    pod=$(k get pods | rg $1 | awk '{print $1}')
 #    k logs -f $pod
 #}
+#function kgrep {
+#    if [[ -z "$1" || -z "$2" ]]; then
+#        echo "kgrep pod-pattern grep-pattern [context container]"
+#        return 1
+#    fi
+#    if [[ -z "$3" ]]; then
+#        context="1"
+#    else
+#        context="$3"
+#    fi
+#    if [[ -z "$4" ]]; then
+#        container=""
+#    else
+#        container="-c $4"
+#    fi
+#    klog="kubectl logs {} $container"
+#    k get pods | rg "$1" | rg Running | awk '{print $1}' | xargs -I {} sh -c "$klog" | rg -C $context -i -e "$2"
+#}
 #
 #function kstat {
 #    if [ -z "$1" ]; then
