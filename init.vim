@@ -4,7 +4,7 @@
 " " Plug setup
 " " curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
 " "   https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-" " start nvim -> :PluginInstall
+" " start nvim -> :PlugInstall
 " "
 " " For vim-markdown-composer
 " "   go to ~/.local/share/nvim/plugged/vim-markdown-composer
@@ -383,15 +383,15 @@ inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
 " autoclose doc
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#auto_complete_start_length = 1
-let g:deoplete#ignore_sources = {}
-let g:deoplete#auto_complete_delay = 0
-let g:deoplete#keyword_patterns = {}
-let g:deoplete#omni_patterns = {}
-let g:deoplete#complete_method="omnifunc"
-call deoplete#custom#option('omni_patterns', {
-\ 'ocaml': '[^ ,;\t\[()\]]',
-\})
+" let g:deoplete#auto_complete_start_length = 1
+" let g:deoplete#ignore_sources = {}
+" let g:deoplete#auto_complete_delay = 0
+" let g:deoplete#keyword_patterns = {}
+" let g:deoplete#omni_patterns = {}
+" let g:deoplete#complete_method="omnifunc"
+" call deoplete#custom#option('omni_patterns', {
+" \ 'ocaml': '[^ ,;\t\[()\]]',
+" \})
 
 " Clojure
 autocmd FileType clojure nmap <leader>r :Require!<CR>
@@ -406,16 +406,16 @@ function! s:vim_sexp_mappings()
     nmap <silent><buffer> <leader>x         <Plug>(sexp_splice_list)
 endfunction
 autocmd FileType clojure,scheme,lisp,timl call s:vim_sexp_mappings()
-let g:deoplete#keyword_patterns.clojure = '[\w!$%&*+/:<=>?@\^_~\-\.#]*'
+" let g:deoplete#keyword_patterns.clojure = '[\w!$%&*+/:<=>?@\^_~\-\.#]*'
 
 " ocaml
 autocmd FileType ocaml setlocal commentstring=(*\ %s\ *) sw=2 ts=2 sts=2 et
 autocmd FileType dune setlocal commentstring=;\ %s sw=2 ts=2 sts=2 et
 autocmd FileType opam setlocal commentstring=#\ %s sw=2 ts=2 sts=2 et
 
-let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
-execute "set rtp+=" . g:opamshare . "/merlin/vim"
-execute "set rtp+=" . g:opamshare . "/ocp-indent/vim"
+" let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
+" execute "set rtp+=" . g:opamshare . "/merlin/vim"
+" execute "set rtp+=" . g:opamshare . "/ocp-indent/vim"
 
 " Go
 let g:go_highlight_functions = 1
