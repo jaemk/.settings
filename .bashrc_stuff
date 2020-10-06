@@ -210,10 +210,6 @@ gitstats () {
 # auto-env mac
 #source $(brew --prefix autoenv)/activate.sh
 
-# misc mac fixes
-#export PATH=$PATH:$(brew --prefix sqlite)/bin
-#export PATH=$PATH:/usr/local/mysql/bin
-
 # or a simpler version
 # cd () {
 #     builtin cd $1
@@ -226,6 +222,12 @@ gitstats () {
 #         esac
 #     fi
 # }
+
+## misc mac fixes
+#export PATH=$PATH:$(brew --prefix sqlite)/bin
+#export PATH=$PATH:/usr/local/mysql/bin
+## fix openssl/readline linking issues for python
+#export LDFLAGS='-L/usr/local/lib -L/usr/local/opt/openssl/lib -L/usr/local/opt/readline/lib'
 
 # kube aliases
 #alias wk="watch -n1 kubectl get pods"
