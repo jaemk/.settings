@@ -1,5 +1,7 @@
 ## stuff to append to .bashrc
 
+#eval $(ssh-agent) 2&>1
+
 if command -v watchexec >/dev/null 2>&1; then
     alias we='watchexec'
 fi
