@@ -1,6 +1,9 @@
 ## stuff to append to .bashrc
 
-#eval $(ssh-agent) 2&>1
+#existing_agent="$(ps -ax | rg ssh-agent | awk '{print $5}' | rg ssh-agent | uniq | head)"
+#if [ "$existing_agent" != "ssh-agent" ]; then
+#    eval $(ssh-agent) 2&>1
+#fi
 
 if command -v watchexec >/dev/null 2>&1; then
     alias we='watchexec'
