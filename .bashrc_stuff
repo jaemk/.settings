@@ -1,8 +1,13 @@
 ## stuff to append to .bashrc
 
-#existing_agent="$(ps -ax | rg ssh-agent | awk '{print $5}' | rg ssh-agent | uniq | head)"
-#if [ "$existing_agent" != "ssh-agent" ]; then
-#    eval $(ssh-agent) 2&>1
+
+# use a constant ssh-agent socket and start it if it isn't running
+# you need to create the .ssh/ssh-agent.sock file
+#export SSH_AUTH_SOCK=~/.ssh/ssh-agent.sock
+#ssh-add -l 2>/dev/null >/dev/null
+#if [ $? -ge 2 ]; then
+#  # ^ ssh-add returns 1 when it's running but there's no identities added
+#  ssh-agent -a "$SSH_AUTH_SOCK" >/dev/null
 #fi
 
 if command -v watchexec >/dev/null 2>&1; then
