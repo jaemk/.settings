@@ -56,7 +56,7 @@ export PATH=~/bin/graalvm/Contents/Home/bin:$PATH
 
 # For rust-racer, if rust source is managed by rustup
 #  `rustup component add rust-src`
-export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/library"
 # `rustup toolchain add nightly && cargo +nightly install racer`
 export RACER_PATH="$(which racer)"
 
