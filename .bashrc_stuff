@@ -49,9 +49,6 @@ export TERM=xterm-256color
 export PATH=$PATH:~/bin/node/bin
 export PATH=$PATH:~/.node_modules/bin
 
-# For rustup, to access any binaries install via `cargo install`
-export PATH="$HOME/.cargo/bin:$PATH"
-
 # local bins
 export PATH=~/bin:$PATH
 export PATH=~/.local/bin:$PATH
@@ -59,6 +56,13 @@ export PATH=~/.local/bin:$PATH
 # graalvm
 export PATH=~/bin/graalvm/Contents/Home/bin:$PATH
 
+# edit /lib/systemd/system/docker.service to change where docker stores data
+#ExecStart=/usr/bin/dockerd -g /mnt/egg/dev/.docker-data -H fd:// --containerd=/run/containerd/containerd.sock
+
+export CARGO_HOME=~/.cargo
+#export CARGO_HOME=~/dev/.cargo
+#export RUSTUP_HOME=~/dev/.rustup
+export PATH="$CARGO_HOME/bin:$PATH"
 # For rust-racer, if rust source is managed by rustup
 #  `rustup component add rust-src`
 export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/library"
