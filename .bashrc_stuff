@@ -74,15 +74,8 @@ export PYENV_ROOT="$HOME/bin/pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init --path)"
 
-# gpg-agent setup
-if test -f $HOME/.gpg-agent-info && kill -0 $(cut -d: -f 2 $HOME/.gpg-agent-info) 2>/dev/null; then
-    eval $(cat $HOME/.gpg-agent-info)
-else
-    eval $(gpg-agent --pinentry-program /usr/bin/pinentry --daemon --write-env-file $HOME/.gpg-agent-info)
-fi
-GPG_TTY=$(tty)
-# GPG_AGENT_INFO is set from within $HOME/.gpg-agent-info, but still needs to be exported
-export GPG_TTY GPG_AGENT_INFO
+# gpg setup
+export GPG_TTY=$(tty)
 
 # mac, bash-on
 export BASH_SILENCE_DEPRECATION_WARNING=1
