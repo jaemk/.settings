@@ -70,10 +70,19 @@ export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/library"
 export RACER_PATH="$(which racer)"
 
 # pyenv shim support
-#eval "$(pyenv init -)"
+export PYENV_ROOT="$HOME/bin/pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
 
-# make gpg work on mac
-export GPG_TTY=$(tty)
+# gpg-agent setup
+if test -f $HOME/.gpg-agent-info && kill -0 $(cut -d: -f 2 $HOME/.gpg-agent-info) 2>/dev/null; then
+    eval $(cat $HOME/.gpg-agent-info)
+else
+    eval $(gpg-agent --pinentry-program /usr/bin/pinentry --daemon --write-env-file $HOME/.gpg-agent-info)
+fi
+GPG_TTY=$(tty)
+# GPG_AGENT_INFO is set from within $HOME/.gpg-agent-info, but still needs to be exported
+export GPG_TTY GPG_AGENT_INFO
 
 # mac, bash-on
 export BASH_SILENCE_DEPRECATION_WARNING=1
@@ -179,30 +188,30 @@ gitstats () {
 #__init_git_stuff
 
 #~ If we're in a plexed shell, set the mltplxr's session id
-#plexed_id=""
-#if [ "$STY" ]; then
-#    IFS=. ID=(${STY})
-#    plexed_id='|s.'${ID[0]}
-#fi
-#if [ "$TMUX" ]; then
-#    plexed_id=$plexed_id'|t.'$(tmux display-message -p "#S")
-#fi
-#
+plexed_id=""
+if [ "$STY" ]; then
+    IFS=. ID=(${STY})
+    plexed_id='|s.'${ID[0]}
+fi
+if [ "$TMUX" ]; then
+    plexed_id=$plexed_id'|t.'$(tmux display-message -p "#S")
+fi
+
 
 #~ grab the current kubernetes context
-# function __kube_ps1 {
-#     kinfo=""
-#     if command -v kubectx >/dev/null 2>&1; then
-#         kinfo="$(kubectx -c)"
-#     fi
-#     if command -v kubens >/dev/null 2>&1; then
-#         kinfo="${kinfo}.$(kubens -c)"
-#     fi
-#     if [ "$kinfo" ]; then
-#         kinfo="|k.${kinfo}"
-#     fi
-#     echo $kinfo
-# }
+function __kube_ps1 {
+    kinfo=""
+    if command -v kubectx >/dev/null 2>&1; then
+        kinfo="$(kubectx -c)"
+    fi
+    if command -v kubens >/dev/null 2>&1; then
+        kinfo="${kinfo}.$(kubens -c)"
+    fi
+    if [ "$kinfo" ]; then
+        kinfo="|k.${kinfo}"
+    fi
+    echo $kinfo
+}
 
 
 export PS1="\[\e[1;32m\]${debian_chroot:+($debian_chroot)}\u@\h\[\e[93m\]${plexed_id}\[\e[1;32m\]\[\e[90m\]\$(__kube_ps1)\[\e[1;32m\]:\[\e[1;34m\]\w\[\e[32m\]\$(__git_ps1)\[\e[35m\]\$\n:::\[\e[0m\] "

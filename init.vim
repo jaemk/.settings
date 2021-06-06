@@ -20,7 +20,7 @@ Plug 'sebastianmarkow/deoplete-rust'
 Plug 'Shougo/echodoc.vim'
 " "
 " " ----------- linting
-Plug 'w0rp/ale', { 'tag': 'v2.1.1' }
+Plug 'dense-analysis/ale'
 " "
 " " ----------- misc util
 Plug 'junegunn/vim-easy-align'
@@ -83,10 +83,10 @@ let mapleader=","
 
 "" -- Python Envs
 " neovim envs
-" let g:python_host_prog = '/Users/james/bin/envs/nvim2/bin/python'
-" let g:python3_host_prog = '/Users/james/bin/envs/nvim/bin/python'
-let g:python_host_prog = '/home/james/bin/envs/nvim2/bin/python'
-let g:python3_host_prog = '/home/james/bin/envs/nvim/bin/python'
+" let g:python_host_prog = '/Users/james/bin/envs/nvim2/venv/bin/python'
+" let g:python3_host_prog = '/Users/james/bin/envs/nvim/venv/bin/python'
+let g:python_host_prog = '/home/james/bin/envs/nvim2/venv/bin/python'
+let g:python3_host_prog = '/home/james/bin/envs/nvim/venv/bin/python'
 
 
 "" ---- Regular settings -----
