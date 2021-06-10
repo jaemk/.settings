@@ -333,8 +333,13 @@ cd () {
 #        return 1
 #    fi
 #
+#    cont=""
+#    if [ ! -z "$2" ]; then
+#        cont="-c $2"
+#    fi
+#
 #    pod=$(k get pods | rg $1 | awk '{print $1}')
-#    k logs -f $pod
+#    k logs -f $pod $cont
 #}
 #function kgrep {
 #    if [[ -z "$1" || -z "$2" ]]; then
