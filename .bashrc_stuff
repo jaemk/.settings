@@ -248,8 +248,8 @@ cd () {
     if [ -f .env ]; then
         read -p "Source .env? [Y/n]" yn
         case $yn in
-            "" ) echo "sourcing .env"; source .env;;
-            [Yy] ) echo "sourcing .env"; source .env;;
+            "" ) echo "sourcing .env"; set -a; source .env; set +a;;
+            [Yy] ) echo "sourcing .env"; set -a; source .env; set +a;;
             * ) echo "ignoring";;
         esac
     fi
