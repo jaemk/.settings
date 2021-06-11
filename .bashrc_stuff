@@ -69,14 +69,18 @@ export CARGO_HOME=~/.cargo
 export PATH="$CARGO_HOME/bin:$PATH"
 # For rust-racer, if rust source is managed by rustup
 #  `rustup component add rust-src`
-export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/library"
+if command -v rustc >/dev/null 2>&1; then
+    export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/library"
+fi
 # `rustup toolchain add nightly && cargo +nightly install racer`
 export RACER_PATH="$(which racer)"
 
 # pyenv shim support
 export PYENV_ROOT="$HOME/bin/pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
+if command -v pyenv >/dev/null 2>&1; then
+    eval "$(pyenv init --path)"
+fi
 
 # gpg setup
 export GPG_TTY=$(tty)
