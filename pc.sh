@@ -1,6 +1,12 @@
 #!/bin/bash
 set -e
 
+if [[ -z "$UPASTE_TTL_SECONDS" ]]; then
+    ttl=
+else
+    ttl="ttl_seconds=$UPASTE_TTL_SECONDS"
+fi
+
 function post() {
     infile="@-"
     if [[ ! -z "$1" ]]; then
@@ -8,9 +14,9 @@ function post() {
     fi
 
     if [[ -z "$UPASTE_ENCRYPTION_KEY" ]]; then
-        curl $UPASTE_PASTEROOT -s -d $infile
+        curl $UPASTE_PASTEROOT?$ttl -s --data-binary $infile
     else
-        curl $UPASTE_PASTEROOT -s -d $infile -H "x-upaste-encryption-key: $UPASTE_ENCRYPTION_KEY"
+        curl $UPASTE_PASTEROOT?$ttl -s --data-binary $infile -H "x-upaste-encryption-key: $UPASTE_ENCRYPTION_KEY"
     fi
 }
 
