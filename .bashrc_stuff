@@ -119,6 +119,7 @@ export PATH=$PATH:$GOPATH/bin   # ^^
 export UPASTE_PASTEROOT=https://paste.kominick.com/new
 export UPASTE_READROOT=https://paste.kominick.com
 export UPASTE_READROOT_RAW=https://paste.kominick.com/raw
+export UPASTE_TTL_SECONDS=100
 
 ## paste helpers
 # copy from stdin or a file
