@@ -7,7 +7,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(company lsp-ui lsp-mode flycheck rustic use-package)))
+ '(package-selected-packages
+   '(lsp-python-ms python-mode company lsp-ui lsp-mode flycheck rustic use-package)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -25,28 +26,43 @@
 
 (add-hook 'after-init-hook
 	  '(lambda ()
-	     (global-unset-key (kbd "C-o"))
-             (global-set-key (kbd "C-o") 'insert-line-below)
-	     (global-set-key (kbd "C-M-e") 'move-beginning-of-line)
+             (global-unset-key (kbd "C-o"))
+             (global-set-key (kbd "C-o") #'insert-line-below)
+             (global-set-key (kbd "C-M-e") #'move-beginning-of-line)
              (global-set-key (kbd "C-j") #'newline-and-indent)
              (global-set-key (kbd "RET") #'newline-and-indent)
-	   ))
-	     
+             (global-set-key (kbd "C-x C-b") #'ibuffer)
+             ))
 
+(add-hook 'python-mode-hook
+          '(lambda ()
+             (define-key python-mode-map (kbd "C-M-e") #'move-beginning-of-line)
+             ))
+
+;; hide menu bar
 (menu-bar-mode -1)
+
+;; only use spaces
 (setq-default indent-tabs-mode nil)
+
+;; scroll one line an a time when cursor is within 5 lines of end
 (setq-default scroll-step 1)
 (setq-default scroll-margin 5)
 (setq-default scroll-preserve-screen-position 1)
 
-;; -- packages
+;; relative line numbers
+(setq-default display-line-numbers-type 'relative)
+(global-display-line-numbers-mode t)
 
+;; -- packages
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
 
 (use-package zenburn-theme)
 (load-theme 'zenburn t)
+
+(use-package python-mode :ensure)
 
 (use-package rustic
   :ensure
@@ -98,6 +114,7 @@
   (lsp-ui-doc-enable nil))
 
 (use-package flycheck :ensure)
+(global-flycheck-mode t) ;; enable flycheck globally
 
 (use-package company
   :ensure
