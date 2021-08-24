@@ -4,13 +4,14 @@
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
 (package-initialize)
 
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(lsp-python-ms python-mode company lsp-ui lsp-mode flycheck rustic use-package)))
+   '(magit diff-hl git-gutter-fringe exec-path-from-shell lsp-pyright lsp-python-ms python-mode company lsp-ui lsp-mode flycheck rustic use-package)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -19,21 +20,52 @@
  ;; If there is more than one, they won't work right.
  )
 
-;; -- alter keybindings
-(defun insert-line-below ()
+
+;; --------------------
+;; -- start keybindings
+
+(defun m/insert-line-below ()
   "Insert an empty line below the current line."
   (interactive)
   (end-of-line)
   (call-interactively 'newline-and-indent))
 
+(defun m/copy-region ()
+  "Copy region, or from the last marker to the current cursor position."
+  (interactive)
+  (shell-command-on-region
+   (region-beginning)
+   (region-end)
+   (if (eq system-type 'darwin)
+     "pbcopy -pboard general"
+     "xclip -i -sel clipboard")))
+
+(defun m/copy-region-pastebin ()
+  "Copy region, or from the last mark to current cursor position into a paste code."
+  (interactive)
+  (shell-command-on-region
+   (region-beginning)
+   (region-end)
+   "pc"))
+
+(defun m/scroll-down ()
+  (interactive)
+  (scroll-up-line))
+
+(defun m/scroll-up ()
+  (interactive)
+  (scroll-down-line))
+
 (add-hook 'after-init-hook
 	  '(lambda ()
              (global-unset-key (kbd "C-o"))
              (global-unset-key (kbd "C-l"))
-             (global-set-key (kbd "C-o") #'insert-line-below)
+             (global-set-key (kbd "C-o") #'m/insert-line-below)
              (global-set-key (kbd "C-M-e") #'move-beginning-of-line)
              (global-set-key (kbd "C-j") #'newline-and-indent)
              (global-set-key (kbd "RET") #'newline-and-indent)
+             (global-set-key (kbd "C-M-j") #'m/scroll-down)
+             (global-set-key (kbd "C-M-k") #'m/scroll-up)
              (global-set-key (kbd "C-x C-b") #'ibuffer)
              (global-set-key (kbd "C-l e") #'tab-bar-switch-to-next-tab)
              (global-set-key (kbd "C-l E") #'tab-bar-switch-to-prev-tab)
@@ -41,14 +73,21 @@
              (global-set-key (kbd "C-x t u") #'tab-bar-undo-close-tab)
              (global-set-key (kbd "C-x t k") #'tab-close)
              (global-set-key (kbd "C-l L") #'global-display-line-numbers-mode)
+             (global-set-key (kbd "C-l C-c") #'m/copy-region)
+             (global-set-key (kbd "C-l C-p") #'m/copy-region-pastebin)
              ))
 
-
+;; python mode overwrites some keybindings we previously set
 (add-hook 'python-mode-hook
           '(lambda ()
              (define-key python-mode-map (kbd "C-M-e") #'move-beginning-of-line)
              ))
 
+;; -- end keybindings
+;; -----------------
+
+
+;; delete trailing whitespace on save
 (add-hook 'before-save-hook #'delete-trailing-whitespace)
 
 ;; hide menu bar
@@ -56,44 +95,192 @@
 
 ;; enable tab bar
 (tab-bar-mode 1)
+;; and default new tabs to scratch
 (setq tab-bar-new-tab-choice "*scratch*")
 
-;; highlight cursor line, change hl-line color
+;; highlight cursor line, change hl-line color to blue-ish
 (global-hl-line-mode 1)
 (set-face-attribute 'hl-line nil :inherit nil :background "#1E4D6B")
 
 ;; only use spaces
 (setq-default indent-tabs-mode nil)
 
-;; follow symlinks
+;; follow version-controlled symlinks, don't ask everytime
 (setq vc-follow-symlinks t)
 
-;; Auto revert files when they change
+;; auto updates files when they change on disk
 (global-auto-revert-mode t)
 
-;; Also auto refresh dired, but be quiet about it
+;; also auto refresh dired, but be quiet about it
 (setq global-auto-revert-non-file-buffers t)
 (setq auto-revert-verbose nil)
 
-;; scroll one line an a time when cursor is within 5 lines of end
+;; scroll one line an a time when cursor is close to the end
 (setq-default scroll-step 1)
-(setq-default scroll-margin 5)
+(setq-default scroll-margin 7)
 (setq-default scroll-preserve-screen-position 1)
 
 ;; relative line numbers
 (setq-default display-line-numbers-type 'relative)
 (global-display-line-numbers-mode t)
 
-;; -- packages
+
+;; -----------------
+;; -- start packages
+
+;; make sure use-package is installed
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
 
+
+;; theme
 (use-package zenburn-theme)
 (load-theme 'zenburn t)
 
+
+;; Fix $PATH
+(use-package exec-path-from-shell
+  :ensure
+  :hook (after-init . exec-path-from-shell-initialize)
+  :custom
+  (exec-path-from-shell-variables
+   '("PATH" "MANPATH" "LOLA_HOME"
+     "PIPENV_VERBOSITY" "PIPENV_DONT_LOAD_ENV"
+     "PIPENV_MAX_DEPTH" "PYENV_ROOT"
+     ))
+  (exec-path-from-shell-check-startup-files nil)
+  (exec-path-from-shell-arguments '("-l")))
+;; also, make sure shell-commands execute with bash and
+;; see our bashrc so aliases are picked up
+(setq shell-file-name "bash")
+(setq shell-command-switch "-ic")
+
+
+;; lsp config
+(use-package lsp-mode
+  :ensure
+  :commands lsp
+  :custom
+  ;; what to use when checking on-save. "check" is default, I prefer clippy
+  (lsp-rust-analyzer-cargo-watch-command "clippy")
+  (lsp-eldoc-render-all t)
+  (lsp-idle-delay 0.6)
+  (lsp-rust-analyzer-server-display-inlay-hints t)
+  :config
+  (add-hook 'lsp-mode-hook 'lsp-ui-mode))
+
+
+(use-package lsp-ui
+  :ensure
+  :commands lsp-ui-mode
+  :custom
+  (lsp-ui-peek-always-show t)
+  (lsp-ui-sideline-show-hover t)
+  (lsp-ui-doc-enable nil))
+
+
+;; linting
+(use-package flycheck :ensure)
+(global-flycheck-mode t) ;; enable flycheck globally
+
+
+;; completions
+(use-package company
+  :ensure
+  :bind
+  (:map company-active-map
+              ("C-n". company-select-next)
+              ("C-p". company-select-previous)
+              ("M-<". company-select-first)
+              ("M->". company-select-last))
+  (:map company-mode-map
+        ("<tab>". tab-indent-or-complete)
+        ("TAB". tab-indent-or-complete)))
+
+
+;; better buffer selection
+(use-package ido
+  :ensure
+  :init
+  (lambda ()
+    (setq
+     ido-save-directory-list-file "~/.emacs.d/cache/ido.last"
+
+     ido-ignore-buffers ;; ignore these guys
+     '("\\` " "^\*Mess" "^\*Back" ".*Completion" "^\*Ido" "^\*trace"
+
+       "^\*compilation" "^\*GTAGS" "^session\.*" "^\*")
+     ido-work-directory-list '("~/" "~/Desktop" "~/Documents" "~src")
+     ido-case-fold  t                 ; be case-insensitive
+
+     ido-enable-last-directory-history t ; remember last used dirs
+     ido-max-work-directory-list 30   ; should be enough
+     ido-max-work-file-list      50   ; remember many
+     ido-use-filename-at-point nil    ; don't use filename at point (annoying)
+     ido-use-url-at-point nil         ; don't use url at point (annoying)
+
+     ido-enable-flex-matching nil     ; don't try to be too smart
+     ido-max-prospects 8              ; don't spam my minibuffer
+     ido-confirm-unique-completion t  ; wait for RET, even with unique completion
+
+     ;; when using ido, the confirmation is rather annoying...
+     confirm-nonexistent-file-or-buffer nil)))
+
+(ido-mode 'both) ;; enable for buffers and files
+
+
+;; python mode and lsp
 (use-package python-mode :ensure)
 
+(use-package python
+  :defer t
+  :ensure
+  :config
+  (add-hook 'python-mode-hook #'highlight-indent-guides-mode)
+  ;; Redefine the python-mypy flycheck checker to account for projectile-compilation-dir
+  (flycheck-define-checker python-mypy
+    "Mypy syntax and type checker.  Requires mypy>=0.580.
+  See URL `http://mypy-lang.org/'."
+    :command ("mypy"
+              "--show-column-numbers"
+              (config-file "--config-file" flycheck-python-mypy-config)
+              (option "--cache-dir" flycheck-python-mypy-cache-dir)
+              source-original)
+    :error-patterns
+    ((error line-start (file-name) ":" line (optional ":" column)
+            ": error:" (message) line-end)
+     (warning line-start (file-name) ":" line (optional ":" column)
+              ": warning:" (message) line-end)
+     (info line-start (file-name) ":" line (optional ":" column)
+           ": note:" (message) line-end))
+    :modes python-mode
+    ;; Ensure the file is saved, to work around
+    ;; https://github.com/python/mypy/issues/4746.
+    :predicate flycheck-buffer-saved-p
+    ;; :working-directory (lambda (checker)
+    ;;                      (or (projectile-compilation-dir)
+    ;;                          default-directory))
+    )
+  (add-to-list 'flycheck-disabled-checkers 'python-flake8))
+
+;; python lsp using pyright language server
+;; requires `npm install -g pyright`
+(use-package lsp-pyright
+  :ensure
+  :hook (python-mode . (lambda ()
+                         (require 'lsp-pyright)
+                         (lsp-deferred)))
+  :custom
+  (lsp-pyright-use-library-code-for-types t)
+  (lsp-pyright-multi-root t)
+  :bind
+  (:map python-mode-map
+        ("C-c C-d" . lsp-describe-thing-at-point)))
+
+
+;; rust mode and lsp
+;; https://robert.kra.hn/posts/2021-02-07_rust-with-emacs
 (use-package rustic
   :ensure
   :bind (:map rustic-mode-map
@@ -123,66 +310,11 @@
   (when buffer-file-name
     (setq-local buffer-save-without-query t)))
 
-(use-package lsp-mode
-  :ensure
-  :commands lsp
-  :custom
-  ;; what to use when checking on-save. "check" is default, I prefer clippy
-  (lsp-rust-analyzer-cargo-watch-command "clippy")
-  (lsp-eldoc-render-all t)
-  (lsp-idle-delay 0.6)
-  (lsp-rust-analyzer-server-display-inlay-hints t)
-  :config
-  (add-hook 'lsp-mode-hook 'lsp-ui-mode))
 
-(use-package lsp-ui
-  :ensure
-  :commands lsp-ui-mode
-  :custom
-  (lsp-ui-peek-always-show t)
-  (lsp-ui-sideline-show-hover t)
-  (lsp-ui-doc-enable nil))
+;; open files to the same cursor position
+(use-package saveplace :ensure)
+(save-place-mode 1)
 
-(use-package flycheck :ensure)
-(global-flycheck-mode t) ;; enable flycheck globally
 
-(use-package company
-  :ensure
-  :bind
-  (:map company-active-map
-              ("C-n". company-select-next)
-              ("C-p". company-select-previous)
-              ("M-<". company-select-first)
-              ("M->". company-select-last))
-  (:map company-mode-map
-        ("<tab>". tab-indent-or-complete)
-        ("TAB". tab-indent-or-complete)))
-
-(use-package ido
-  :ensure
-  :init
-  (lambda ()
-    (setq
-     ido-save-directory-list-file "~/.emacs.d/cache/ido.last"
-
-     ido-ignore-buffers ;; ignore these guys
-     '("\\` " "^\*Mess" "^\*Back" ".*Completion" "^\*Ido" "^\*trace"
-
-       "^\*compilation" "^\*GTAGS" "^session\.*" "^\*")
-     ido-work-directory-list '("~/" "~/Desktop" "~/Documents" "~src")
-     ido-case-fold  t                 ; be case-insensitive
-
-     ido-enable-last-directory-history t ; remember last used dirs
-     ido-max-work-directory-list 30   ; should be enough
-     ido-max-work-file-list      50   ; remember many
-     ido-use-filename-at-point nil    ; don't use filename at point (annoying)
-     ido-use-url-at-point nil         ; don't use url at point (annoying)
-
-     ido-enable-flex-matching nil     ; don't try to be too smart
-     ido-max-prospects 8              ; don't spam my minibuffer
-     ido-confirm-unique-completion t  ; wait for RET, even with unique completion
-
-     ;; when using ido, the confirmation is rather annoying...
-     confirm-nonexistent-file-or-buffer nil)))
-
-(ido-mode 'both) ;; for buffers and files
+;; magit
+(use-package magit :ensure)
