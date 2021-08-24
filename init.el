@@ -29,12 +29,20 @@
 (add-hook 'after-init-hook
 	  '(lambda ()
              (global-unset-key (kbd "C-o"))
+             (global-unset-key (kbd "C-l"))
              (global-set-key (kbd "C-o") #'insert-line-below)
              (global-set-key (kbd "C-M-e") #'move-beginning-of-line)
              (global-set-key (kbd "C-j") #'newline-and-indent)
              (global-set-key (kbd "RET") #'newline-and-indent)
              (global-set-key (kbd "C-x C-b") #'ibuffer)
+             (global-set-key (kbd "C-l e") #'tab-bar-switch-to-next-tab)
+             (global-set-key (kbd "C-l E") #'tab-bar-switch-to-prev-tab)
+             (global-set-key (kbd "C-x t t") #'tab-new)
+             (global-set-key (kbd "C-x t u") #'tab-bar-undo-close-tab)
+             (global-set-key (kbd "C-x t k") #'tab-close)
+             (global-set-key (kbd "C-l L") #'global-display-line-numbers-mode)
              ))
+
 
 (add-hook 'python-mode-hook
           '(lambda ()
@@ -46,8 +54,26 @@
 ;; hide menu bar
 (menu-bar-mode -1)
 
+;; enable tab bar
+(tab-bar-mode 1)
+(setq tab-bar-new-tab-choice "*scratch*")
+
+;; highlight cursor line, change hl-line color
+(global-hl-line-mode 1)
+(set-face-attribute 'hl-line nil :inherit nil :background "#1E4D6B")
+
 ;; only use spaces
 (setq-default indent-tabs-mode nil)
+
+;; follow symlinks
+(setq vc-follow-symlinks t)
+
+;; Auto revert files when they change
+(global-auto-revert-mode t)
+
+;; Also auto refresh dired, but be quiet about it
+(setq global-auto-revert-non-file-buffers t)
+(setq auto-revert-verbose nil)
 
 ;; scroll one line an a time when cursor is within 5 lines of end
 (setq-default scroll-step 1)
