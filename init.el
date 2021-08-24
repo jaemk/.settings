@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
 (package-initialize)
@@ -38,6 +40,8 @@
           '(lambda ()
              (define-key python-mode-map (kbd "C-M-e") #'move-beginning-of-line)
              ))
+
+(add-hook 'before-save-hook #'delete-trailing-whitespace)
 
 ;; hide menu bar
 (menu-bar-mode -1)
@@ -127,3 +131,32 @@
   (:map company-mode-map
         ("<tab>". tab-indent-or-complete)
         ("TAB". tab-indent-or-complete)))
+
+(use-package ido
+  :ensure
+  :init
+  (lambda ()
+    (setq
+     ido-save-directory-list-file "~/.emacs.d/cache/ido.last"
+
+     ido-ignore-buffers ;; ignore these guys
+     '("\\` " "^\*Mess" "^\*Back" ".*Completion" "^\*Ido" "^\*trace"
+
+       "^\*compilation" "^\*GTAGS" "^session\.*" "^\*")
+     ido-work-directory-list '("~/" "~/Desktop" "~/Documents" "~src")
+     ido-case-fold  t                 ; be case-insensitive
+
+     ido-enable-last-directory-history t ; remember last used dirs
+     ido-max-work-directory-list 30   ; should be enough
+     ido-max-work-file-list      50   ; remember many
+     ido-use-filename-at-point nil    ; don't use filename at point (annoying)
+     ido-use-url-at-point nil         ; don't use url at point (annoying)
+
+     ido-enable-flex-matching nil     ; don't try to be too smart
+     ido-max-prospects 8              ; don't spam my minibuffer
+     ido-confirm-unique-completion t  ; wait for RET, even with unique completion
+
+     ;; when using ido, the confirmation is rather annoying...
+     confirm-nonexistent-file-or-buffer nil)))
+
+(ido-mode 'both) ;; for buffers and files
