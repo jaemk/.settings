@@ -61,11 +61,13 @@
              (global-unset-key (kbd "C-o"))
              (global-unset-key (kbd "C-l"))
              (global-set-key (kbd "C-o") #'m/insert-line-below)
-             (global-set-key (kbd "C-M-e") #'move-beginning-of-line)
+             (global-set-key (kbd "C-M-a") #'move-beginning-of-line)
              (global-set-key (kbd "C-j") #'newline-and-indent)
              (global-set-key (kbd "RET") #'newline-and-indent)
              (global-set-key (kbd "C-M-j") #'m/scroll-down)
              (global-set-key (kbd "C-M-k") #'m/scroll-up)
+             (global-set-key (kbd "C-M-e") #'m/scroll-down)
+             (global-set-key (kbd "C-M-y") #'m/scroll-up)
              (global-set-key (kbd "C-x C-b") #'ibuffer)
              (global-set-key (kbd "C-l e") #'tab-bar-switch-to-next-tab)
              (global-set-key (kbd "C-l E") #'tab-bar-switch-to-prev-tab)
@@ -80,7 +82,7 @@
 ;; python mode overwrites some keybindings we previously set
 (add-hook 'python-mode-hook
           '(lambda ()
-             (define-key python-mode-map (kbd "C-M-e") #'move-beginning-of-line)
+             (define-key python-mode-map (kbd "C-M-a") #'move-beginning-of-line)
              ))
 
 ;; -- end keybindings
