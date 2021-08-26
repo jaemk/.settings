@@ -411,3 +411,9 @@
         ("C-i". dired-subtree-toggle)
         ("C-o". dired-subtree-toggle)
         ))
+
+
+;; show line diff in gutter
+(use-package diff-hl :ensure)
+(global-diff-hl-mode 1)
+(diff-hl-margin-mode 1)
