@@ -11,7 +11,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(git-link dired-subtree dired-collapse dired-rainbow magit diff-hl git-gutter-fringe exec-path-from-shell lsp-pyright lsp-python-ms python-mode company lsp-ui lsp-mode flycheck rustic use-package)))
+   '(rg git-link dired-subtree dired-collapse dired-rainbow magit diff-hl git-gutter-fringe exec-path-from-shell lsp-pyright lsp-python-ms python-mode company lsp-ui lsp-mode flycheck rustic use-package)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -357,7 +357,12 @@
 
 
 ;; magit
-(use-package magit :ensure)
+(use-package magit :ensure
+  :bind
+    (:map magit-mode-map
+          ;; global company mode means tab doesn't work.
+          ;; use [o]pen instead
+          ("o" . magit-section-toggle)))
 
 
 ;; ------------------
