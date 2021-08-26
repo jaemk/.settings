@@ -108,6 +108,9 @@
 ;; only use spaces
 (setq-default indent-tabs-mode nil)
 
+;; auto insert closing quotes, parens, etc
+(electric-pair-mode 1)
+
 ;; follow version-controlled symlinks, don't ask everytime
 (setq vc-follow-symlinks t)
 
