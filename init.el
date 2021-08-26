@@ -130,6 +130,9 @@
 (setq-default display-line-numbers-type 'relative)
 (global-display-line-numbers-mode t)
 
+;; make searches case insensitive
+(setq case-fold-search t)
+
 
 ;; -----------------
 ;; -- start packages
