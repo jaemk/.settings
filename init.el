@@ -307,6 +307,8 @@
   :custom
   (lsp-pyright-use-library-code-for-types t)
   (lsp-pyright-multi-root t)
+  (lsp-pyright-auto-import-completions t)
+  (lsp-pyright-auto-search-paths t)
   :bind
   (:map python-mode-map
         ("C-c C-d" . lsp-describe-thing-at-point)))
