@@ -83,6 +83,7 @@
 (add-hook 'python-mode-hook
           '(lambda ()
              (define-key python-mode-map (kbd "C-M-a") #'move-beginning-of-line)
+             (define-key python-mode-map (kbd "C-M-e") #'m/scroll-down)
              ))
 
 ;; -- end keybindings
@@ -188,17 +189,24 @@
 
 
 ;; completions
+(defun indent-or-complete ()
+  (interactive)
+  (if (looking-at "\\_>")
+      (company-complete-common)
+    (indent-according-to-mode)))
+
 (use-package company
   :ensure
   :bind
   (:map company-active-map
-              ("C-n". company-select-next)
-              ("C-p". company-select-previous)
-              ("M-<". company-select-first)
-              ("M->". company-select-last))
+        ("C-n". company-select-next)
+        ("C-p". company-select-previous)
+        ("M-<". company-select-first)
+        ("M->". company-select-last))
   (:map company-mode-map
-        ("<tab>". tab-indent-or-complete)
-        ("TAB". tab-indent-or-complete)))
+        ("<tab>". indent-or-complete)
+        ("TAB". indent-or-complete))
+  )
 
 
 ;; better buffer selection
