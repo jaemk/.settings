@@ -11,7 +11,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(dired-subtree dired-collapse dired-rainbow magit diff-hl git-gutter-fringe exec-path-from-shell lsp-pyright lsp-python-ms python-mode company lsp-ui lsp-mode flycheck rustic use-package)))
+   '(git-link dired-subtree dired-collapse dired-rainbow magit diff-hl git-gutter-fringe exec-path-from-shell lsp-pyright lsp-python-ms python-mode company lsp-ui lsp-mode flycheck rustic use-package)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -207,6 +207,26 @@
         ("<tab>". indent-or-complete)
         ("TAB". indent-or-complete))
   )
+(global-company-mode 1)
+
+
+;; open in git
+(use-package git-link
+  :ensure)
+
+(global-set-key (kbd "C-c g l") 'git-link)
+(setq git-link-open-in-browser t)
+
+;; sometimes our remotes are just named "github" since they're going
+;; through our ssh config. rewrite these to github.com
+(defun m/git-link-github (hostname dirname filename branch commit start end)
+  (git-link-github "github.com" dirname filename branch commit start end))
+
+(eval-after-load 'git-link
+ '(progn
+   (add-to-list 'git-link-remote-alist
+     '("^github$" m/git-link-github))
+   ))
 
 
 ;; better buffer selection
