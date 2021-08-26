@@ -314,6 +314,11 @@
         ("C-c C-d" . lsp-describe-thing-at-point)))
 
 
+;; ripgrep
+(use-package rg :ensure)
+(rg-enable-default-bindings)
+
+
 ;; rust mode and lsp
 ;; https://robert.kra.hn/posts/2021-02-07_rust-with-emacs
 (use-package rustic
