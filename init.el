@@ -56,6 +56,11 @@
   (interactive)
   (scroll-down-line))
 
+(defun m/toggle-diff-hl ()
+  (interactive)
+  (diff-hl-margin-mode 0)
+  (diff-hl-margin-mode 1))
+
 (add-hook 'after-init-hook
 	  '(lambda ()
              (global-unset-key (kbd "C-o"))
@@ -77,6 +82,7 @@
              (global-set-key (kbd "C-l L") #'global-display-line-numbers-mode)
              (global-set-key (kbd "C-l C-c") #'m/copy-region)
              (global-set-key (kbd "C-l C-p") #'m/copy-region-pastebin)
+             (global-set-key (kbd "C-l g r") #'m/toggle-diff-hl)
              ))
 
 ;; python mode overwrites some keybindings we previously set
