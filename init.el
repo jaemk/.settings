@@ -423,3 +423,4 @@
 (use-package diff-hl :ensure)
 (global-diff-hl-mode 1)
 (diff-hl-margin-mode 1)
+(add-hook 'magit-post-refresh-hook #'m/toggle-diff-hl)
