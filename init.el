@@ -4,6 +4,8 @@
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
 (package-initialize)
 
+(put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
