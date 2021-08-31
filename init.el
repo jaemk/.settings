@@ -13,7 +13,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(rg git-link dired-subtree dired-collapse dired-rainbow magit diff-hl git-gutter-fringe exec-path-from-shell lsp-pyright lsp-python-ms python-mode company lsp-ui lsp-mode flycheck rustic use-package)))
+   '(rg git-link dired-subtree dired-collapse dired-rainbow magit diff-hl exec-path-from-shell lsp-pyright lsp-python-ms python-mode company lsp-ui lsp-mode flycheck rustic use-package)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -64,7 +64,7 @@
   (diff-hl-margin-mode 1))
 
 (add-hook 'after-init-hook
-	  '(lambda ()
+          '(lambda ()
              (global-unset-key (kbd "C-o"))
              (global-unset-key (kbd "C-l"))
              (global-set-key (kbd "C-o") #'m/insert-line-below)
