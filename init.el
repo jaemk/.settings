@@ -32,15 +32,19 @@
   (end-of-line)
   (call-interactively 'newline-and-indent))
 
+(defun m/copy-command ()
+  (if (eq system-type 'darwin)
+    "pbcopy -pboard general"
+    "pc"))
+    ;; "xclip -i -sel clipboard"))
+
 (defun m/copy-region ()
   "Copy region, or from the last marker to the current cursor position."
   (interactive)
   (shell-command-on-region
    (region-beginning)
    (region-end)
-   (if (eq system-type 'darwin)
-     "pbcopy -pboard general"
-     "xclip -i -sel clipboard")))
+   (m/copy-command)))
 
 (defun m/copy-region-pastebin ()
   "Copy region, or from the last mark to current cursor position into a paste code."
@@ -58,11 +62,32 @@
   (interactive)
   (scroll-down-line))
 
-(defun m/toggle-diff-hl ()
+(defun m/reload-diff-hl ()
   (interactive)
   (diff-hl-mode 0)
   (diff-hl-mode 1)
   (diff-hl-margin-mode 1))
+
+(defun m/toggle-diff-hl ()
+  (interactive)
+  (call-interactively #'diff-hl-mode)
+  (call-interactively #'diff-hl-margin-mode))
+
+(defun m/open-git-link ()
+  (interactive)
+  (setq git-link-open-in-browser t)
+  (call-interactively #'git-link))
+
+(defun m/copy-git-link ()
+  (interactive)
+  (shell-command
+   (format "echo '%s' | %s" (call-interactively #'git-link) (m/copy-command))))
+
+;; sometimes our remotes are just named "github" since they're going
+;; through our ssh config. rewrite these to github.com
+(defun m/git-link-github (hostname dirname filename branch commit start end)
+  (git-link-github "github.com" dirname filename branch commit start end))
+
 
 (add-hook 'after-init-hook
           '(lambda ()
@@ -85,7 +110,11 @@
              (global-set-key (kbd "C-l L") #'global-display-line-numbers-mode)
              (global-set-key (kbd "C-l C-c") #'m/copy-region)
              (global-set-key (kbd "C-l C-p") #'m/copy-region-pastebin)
-             (global-set-key (kbd "C-l g r") #'m/toggle-diff-hl)
+             (global-set-key (kbd "C-l g r") #'m/reload-diff-hl)
+             (global-set-key (kbd "C-l g g") #'m/toggle-diff-hl)
+             (global-set-key (kbd "C-l g o") #'m/open-git-link)
+             (global-set-key (kbd "C-l g c") #'m/copy-git-link)
+             (global-set-key (kbd "C-l g l") #'git-link)
              ))
 
 ;; python mode overwrites some keybindings we previously set
@@ -236,14 +265,6 @@
 ;; open in git
 (use-package git-link
   :ensure)
-
-(global-set-key (kbd "C-c g l") 'git-link)
-(setq git-link-open-in-browser t)
-
-;; sometimes our remotes are just named "github" since they're going
-;; through our ssh config. rewrite these to github.com
-(defun m/git-link-github (hostname dirname filename branch commit start end)
-  (git-link-github "github.com" dirname filename branch commit start end))
 
 (eval-after-load 'git-link
  '(progn
