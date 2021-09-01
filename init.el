@@ -54,6 +54,16 @@
    (region-end)
    "pc"))
 
+(defun m/copy-buffer ()
+  (interactive)
+  (call-interactively #'set-mark-command)
+  (shell-command-on-region
+   (beginning-of-buffer)
+   (end-of-buffer)
+   (m/copy-command))
+  (call-interactively #'pop-global-mark)
+  (keyboard-quit))
+
 (defun m/scroll-down ()
   (interactive)
   (scroll-up-line))
