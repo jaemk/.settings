@@ -88,12 +88,8 @@
 (defun m/open-git-link ()
   (interactive)
   (setq git-link-open-in-browser t)
-  (call-interactively #'git-link))
-
-(defun m/copy-git-link ()
-  (interactive)
-  (shell-command
-   (format "echo '%s' | %s" (call-interactively #'git-link) (m/copy-command))))
+  (call-interactively #'git-link)
+  (setq git-link-open-in-browser nil))
 
 ;; sometimes our remotes are just named "github" since they're going
 ;; through our ssh config. rewrite these to github.com
@@ -125,7 +121,6 @@
              (global-set-key (kbd "C-l g r") #'m/reload-diff-hl)
              (global-set-key (kbd "C-l g g") #'m/toggle-diff-hl)
              (global-set-key (kbd "C-l g o") #'m/open-git-link)
-             (global-set-key (kbd "C-l g c") #'m/copy-git-link)
              (global-set-key (kbd "C-l g l") #'git-link)
              ))
 
