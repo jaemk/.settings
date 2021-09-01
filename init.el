@@ -2,6 +2,7 @@
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+(add-to-list 'package-archives '("elpa" . "http://elpa.gnu.org/packages/") t)
 (package-initialize)
 
 (put 'upcase-region 'disabled nil)
@@ -13,7 +14,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(rg git-link dired-subtree dired-collapse dired-rainbow magit diff-hl exec-path-from-shell lsp-pyright lsp-python-ms python-mode company lsp-ui lsp-mode flycheck rustic use-package)))
+   '(smartparens edts rg git-link dired-subtree dired-collapse dired-rainbow magit diff-hl exec-path-from-shell lsp-pyright lsp-python-ms python-mode company lsp-ui lsp-mode flycheck rustic use-package)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -250,8 +251,14 @@ Used to determine whether to reload after magit refreshes.")
 
 
 ;; linting
-(use-package flycheck :ensure)
-(global-flycheck-mode t) ;; enable flycheck globally
+(use-package flycheck :ensure
+  :config
+  (add-hook 'after-init-hook 'global-flycheck-mode)
+  (setq flycheck-display-errors-function nil
+        flycheck-erlang-include-path '("../include")
+        flycheck-erlang-library-path '()
+        flycheck-check-syntax-automatically '(save)))
+;;(global-flycheck-mode t) ;; enable flycheck globally
 
 
 ;; completions
@@ -471,3 +478,28 @@ Used to determine whether to reload after magit refreshes.")
 ; refresh gutter after updates
 (add-hook 'magit-pre-refresh-hook #'m/reload-diff-hl)
 (add-hook 'magit-post-refresh-hook #'m/reload-diff-hl)
+
+
+;; erlang
+(use-package erlang
+  :init
+  (add-to-list 'auto-mode-alist '("\\.P\\'" . erlang-mode))
+  (add-to-list 'auto-mode-alist '("\\.E\\'" . erlang-mode))
+  (add-to-list 'auto-mode-alist '("\\.S\\'" . erlang-mode))
+  :config
+  (add-hook 'erlang-mode-hook
+            (lambda ()
+              (setq mode-name "erl"
+                    erlang-compile-extra-opts '((i . "../include"))
+                    erlang-root-dir "/usr/local/lib/erlang"))))
+
+(use-package edts
+  :init
+  (setq edts-inhibit-package-check t
+        edts-man-root "~/.emacs.d/edts/doc/18.2.1"))
+(add-hook 'after-init-hook 'my-after-init-hook)
+(defun my-after-init-hook ()
+  (require 'edts-start))
+
+(use-package smartparens :ensure)
+(smartparens-global-mode 1)
