@@ -141,6 +141,16 @@
 ;; make searches case insensitive
 (setq case-fold-search t)
 
+;; tab mods
+(local-set-key (kbd "TAB") 'tab-to-tab-stop)
+(setq indent-tabs-mode t)
+(setq-default electric-indent-inhibit t)
+(setq backward-delete-char-untabify-method 'hungry)
+(setq whitespace-style '(face tabs tab-mark trailing))
+(setq whitespace-display-mappings
+      '((tab-mark 9 [124 9] [92 9]))) ; 124 is the ascii ID for '\|'
+(global-whitespace-mode)
+
 
 ;; -----------------
 ;; -- start packages
