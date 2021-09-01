@@ -70,8 +70,10 @@
 
 (defun m/toggle-diff-hl ()
   (interactive)
-  (call-interactively #'diff-hl-mode)
-  (call-interactively #'diff-hl-margin-mode))
+  (call-interactively #'global-diff-hl-mode 1)
+  (call-interactively #'diff-hl-dired-mode 1)
+  (call-interactively #'diff-hl-flydiff-mode 1)
+  (call-interactively #'diff-hl-margin-mode 1))
 
 (defun m/open-git-link ()
   (interactive)
@@ -453,10 +455,6 @@
 
 ;; show line diff in gutter
 (use-package diff-hl :ensure)
-(global-diff-hl-mode 1)
-(diff-hl-dired-mode 1)
-(diff-hl-flydiff-mode 1)
-(diff-hl-margin-mode 1)
 
 ; refresh gutter after updates
 (add-hook 'magit-pre-refresh-hook #'m/toggle-diff-hl)
