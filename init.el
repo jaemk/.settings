@@ -72,7 +72,8 @@
   (interactive)
   (scroll-down-line))
 
-(defvar mv/diff-hl-on nil)
+(defvar mv/diff-hl-on nil "Whether diff-hl has been toggled on or not.
+Used to determine whether to reload after magit refreshes.")
 
 (defun m/toggle-diff-hl ()
   (interactive)
