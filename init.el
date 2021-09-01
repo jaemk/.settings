@@ -257,7 +257,9 @@ Used to determine whether to reload after magit refreshes.")
 ;; completions
 (defun indent-or-complete ()
   (interactive)
-  (call-interactively #'company-indent-or-complete-common))
+  (if (looking-at "\\_>")
+    (company-complete-common)
+    (indent-according-to-mode)))
 
 (use-package company
   :ensure
