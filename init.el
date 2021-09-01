@@ -72,18 +72,22 @@
   (interactive)
   (scroll-down-line))
 
-(defun m/reload-diff-hl ()
-  (interactive)
-  (diff-hl-mode 0)
-  (diff-hl-mode 1)
-  (diff-hl-margin-mode 1))
+(defvar mv/diff-hl-on nil)
 
 (defun m/toggle-diff-hl ()
   (interactive)
-  (call-interactively #'global-diff-hl-mode 1)
-  (call-interactively #'diff-hl-dired-mode 1)
-  (call-interactively #'diff-hl-flydiff-mode 1)
-  (call-interactively #'diff-hl-margin-mode 1))
+  (call-interactively #'global-diff-hl-mode)
+  (call-interactively #'diff-hl-dired-mode)
+  (call-interactively #'diff-hl-flydiff-mode)
+  (call-interactively #'diff-hl-margin-mode)
+  (setq mv/diff-hl-on (not mv/diff-hl-on)))
+
+(defun m/reload-diff-hl ()
+  (interactive)
+  (when mv/diff-hl-on
+    (progn
+      (m/toggle-diff_hl)
+      (m/toggle-diff-hl))))
 
 (defun m/open-git-link ()
   (interactive)
@@ -462,5 +466,5 @@
 (use-package diff-hl :ensure)
 
 ; refresh gutter after updates
-(add-hook 'magit-pre-refresh-hook #'m/toggle-diff-hl)
-(add-hook 'magit-post-refresh-hook #'m/toggle-diff-hl)
+(add-hook 'magit-pre-refresh-hook #'m/reload-diff-hl)
+(add-hook 'magit-post-refresh-hook #'m/reload-diff-hl)
