@@ -215,9 +215,7 @@
 ;; completions
 (defun indent-or-complete ()
   (interactive)
-  (if (looking-at "\\_>")
-      (company-complete-common)
-    (indent-according-to-mode)))
+  (call-interactively #'company-indent-or-complete-common))
 
 (use-package company
   :ensure
