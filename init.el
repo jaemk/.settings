@@ -480,26 +480,6 @@ Used to determine whether to reload after magit refreshes.")
 (add-hook 'magit-post-refresh-hook #'m/reload-diff-hl)
 
 
-;; erlang
-(use-package erlang
-  :init
-  (add-to-list 'auto-mode-alist '("\\.P\\'" . erlang-mode))
-  (add-to-list 'auto-mode-alist '("\\.E\\'" . erlang-mode))
-  (add-to-list 'auto-mode-alist '("\\.S\\'" . erlang-mode))
-  :config
-  (add-hook 'erlang-mode-hook
-            (lambda ()
-              (setq mode-name "erl"
-                    erlang-compile-extra-opts '((i . "../include"))
-                    erlang-root-dir "/usr/local/lib/erlang"))))
-
-(use-package edts
-  :init
-  (setq edts-inhibit-package-check t
-        edts-man-root "~/.emacs.d/edts/doc/18.2.1"))
-(add-hook 'after-init-hook 'my-after-init-hook)
-(defun my-after-init-hook ()
-  (require 'edts-start))
-
+;; better parens
 (use-package smartparens :ensure)
 (smartparens-global-mode 1)
