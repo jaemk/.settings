@@ -482,4 +482,6 @@ Used to determine whether to reload after magit refreshes.")
 
 ;; better parens
 (use-package smartparens :ensure)
+(require 'smartparens-config)
 (smartparens-global-mode 1)
+(smartparens-strict-mode 1)
