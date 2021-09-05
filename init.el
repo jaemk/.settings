@@ -14,7 +14,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(smartparens edts rg git-link dired-subtree dired-collapse dired-rainbow magit diff-hl exec-path-from-shell lsp-pyright lsp-python-ms python-mode company lsp-ui lsp-mode flycheck rustic use-package)))
+   '(transpose-frame slime smartparens edts rg git-link dired-subtree dired-collapse dired-rainbow magit diff-hl exec-path-from-shell lsp-pyright lsp-python-ms python-mode company lsp-ui lsp-mode flycheck rustic use-package)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -143,6 +143,9 @@ Used to determine whether to reload after magit refreshes.")
 
 ;; delete trailing whitespace on save
 (add-hook 'before-save-hook #'delete-trailing-whitespace)
+(setq show-trailing-whitespace t)
+; but don't delete newlines at the end of files
+(setq delete-trailing-lines nil)
 
 ;; hide menu bar
 (menu-bar-mode -1)
@@ -485,3 +488,8 @@ Used to determine whether to reload after magit refreshes.")
 (require 'smartparens-config)
 (smartparens-global-mode 1)
 (smartparens-strict-mode 1)
+
+
+;; organizing windows
+(use-package transpose-frame :ensure)
+
