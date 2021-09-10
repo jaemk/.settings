@@ -13,10 +13,6 @@
 call plug#begin('~/.local/share/nvim/plugged')
 " " ----------- extra building required
 Plug 'euclio/vim-markdown-composer'
-" Plug 'Valloric/YouCompleteMe'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'zchee/deoplete-jedi'
-Plug 'sebastianmarkow/deoplete-rust'
 Plug 'Shougo/echodoc.vim'
 " "
 " " ----------- linting
@@ -377,21 +373,11 @@ nnoremap <Leader>cp :lprevious<CR>
 " Enable echo doc
 let g:echodoc#enable_at_startup = 1
 
-" Enable deoplete and tab-complete
+" tab-complete
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
 " autoclose doc
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-let g:deoplete#enable_at_startup = 1
-" let g:deoplete#auto_complete_start_length = 1
-" let g:deoplete#ignore_sources = {}
-" let g:deoplete#auto_complete_delay = 0
-" let g:deoplete#keyword_patterns = {}
-" let g:deoplete#omni_patterns = {}
-" let g:deoplete#complete_method="omnifunc"
-" call deoplete#custom#option('omni_patterns', {
-" \ 'ocaml': '[^ ,;\t\[()\]]',
-" \})
 
 " Clojure
 autocmd FileType clojure nmap <leader>r :Require!<CR>
@@ -406,7 +392,6 @@ function! s:vim_sexp_mappings()
     nmap <silent><buffer> <leader>x         <Plug>(sexp_splice_list)
 endfunction
 autocmd FileType clojure,scheme,lisp,timl call s:vim_sexp_mappings()
-" let g:deoplete#keyword_patterns.clojure = '[\w!$%&*+/:<=>?@\^_~\-\.#]*'
 
 " ocaml
 autocmd FileType ocaml setlocal commentstring=(*\ %s\ *) sw=2 ts=2 sts=2 et
@@ -441,16 +426,9 @@ function! s:build_go_files()
 endfunction
 autocmd FileType go nmap <leader>gob :<C-u>call <SID>build_go_files()<CR>
 
-" python completion
-" - make sure jedi is installed in the env (virtual or system (--user))
-let g:deoplete#sources#jedi#show_docstring = 1
-let g:jedi#completions_enabled = 1
-
 " Rust formatting
 let g:rustfmt_autosave = 1
 " Rust completion
-let g:deoplete#sources#rust#racer_binary = $RACER_PATH
-let g:deoplete#sources#rust#rust_source_path = $RUST_SRC_PATH
 autocmd FileType rust nnoremap <leader>a O///<space>
 
 au FileType rust nmap gd <Plug>(rust-def)
