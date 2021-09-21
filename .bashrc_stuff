@@ -88,6 +88,14 @@ export GPG_TTY=$(tty)
 # mac, bash-on
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
+# make pip think we're on a previous osx version (because pipenv
+# is using an old vendored pip version)
+# https://github.com/pypa/pipenv/issues/4564#issuecomment-829199591
+#export SYSTEM_VERSION_COMPAT=1
+
+# mac, openssl issues
+#export LDFLAGS='-L/usr/local/lib -L/usr/local/opt/openssl/lib -L/usr/local/opt/readline/lib'
+
 # For python/jedi ycm -- set the default location for the jedi env
 # mac
 #export PYTHON_JEDI_PATH="/Users/james/bin/envs/jedi/bin/python"
@@ -170,7 +178,11 @@ gitstats () {
     if [ ! -z "$1" ]; then
         since="$1"
     fi
-    git shortlog -sne --since="$since"
+    echo "Activity since $since"
+    stats="$(git shortlog -sne --since="$since")"
+    total="$(echo "$stats" | awk '{ n += $1 }; END { print n }')"
+    echo "Total count: $total"
+    echo "$stats"
 }
 
 # For boost
