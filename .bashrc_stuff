@@ -16,9 +16,6 @@ fi
 if command -v watchexec >/dev/null 2>&1; then
     alias we='watchexec'
 fi
-if command -v exa >/dev/null 2>&1; then
-    alias ls='exa'
-fi
 if command -v docker-compose >/dev/null 2>&1; then
     alias dcomp='docker-compose'
 fi
@@ -74,6 +71,10 @@ if command -v rustc >/dev/null 2>&1; then
 fi
 # `rustup toolchain add nightly && cargo +nightly install racer`
 export RACER_PATH="$(which racer)"
+
+if command -v exa >/dev/null 2>&1; then
+    alias ls='exa'
+fi
 
 # pyenv shim support
 export PYENV_ROOT="$HOME/bin/pyenv"
