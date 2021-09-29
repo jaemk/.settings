@@ -1,5 +1,10 @@
 ## stuff to append to .bashrc
 
+if [ "$(uname)" = "Darwin" ]; then
+    ismac=true
+else
+    ismac=false
+fi
 
 # use a constant ssh-agent socket and start it if it isn't running
 # you need to create the .ssh/ssh-agent.sock file
@@ -43,8 +48,9 @@ export EDITOR="$VISUAL"
 export TERM=xterm-256color
 
 # postgres
-# mac only
-#PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.6/bin
+if $ismac; then
+    export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin
+fi
 
 # For node/npm, assumes node binaries have been unpacked into ~/bin/node
 export PATH=$PATH:~/bin/node/bin
@@ -87,7 +93,9 @@ fi
 export GPG_TTY=$(tty)
 
 # mac, bash-on
-export BASH_SILENCE_DEPRECATION_WARNING=1
+if $ismac; then
+    export BASH_SILENCE_DEPRECATION_WARNING=1
+fi
 
 # make pip think we're on a previous osx version (because pipenv
 # is using an old vendored pip version)
