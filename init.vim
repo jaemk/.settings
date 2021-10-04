@@ -48,6 +48,7 @@ Plug 'christoomey/vim-conflicted'
 Plug 'airblade/vim-gitgutter'
 " "
 " " ----------- Langs
+Plug 'kovisoft/slimv'
 Plug 'rust-lang/rust.vim'
 Plug 'racer-rust/vim-racer'
 Plug 'cespare/vim-toml'
@@ -76,6 +77,8 @@ call plug#end()
 
 " Set <Leader>
 let mapleader=","
+let g:slimv_leader = '\'
+let g:paredit_mode=0
 
 "" -- Python Envs
 " neovim envs
