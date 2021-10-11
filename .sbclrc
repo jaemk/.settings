@@ -2,4 +2,5 @@
 ;; add our local dev dir to quicklisp projects
 ;(push #P"/Users/james/dev/" ql:*local-project-directories*)
 ;(push #P"/home/james/dev/" ql:*local-project-directories*)
+(push #P"." ql:*local-project-directories*)
 
