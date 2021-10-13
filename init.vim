@@ -79,6 +79,10 @@ call plug#end()
 let mapleader=","
 let g:slimv_leader = '\'
 let g:paredit_mode=0
+let g:slimv_repl_split = 4
+
+set wildignore+=*.fasl
+let NERDTreeIgnore = ['\.fasl$']
 
 "" -- Python Envs
 " neovim envs
