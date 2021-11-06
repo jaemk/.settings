@@ -131,6 +131,11 @@ set pumheight=10    " Completion window max size
 set backspace=indent,eol,start  "fix backspace in insert mode
 set hidden
 
+" interative shell session so .bashrc is loaded for shell commands
+" -- to pastebin-copy, visually select, :'<,'>:w !pc
+" -- to pastebin-paste, :r ! pp <code>
+set shellcmdflag=-ic
+
 set noswapfile
 set nobackup
 
