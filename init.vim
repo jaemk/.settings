@@ -24,6 +24,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'kshenoy/vim-signature'
 Plug 'nathanaelkane/vim-indent-guides'
+Plug 'Yggdroot/indentLine'
 "" Plug 'jremmen/vim-ripgrep' " use ack.vim instead with ripgrep
 Plug 'mileszs/ack.vim'
 Plug 'scrooloose/nerdTree'
@@ -80,6 +81,14 @@ let mapleader=","
 let g:slimv_leader = '\'
 let g:paredit_mode=0
 let g:slimv_repl_split = 4
+let g:lisp_rainbow=1
+
+" http://vimdoc.sourceforge.net/htmldoc/change.html#fo-table
+autocmd FileType lisp setlocal lisp syntax=lisp ls=2 bs=2 et sw=2 sts=2 ts=8 tw=80
+autocmd FileType lisp setlocal iskeyword+=+,-,\*,/,%,<,=,>,:,$,?,!,@-@,94
+autocmd FileType lisp setlocal comments^=:;;;,:;;,sr:#\|,mb:\|,ex:\|#
+autocmd FileType lisp setlocal formatoptions-=t
+autocmd FileType lisp setlocal formatoptions+=crol
 
 set wildignore+=*.fasl
 let NERDTreeIgnore = ['\.fasl$']
@@ -131,10 +140,10 @@ set pumheight=10    " Completion window max size
 set backspace=indent,eol,start  "fix backspace in insert mode
 set hidden
 
-" interative shell session so .bashrc is loaded for shell commands
+" make sure aliases are loaded for shell commands
 " -- to pastebin-copy, visually select, :'<,'>:w !pc
 " -- to pastebin-paste, :r ! pp <code>
-set shellcmdflag=-ic
+let $BASH_ENV = "~/.settings/.bash_aliases"
 
 set noswapfile
 set nobackup
@@ -351,7 +360,7 @@ nnoremap <leader>gg :GitGutterToggle<CR>
 
 ""
 "" indentLine stuff
-" let g:indentLine_color_term = 241
+let g:indentLine_color_term = 241
 let g:indent_guides_guide_size=1
 
 "" closetag stuff
