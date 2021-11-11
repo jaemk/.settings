@@ -50,6 +50,12 @@ Plug 'christoomey/vim-conflicted'
 Plug 'airblade/vim-gitgutter'
 " "
 " " ----------- Langs
+" CoC setup:
+"   - install lts node
+"   - install rust analyzer: https://github.com/rust-analyzer/rust-analyzer/releases
+"   - set CocConfig -> {"rust-analyzer.server.path": path-to-rust-analyzer}
+"   - CocInstall coc-rust-analyzer
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'kovisoft/slimv'
 Plug 'rust-lang/rust.vim'
 Plug 'cespare/vim-toml'
