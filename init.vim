@@ -12,7 +12,7 @@
 " "
 call plug#begin('~/.local/share/nvim/plugged')
 " " ----------- extra building required
-Plug 'euclio/vim-markdown-composer'
+"Plug 'euclio/vim-markdown-composer'
 Plug 'Shougo/echodoc.vim'
 " "
 " " ----------- linting
@@ -25,11 +25,11 @@ Plug 'tpope/vim-surround'
 Plug 'kshenoy/vim-signature'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'Yggdroot/indentLine'
+Plug 'pedrohdz/vim-yaml-folds'
 "" Plug 'jremmen/vim-ripgrep' " use ack.vim instead with ripgrep
 Plug 'mileszs/ack.vim'
 Plug 'scrooloose/nerdTree'
 Plug 'ntpeters/vim-better-whitespace'
-"" Plug 'jaemk/vim-upaste'
 Plug 'jszakmeister/vim-togglecursor'
 Plug 'alvan/vim-closetag'
 Plug 'sjl/gundo.vim'
@@ -41,6 +41,7 @@ Plug 'vim-airline/vim-airline'
 "" Plug 'vim-airline/vim-airline-themes'
 Plug 'ap/vim-buftabline'
 Plug 'jalvesaq/vimcmdline'
+Plug 'djoshea/vim-autoread'
  "
  " ----------- git
 Plug 'tpope/vim-fugitive'
@@ -51,26 +52,23 @@ Plug 'airblade/vim-gitgutter'
 " " ----------- Langs
 Plug 'kovisoft/slimv'
 Plug 'rust-lang/rust.vim'
-Plug 'racer-rust/vim-racer'
 Plug 'cespare/vim-toml'
 Plug 'hdima/python-syntax'
 Plug 'artur-shaik/vim-javacomplete2'
 Plug 'derekwyatt/vim-scala'
 Plug 'zah/nim.vim'
-"" Plug 'posva/vim-vue'
 Plug 'tpope/vim-fireplace'
 Plug 'tpope/vim-classpath'
 Plug 'guns/vim-sexp'
 Plug 'tpope/vim-sexp-mappings-for-regular-people'
 Plug 'guns/vim-clojure-static'
 Plug 'guns/vim-clojure-highlight'
-"" Plug 'kien/rainbow_parentheses.vim'
 Plug 'fatih/vim-go'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'heavenshell/vim-jsdoc'
 Plug 'octol/vim-cpp-enhanced-highlight'
-"" Plug 'vim-scripts/groovy.vim'
+Plug 'vim-scripts/groovy.vim'
 Plug 'jparise/vim-graphql'
 Plug 'elixir-editors/vim-elixir'
 Plug 'slashmili/alchemist.vim'
@@ -139,6 +137,9 @@ set splitright
 set pumheight=10    " Completion window max size
 set backspace=indent,eol,start  "fix backspace in insert mode
 set hidden
+
+" when opening a file, don't fold the top level
+set foldlevelstart=20
 
 " make sure aliases are loaded for shell commands
 " -- to pastebin-copy, visually select, :'<,'>:w !pc
@@ -510,6 +511,8 @@ autocmd FileType elixir nnoremap <leader>a O@doc<space>""""""<esc>hhi<cr><esc>O
 ""
 au BufNewFile,BufRead *.ron set filetype=rust  " Use rust syntax for .ron files
 au BufNewFile,BufRead *.hy set filetype=clojure  " Use clj syntax for .hy files
+au BufNewFile,BufRead Gearsfile set filetype=yaml
+au BufNewFile,BufRead BogieFile set filetype=yaml
 
 " Set spacing
 au FileType html setl sw=4 sts=4
