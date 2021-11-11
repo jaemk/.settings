@@ -97,12 +97,16 @@ autocmd FileType lisp setlocal formatoptions+=crol
 set wildignore+=*.fasl
 let NERDTreeIgnore = ['\.fasl$']
 
+nmap <silent> gj <Plug>(coc-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
 "" -- Python Envs
-" neovim envs
+" neovim envs: create these and add the paths below to .config/nvim/init.vim
 " let g:python_host_prog = '/Users/james/bin/envs/nvim2/venv/bin/python'
 " let g:python3_host_prog = '/Users/james/bin/envs/nvim/venv/bin/python'
-let g:python_host_prog = '/home/james/bin/envs/nvim2/venv/bin/python'
-let g:python3_host_prog = '/home/james/bin/envs/nvim/venv/bin/python'
+" let g:python_host_prog = '/home/james/bin/envs/nvim2/venv/bin/python'
+" let g:python3_host_prog = '/home/james/bin/envs/nvim/venv/bin/python'
 
 
 "" ---- Regular settings -----
