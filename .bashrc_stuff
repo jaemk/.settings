@@ -180,14 +180,14 @@ gitstats () {
 
 #~ Git things:
 #~ See https://github.com/git/git/tree/master/contrib/completion
-# function __init_git_stuff {
-#     # branch prompt
-#     source ~/bin/git-prompt.sh
-#     # branch completion -- may error out
-#     source ~/bin/git-completions.bash
-# }
+function __init_git_stuff {
+    # branch prompt
+    source ~/bin/git-prompt.sh
+    # branch completion -- may error out
+    source ~/bin/git-completions.bash
+}
 
-# git-completions may error out
+## git-completions may error out
 #__init_git_stuff
 
 #~ If we're in a plexed shell, set the mltplxr's session id
