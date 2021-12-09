@@ -59,6 +59,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'kovisoft/slimv'
 Plug 'rust-lang/rust.vim'
+Plug 'aklt/plantuml-syntax'
 Plug 'cespare/vim-toml'
 Plug 'hdima/python-syntax'
 Plug 'artur-shaik/vim-javacomplete2'
@@ -93,6 +94,7 @@ call plug#end()
 " Set <Leader>
 let mapleader=","
 
+autocmd FileType plantuml setlocal makeprg=plantuml\ -tpng\ %\ &&\ open\ $(dirname\ %)/$(basename\ %\ .uml).png
 
 " lisp and slimv configs
 let g:slimv_leader = '\'
