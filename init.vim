@@ -27,6 +27,7 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'Yggdroot/indentLine'
 Plug 'dominikduda/vim_current_word'
 Plug 'pedrohdz/vim-yaml-folds'
+Plug 'akinsho/toggleterm.nvim'
 "" Plug 'jremmen/vim-ripgrep' " use ack.vim instead with ripgrep
 Plug 'mileszs/ack.vim'
 Plug 'scrooloose/nerdTree'
@@ -193,6 +194,33 @@ if has('persistent_undo')
     set undofile
     set undodir=~/.config/vim/tmp/undo//
 endif
+
+lua << EOF
+require("toggleterm").setup{
+  -- https://github.com/akinsho/toggleterm.nvim#setup
+  size = function(term)
+    return vim.o.columns * 0.4
+  end,
+  open_mapping = [[<c-\>]],
+  hide_numbers = true,
+  shade_filetypes = {},
+  shade_terminals = true,
+  start_in_insert = true,
+  insert_mappings = true,
+  persist_size = true,
+  direction = 'float',
+  close_on_exit = true,
+  shell = vim.o.shell,
+  float_opts = {
+    border = 'single',
+    winblend = 0,  --transparency
+    highlights = {
+      border = "Normal",
+      background = "Normal",
+    }
+  }
+}
+EOF
 
 " If the toggle-cursor plugin doesn't work
 " Change cursor to | in insert mode and block in normal mode
