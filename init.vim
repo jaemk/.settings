@@ -122,6 +122,10 @@ hi CurrentWordTwins ctermbg=241
 nmap <silent> gj <Plug>(coc-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+" coc, change fg text color
+hi FgWarningHintFloatBgCocFloating ctermfg=brown
+hi FgCocHintFloatBgCocFloating ctermfg=white
+hi FgCocErrorFloatBgCocFloating ctermfg=cyan
 
 
 "" ---- Regular settings -----
