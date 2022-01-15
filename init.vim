@@ -199,6 +199,7 @@ if has('persistent_undo')
     set undodir=~/.config/vim/tmp/undo//
 endif
 
+" ToggleTerm configuration
 lua << EOF
 require("toggleterm").setup{
   -- https://github.com/akinsho/toggleterm.nvim#setup
@@ -224,6 +225,31 @@ require("toggleterm").setup{
     }
   }
 }
+
+local Terminal  = require('toggleterm.terminal').Terminal
+-- create a default "number 1" terminal
+local term = Terminal:new({
+  count = 1,
+  start_in_insert = true,
+})
+function _term_toggle()
+  term:toggle()
+end
+vim.api.nvim_set_keymap("n", "<leader>tt", "<cmd>lua _term_toggle()<CR>", {noremap = true, silent = true})
+
+-- create a "number 2" terminal to launch cargo watch
+local cargorun = Terminal:new({
+  count = 2,
+  cmd = "cargo watch -x run",
+  start_in_insert = false,
+  on_open = function(term)
+    vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", {noremap = true, silent = true})
+  end,
+})
+function _cargorun_toggle()
+  cargorun:toggle()
+end
+vim.api.nvim_set_keymap("n", "<leader>cr", "<cmd>lua _cargorun_toggle()<CR>", {noremap = true, silent = true})
 EOF
 
 " If the toggle-cursor plugin doesn't work
