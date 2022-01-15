@@ -27,6 +27,9 @@ alias pc='~/.settings/pc.sh'
 # paste from a url or code
 alias pp='~/.settings/pp.sh'
 
+# curl with timing
+alias curltime='~/.settings/curltime.sh'
+
 # kube aliases
 #alias wk="watch -n1 kubectl get pods"
 #alias k="kubectl"
