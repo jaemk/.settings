@@ -566,6 +566,11 @@ nnoremap <Leader>gn :GitNextConflict
 vnoremap gho :Gbrowse<CR>
 vnoremap ghc :Gbrowse!<CR>
 
+" See here for how rhubarb to picks a host
+" https://github.com/tpope/vim-rhubarb/blob/977b3ccbad1f7e5370354ae409fb2ea4a7ce2058/autoload/rhubarb.vim#L51
+let g:fugitive_github_domains = {$C1_SSH_URL: $C1_HTTPS_URL}
+
+
 " xml/json auto formatting
 vnoremap <Leader>ox :!xmllint --format -<CR>
 vnoremap <Leader>oj :!jq "." -M<CR>
