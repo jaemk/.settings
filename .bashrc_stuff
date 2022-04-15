@@ -13,10 +13,19 @@ fi
 if command -v ssh-add >/dev/null 2>&1; then
     export SSH_AUTH_SOCK=~/.ssh/ssh-agent.sock
     ssh-add -l 2>/dev/null >/dev/null
-    if [ $? -ge 2 ]; then
-      # ^ ssh-add returns 1 when it's running but there's no identities added
-      # and 2 when there's no existing agent
-      ssh-agent -a "$SSH_AUTH_SOCK" >/dev/null
+    if [ $? -eq 2 ]; then
+        # ssh-add returns 1 when it's running but there's no
+        # identities added and 2 when there's no existing agent.
+        # if it's 2, then we need to start a new agent.
+        if [ -f "$SSH_AUTH_SOCK" ]; then
+            # if the socket already exists and we got an errcode 2,
+            # then that means the socket file is probably corrupted
+            # in some way and needs to be cleaned up.
+            echo "Deleting $SSH_AUTH_SOCK as it appears to be corrupted"
+            rm -f "$SSH_AUTH_SOCK"
+        fi
+
+        ssh-agent -a "$SSH_AUTH_SOCK" >/dev/null
     fi
 fi
 
