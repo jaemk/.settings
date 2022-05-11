@@ -457,11 +457,11 @@ let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.js'
 " Ale settings
 let g:ale_linters = {
 \    'python': ['flake8'],
-\    'rust': ['rls'],
 \}
 let g:ale_python_flake8_options = '--config=setup.cfg --max-line-length=120'
-let g:ale_rust_rls_executable = 'rls'
-let g:ale_rust_rls_toolchain = 'stable'
+" \    'rust': ['rls'],
+" let g:ale_rust_rls_executable = 'rls'
+" let g:ale_rust_rls_toolchain = 'stable'
 
 let g:ale_open_list = 1
 let g:ale_keep_list_window_open = 1
@@ -535,10 +535,10 @@ let g:rustfmt_autosave = 1
 " Rust completion
 autocmd FileType rust nnoremap <leader>a O///<space>
 
-au FileType rust nmap gd <Plug>(rust-def)
-au FileType rust nmap gs <Plug>(rust-def-split)
-au FileType rust nmap gx <Plug>(rust-def-vertical)
-au FileType rust nmap <leader>gd <Plug>(rust-doc)
+" au FileType rust nmap gd <Plug>(rust-def)
+" au FileType rust nmap gs <Plug>(rust-def-split)
+" au FileType rust nmap gx <Plug>(rust-def-vertical)
+" au FileType rust nmap <leader>gd <Plug>(rust-doc)
 
 " YouCompleteMe C/Cpp
 autocmd FileType cpp,c let g:ycm_global_ycm_extra_conf = '~/.settings/.ycm_extra_conf.py'
