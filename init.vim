@@ -439,7 +439,7 @@ let g:gitgutter_override_sign_column_highlight = 0
 " make gutter black
 hi SignColumn ctermbg=0
 let g:gitgutter_enabled = 1
-nnoremap <leader>gg :GitGutterToggle<CR>
+nnoremap <leader>Tg :GitGutterToggle<CR>
 
 ""
 "" indentLine stuff
@@ -560,6 +560,7 @@ autocmd FileType java setlocal omnifunc=javacomplete#Complete
 autocmd FileType java nnoremap <leader>a O/**<CR><CR>/<ESC>kA<space>
 
 " Git stuff -- Requires vim.fugitive and vim.conflicted
+nnoremap <Leader>gg :G<space>
 nnoremap <Leader>gs :G<CR>
 nnoremap <Leader>gb :Gblame<CR>
 nnoremap <Leader>grc :Conflicted<CR>
