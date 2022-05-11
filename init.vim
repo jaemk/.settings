@@ -560,9 +560,16 @@ autocmd FileType java setlocal omnifunc=javacomplete#Complete
 autocmd FileType java nnoremap <leader>a O/**<CR><CR>/<ESC>kA<space>
 
 " Git stuff -- Requires vim.fugitive and vim.conflicted
-nnoremap <Leader>gb :Gblame
-nnoremap <Leader>gc :Conflicted
-nnoremap <Leader>gn :GitNextConflict
+nnoremap <Leader>gs :G<CR>
+nnoremap <Leader>gb :Gblame<CR>
+nnoremap <Leader>grc :Conflicted<CR>
+nnoremap <Leader>gn :GitNextConflict<CR>
+nnoremap <Leader>gK :G push -u origin HEAD<CR>
+nnoremap <Leader>gk :G push<CR>
+nnoremap <Leader>gfk :G push --force<CR>
+nnoremap <Leader>gp :G pull<CR>
+nnoremap <Leader>go :G checkout<space>
+nnoremap <Leader>gO :G checkout -b <space>
 vnoremap gho :Gbrowse<CR>
 vnoremap ghc :Gbrowse!<CR>
 
