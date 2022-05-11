@@ -581,6 +581,7 @@ let g:fugitive_github_domains = {$C1_SSH_URL: $C1_HTTPS_URL}
 " xml/json auto formatting
 vnoremap <Leader>ox :!xmllint --format -<CR>
 vnoremap <Leader>oj :!jq "." -M<CR>
+vnoremap <Leader>oJ :!jq "." -M <bar> sed 's/<space><space>/<space><space><space><space>/g'<CR>
 
 " python
 let python_highlight_all = 1
