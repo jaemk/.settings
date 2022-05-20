@@ -573,6 +573,7 @@ nnoremap <Leader>go :G checkout<space>
 nnoremap <Leader>gO :G checkout -b <space>
 nnoremap <Leader>gx :G branch -v --sort=-committerdate<CR>
 nnoremap <Leader>gco :execute "G checkout" split(trim(getline(".")))[0] <bar> :bd <bar> :G branch -v --sort=-committerdate<CR>
+nnoremap <Leader>gl :execute "G log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit" <bar> :set nowrap<CR>
 vnoremap gho :Gbrowse<CR>
 vnoremap ghc :Gbrowse!<CR>
 
